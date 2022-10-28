@@ -3,7 +3,7 @@ import Link from "next/link"
 import { useState } from "react"
 import styles from '../../styles/List.module.css'
 
-let list = [{ 'name': 'item 0' }]
+let list: itemProps[] = []
 
 interface openProps {
     open: boolean,
