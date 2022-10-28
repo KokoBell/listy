@@ -15,6 +15,9 @@ interface itemProps {
 }
 
 function addItem({ name }: itemProps) {
+    if (name == "") {
+        name = "Populating item..."
+    }
     list.push({ 'name': name })
 }
 
@@ -66,10 +69,18 @@ export default function Mylist() {
                     <SearchBar />
                     <Menu />
                 </div>
-                <div className={styles.heading}>My List</div>
-                {list.map((item, index) => {
-                    return <li key={index}>{item.name}</li>
-                })}
+                <div className={styles.header_section}>
+                    <h1 className={styles.heading}>My List</h1>
+                    <p>{list.length} &nbsp;&nbsp;<span className={styles.items}>items</span></p>
+                </div>
+                <div className={styles.details_section}>
+
+                </div>
+                <div className={styles.list_container}>
+                    {list.map((item, index) => {
+                        return <li className={styles.list_item} key={index}>{item.name}</li>
+                    })}
+                </div>
                 <Toolbar open={open} setOpen={setOpen} />
             </div>
             {open && <AddItemModal open={open} setOpen={setOpen} />}
