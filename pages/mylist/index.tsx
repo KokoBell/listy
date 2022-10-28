@@ -89,7 +89,7 @@ export default function Mylist() {
                 </div>
                 <div className={styles.list_container}>
                     {list.map((item, index) => {
-                        return <li className={styles.list_item} key={index}>{item.name}</li>
+                        return <li className={styles.list_item} key={index}><p>{item.name}</p><p>{item.price}</p></li>
                     })}
                 </div>
                 <Toolbar open={open} setOpen={setOpen} />

@@ -40,7 +40,6 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 12px;
 }
 
 .heading {
@@ -53,9 +52,12 @@
 }
 
 .list_item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   list-style: none;
   font-size: 1.25rem;
-  padding: 16px 12px;
+  padding: 0px 12px;
   width: 100%;
   background: #111;
   margin: 8px 0;
