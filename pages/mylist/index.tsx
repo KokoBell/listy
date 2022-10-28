@@ -11,27 +11,40 @@ interface openProps {
 }
 
 interface itemProps {
-    name: string
+    name: string,
+    price: number
 }
 
-function addItem({ name }: itemProps) {
+function addItem({ name, price }: itemProps) {
     if (name == "") {
         name = "Populating item..."
+        price = 20
     }
-    list.push({ 'name': name })
+    list.push({ 'name': name, 'price': price })
 }
 
 const AddItemModal = ({ open, setOpen }: openProps) => {
     let [name, setName] = useState<string>('')
+    let [price, setPrice] = useState<number>(0)
     return (<>
         <div onClick={() => setOpen(!open)} className={styles.modal_container}>
         </div>
         <div className={styles.item_container}>
-            <input className={styles.item_name} type="text" onChange={(event) => { setName(event.target.value) }} />
-            <button className={styles.add_item} onClick={() => {
-                addItem({ name })
-                setOpen(false)
-            }}>Add Item</button>
+            <p className={styles.item_heading}>Add Item</p>
+            <div className={styles.name_input}>
+                <p className={styles.input_label}>Item Name</p>
+                <input className={styles.item_name} type="text" onChange={(event) => { setName(event.target.value) }} />
+            </div>
+            <div className={styles.price_input}>
+                <p className={styles.input_label}>Item Price</p>
+                <input className={styles.item_name} type="text" onChange={(event) => { setPrice(parseInt(event.target.value)) }} />
+            </div>
+            <div>
+                <button className={styles.add_item} onClick={() => {
+                    addItem({ name, price })
+                    setOpen(false)
+                }}>Add Item</button>
+            </div>
         </div>
     </>
     )
