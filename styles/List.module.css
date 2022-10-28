@@ -6,7 +6,7 @@
 
 .main {
   min-height: 100vh;
-  max-width: min(100%,24vw);
+  max-width: min(100%, 24vw);
   padding: 1rem 0;
   flex: 1;
   display: flex;
@@ -31,11 +31,51 @@
 .action:hover {
   background: #111;
   border-radius: 48rem;
+  cursor: pointer;
 }
 
 .heading {
   font-size: 2rem;
   font-weight: 800;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  padding-top: 16px;
+}
+
+.tool_action {
+  border-radius: 48rem;
+  padding: 8px 24px;
+}
+
+.tool_action:hover {
+  background: #111;
+  border-radius: 48rem;
+  cursor: pointer;
+}
+
+.modal_container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background: #eaeaea;
+  z-index: 50;
+}
+
+.add_item {
+  width: 20rem;
+  height: 20rem;
+  background-color: #222;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  z-index: 100;
 }
 
 .footer {

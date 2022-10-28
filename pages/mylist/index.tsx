@@ -1,9 +1,32 @@
 import Image from "next/image"
 import Link from "next/link"
+import { useState } from "react"
 import styles from '../../styles/List.module.css'
+
+interface openProps {
+    open: boolean,
+    setOpen: Function
+}
+
+const AddItemModal = ({ open, setOpen }: openProps) => {
+    return (<>
+        <div onClick={() => setOpen(!open)} className={styles.modal_container}>
+        </div>
+        <div className={styles.add_item}>Add Item</div>I
+        </>
+    )
+}
 
 const SearchBar = () => {
     return <input className={styles.search} type="text" placeholder="Search..." />
+}
+
+const Toolbar = ({ open, setOpen }: openProps) => {
+    return <div className={styles.toolbar}>
+        <div className={styles.tool_action}>Home</div>
+        <div className={styles.tool_action} onClick={() => setOpen(!open)}>Add</div>
+        <div className={styles.tool_action}>Profile</div>
+    </div>
 }
 
 const Menu = () => {
@@ -17,6 +40,7 @@ const Back = () => {
 }
 
 export default function Mylist() {
+    let [open, setOpen] = useState<boolean>(false)
     return (
         <div className={styles.container}>
             <div className={styles.main}>
@@ -26,6 +50,8 @@ export default function Mylist() {
                     <Menu />
                 </div>
                 <div className={styles.heading}>My List</div>
+                {open && <AddItemModal open={open} setOpen={setOpen}/>}
+                <Toolbar open={open} setOpen={setOpen} />
             </div>
         </div>)
 }
