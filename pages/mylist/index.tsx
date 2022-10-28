@@ -3,17 +3,27 @@ import Link from "next/link"
 import { useState } from "react"
 import styles from '../../styles/List.module.css'
 
+let list = [{ 'name': 'item 0' }]
+
 interface openProps {
     open: boolean,
     setOpen: Function
+}
+
+function addItem() {
+    list.push({ 'name': 'item 1' })
+    list.push({ 'name': 'item 2' })
 }
 
 const AddItemModal = ({ open, setOpen }: openProps) => {
     return (<>
         <div onClick={() => setOpen(!open)} className={styles.modal_container}>
         </div>
-        <div className={styles.add_item}>Add Item</div>I
-        </>
+        <button className={styles.add_item} onClick={() => {
+            addItem()
+            setOpen(false)
+        }}>Add Item</button>
+    </>
     )
 }
 
@@ -50,8 +60,11 @@ export default function Mylist() {
                     <Menu />
                 </div>
                 <div className={styles.heading}>My List</div>
-                {open && <AddItemModal open={open} setOpen={setOpen}/>}
+                {list.map((item, index) => {
+                    return <li key={index}>{item.name}</li>
+                })}
                 <Toolbar open={open} setOpen={setOpen} />
             </div>
+            {open && <AddItemModal open={open} setOpen={setOpen} />}
         </div>)
 }

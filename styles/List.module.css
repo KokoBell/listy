@@ -66,6 +66,7 @@
   height: 100vh;
   background: #eaeaea;
   z-index: 50;
+  opacity: 0.4;
 }
 
 .add_item {
@@ -74,8 +75,9 @@
   background-color: #222;
   position: absolute;
   top: 25%;
-  left: 25%;
+  left: 50%;
   z-index: 100;
+  transform: translateX(-50%);
 }
 
 .footer {
