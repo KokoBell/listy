@@ -37,14 +37,12 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
             </div>
             <div className={styles.price_input}>
                 <p className={styles.input_label}>Item Price</p>
-                <input className={styles.item_name} type="text" onChange={(event) => { setPrice(parseInt(event.target.value)) }} />
+                <input className={styles.item_price} type="text" onChange={(event) => { setPrice(parseInt(event.target.value)) }} />
             </div>
-            <div>
-                <button className={styles.add_item} onClick={() => {
-                    addItem({ name, price })
-                    setOpen(false)
-                }}>Add Item</button>
-            </div>
+            <button className={styles.add_item} onClick={() => {
+                addItem({ name, price })
+                setOpen(false)
+            }}>Add Item</button>
         </div>
     </>
     )
