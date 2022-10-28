@@ -10,19 +10,26 @@ interface openProps {
     setOpen: Function
 }
 
-function addItem() {
-    list.push({ 'name': 'item 1' })
-    list.push({ 'name': 'item 2' })
+interface itemProps {
+    name: string
+}
+
+function addItem({ name }: itemProps) {
+    list.push({ 'name': name })
 }
 
 const AddItemModal = ({ open, setOpen }: openProps) => {
+    let [name, setName] = useState<string>('')
     return (<>
         <div onClick={() => setOpen(!open)} className={styles.modal_container}>
         </div>
-        <button className={styles.add_item} onClick={() => {
-            addItem()
-            setOpen(false)
-        }}>Add Item</button>
+        <div className={styles.item_container}>
+            <input className={styles.item_name} type="text" onChange={(event) => { setName(event.target.value) }} />
+            <button className={styles.add_item} onClick={() => {
+                addItem({ name })
+                setOpen(false)
+            }}>Add Item</button>
+        </div>
     </>
     )
 }
