@@ -94,8 +94,8 @@ const Details = ({ title, type }: detailsProps) => {
 
     return (<div className={styles.details}>
         <h3 className={styles.details_title}>{title}</h3>
-        {type === "total" && <p className={styles.total}>&nbsp;<b style={{'color':'white'}}>R</b>{total}</p>}
-        {type === "checked" && <p className={styles.checked}>&nbsp;<b style={{'color':'white'}}>R</b>{checked}</p>}
+        {type === "total" && <p className={styles.total}>&nbsp;<b style={{ 'color': 'white' }}>R</b>{total}</p>}
+        {type === "checked" && <p className={styles.checked}>&nbsp;<b style={{ 'color': 'white' }}>R</b>{checked}</p>}
     </div>)
 }
 
@@ -137,7 +137,7 @@ export default function Mylist() {
                 </div>
                 <ul className={styles.list_container}>
                     {list.map((item, index) => {
-                        return <li className={styles.list_item} key={index}><p>{item.name}</p><p>{item.price}</p></li>
+                        return <li className={styles.list_item} key={index}><p style={{ 'color': 'var(--primary)', 'fontWeight': 600, 'fontSize': '1.6rem' }}>{item.name}</p><p>{item.price}</p></li>
                     })}
                 </ul>
                 <Toolbar open={open} setOpen={setOpen} />
