@@ -12,7 +12,13 @@ interface openProps {
 
 interface itemProps {
     name: string,
-    price: number
+    price: number,
+    checked: boolean
+}
+
+interface detailsProps {
+    title: string,
+    type: string
 }
 
 function addItem({ name, price }: itemProps) {
@@ -20,7 +26,7 @@ function addItem({ name, price }: itemProps) {
         name = "Populating item..."
         price = 20
     }
-    list.push({ 'name': name, 'price': price })
+    list.push({ 'name': name, 'price': price, 'checked': false })
 }
 
 const AddItemModal = ({ open, setOpen }: openProps) => {
@@ -40,7 +46,8 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
                 <input className={styles.item_price} type="text" onChange={(event) => { setPrice(parseInt(event.target.value)) }} />
             </div>
             <button className={styles.add_item} onClick={() => {
-                addItem({ name, price })
+                let checked = false
+                addItem({ name, price, checked })
                 setOpen(false)
             }}>Add Item</button>
         </div>
@@ -50,6 +57,30 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
 
 const SearchBar = () => {
     return <input className={styles.search} type="text" placeholder="Search..." />
+}
+
+const Details = ({ title, type }: detailsProps) => {
+    let total = 0
+    if (list.length > 0) {
+        list.forEach((item) => {
+            total = total + item.price
+        })
+    }
+
+    let checked = 0
+    if (list.length > 0) {
+        list.forEach((item) => {
+            if (item.checked == true) {
+                checked = checked + item.price
+            }
+        })
+    }
+
+    return (<div className={styles.details}>
+        <h3 className={styles.details_title}>{title}</h3>
+        {type === "total" && <p className={styles.details_length}>{total}</p>}
+        {type === "checked" && <p className={styles.details_length}>{checked}</p>}
+    </div>)
 }
 
 const Toolbar = ({ open, setOpen }: openProps) => {
@@ -85,7 +116,8 @@ export default function Mylist() {
                     <p>{list.length} &nbsp;&nbsp;<span className={styles.items}>items</span></p>
                 </div>
                 <div className={styles.details_section}>
-
+                    <Details title="Total" type="total" />
+                    <Details title="Checked" type="checked" />
                 </div>
                 <ul className={styles.list_container}>
                     {list.map((item, index) => {
