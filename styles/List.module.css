@@ -56,11 +56,19 @@
 }
 
 .details {
+  background: #111;
+  border-radius: 0.2rem;
+  border: 1px solid #333;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  width: 100%;
+  width: fit-content;
+  padding: 0 12px;
+}
+
+.details > h3, .details > p {
+  margin: 12px;
 }
 
 .list_container {
