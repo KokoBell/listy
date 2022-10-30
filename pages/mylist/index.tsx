@@ -1,3 +1,4 @@
+import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
@@ -135,28 +136,36 @@ const Back = () => {
 export default function Mylist() {
     let [open, setOpen] = useState<boolean>(false)
     return (
-        <div className={styles.container}>
-            <div className={styles.main}>
-                <div className={styles.nav}>
-                    <Back />
-                    <SearchBar />
-                    <Menu />
+        <>
+            <Head>
+                <meta
+                    name='viewport'
+                    content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
+                />
+            </Head>
+            <div className={styles.container}>
+                <div className={styles.main}>
+                    <div className={styles.nav}>
+                        <Back />
+                        <SearchBar />
+                        <Menu />
+                    </div>
+                    <div className={styles.header_section}>
+                        <h1 className={styles.heading}>My List</h1>
+                        <p>{list.length} &nbsp;&nbsp;<span className={styles.items}>items</span></p>
+                    </div>
+                    <div className={styles.details_section}>
+                        <Details title="Total:" type="total" />
+                        <Details title="Checkout:" type="checked" />
+                    </div>
+                    <ul className={styles.list_container}>
+                        {list.map((item, index) => {
+                            return <li className={styles.list_item} key={index}><p style={{ 'color': 'var(--primary)', 'fontWeight': 600, 'fontSize': '1.6rem' }}>{item.name}</p><p>{item.price}</p></li>
+                        })}
+                    </ul>
+                    <Toolbar open={open} setOpen={setOpen} />
                 </div>
-                <div className={styles.header_section}>
-                    <h1 className={styles.heading}>My List</h1>
-                    <p>{list.length} &nbsp;&nbsp;<span className={styles.items}>items</span></p>
-                </div>
-                <div className={styles.details_section}>
-                    <Details title="Total:" type="total" />
-                    <Details title="Checkout:" type="checked" />
-                </div>
-                <ul className={styles.list_container}>
-                    {list.map((item, index) => {
-                        return <li className={styles.list_item} key={index}><p style={{ 'color': 'var(--primary)', 'fontWeight': 600, 'fontSize': '1.6rem' }}>{item.name}</p><p>{item.price}</p></li>
-                    })}
-                </ul>
-                <Toolbar open={open} setOpen={setOpen} />
+                {open && <AddItemModal open={open} setOpen={setOpen} />}
             </div>
-            {open && <AddItemModal open={open} setOpen={setOpen} />}
-        </div>)
+        </>)
 }
