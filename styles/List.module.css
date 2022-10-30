@@ -34,6 +34,13 @@
   cursor: pointer;
 }
 
+.search {
+  outline: none;
+  border: none;
+  border-radius: 0.4rem;
+  padding-left: 0.8rem;
+}
+
 .header_section {
   display: flex;
   flex-direction: row;
@@ -77,11 +84,11 @@
   margin: 12px;
 }
 
-.details > h3 {
+.details>h3 {
   font-size: 1.1rem;
 }
 
-.details > p {
+.details>p {
   font-weight: 600;
   font-size: 1.4rem;
 }
@@ -170,7 +177,7 @@
   border-radius: 0.8rem;
   background-color: #222;
   position: fixed;
-  top: 20%;
+  top: 15%;
   left: 50%;
   z-index: 100;
   transform: translateX(-50%);
@@ -206,11 +213,13 @@
 .item_name,
 .item_price,
 .item_quantity,
-.item_units {
+.item_units,
+.store_name {
   width: 100%;
   border: none;
   border-radius: 0.4rem;
   height: 2rem;
+  padding-left: 0.8rem;
 }
 
 .item_quantity,
@@ -222,8 +231,12 @@
   align-self: flex-end;
 }
 
-.item_name:focus {
-  outline: 1px solid #999;
+.item_container>div>input:focus {
+  outline: var(--border);
+}
+
+.item_container>div>div>input:focus {
+  outline: var(--border);
 }
 
 .price_input {
