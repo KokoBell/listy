@@ -67,7 +67,8 @@
   padding: 0 12px;
 }
 
-.details > h3, .details > p {
+.details>h3,
+.details>p {
   margin: 12px;
 }
 
@@ -154,6 +155,8 @@
 
 .item_heading {
   align-self: center;
+  font-size: 1.4rem;
+  font-weight: 800;
 }
 
 .name_input {
@@ -166,7 +169,7 @@
   flex-direction: column;
 }
 
-.units_input > .input_label {
+.units_input>.input_label {
   position: relative;
   left: 10px;
 }
@@ -174,6 +177,7 @@
 .input_label {
   margin: 0;
   padding-bottom: 0.2rem;
+  font-weight: 500;
 }
 
 .item_name,
@@ -209,13 +213,18 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 12px;
 }
 
 .add_item {
+  margin-top: 24px;
+  margin-bottom: 0px;
   width: 100%;
-  padding: 12px 0;
-  border-radius: 0.4rem;
+  padding: 16px 0;
+  border-radius: 2rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: var(--primary);
 }
 
 .footer {
@@ -234,8 +243,10 @@
   flex-grow: 1;
 }
 
-@media (max-width: 625px){
-  .main, .toolbar {
+@media (max-width: 625px) {
+
+  .main,
+  .toolbar {
     max-width: 100%;
     margin: 0 4%;
   }

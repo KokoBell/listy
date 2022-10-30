@@ -38,7 +38,7 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
         <div onClick={() => setOpen(!open)} className={styles.modal_container}>
         </div>
         <div className={styles.item_container}>
-            <p className={styles.item_heading}>Add Item</p>
+            <h1 className={styles.item_heading}>Item Details</h1>
             <div className={styles.name_input}>
                 <p className={styles.input_label}>Name</p>
                 <input className={styles.item_name} type="text" onChange={(event) => { setName(event.target.value) }} />
@@ -61,6 +61,10 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
                 let checked = false
                 addItem({ name, price, checked })
                 setOpen(false)
+                setName('')
+                setPrice(0)
+                setQuantity(1)
+                setUnits('None')
             }}>Add Item</button>
         </div>
     </>
@@ -136,7 +140,6 @@ export default function Mylist() {
                         return <li className={styles.list_item} key={index}><p>{item.name}</p><p>{item.price}</p></li>
                     })}
                 </ul>
-
                 <Toolbar open={open} setOpen={setOpen} />
             </div>
             {open && <AddItemModal open={open} setOpen={setOpen} />}
