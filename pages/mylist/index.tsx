@@ -1,14 +1,16 @@
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styles from '../../styles/List.module.css'
 
-let list: itemProps[] = []
+let list: any[] = []
+let total: number = 0, checked: number = 0
 
 interface openProps {
     open: boolean,
-    setOpen: Function
+    setOpen: Function,
+    display_list?: any[] | undefined
 }
 
 interface itemProps {
@@ -19,18 +21,24 @@ interface itemProps {
 
 interface detailsProps {
     title: string,
-    type: string
+    type: string,
+    total?: number,
+    checked?: number,
+    setTotal?: Function,
+    setChecked?: Function
 }
 
-function addItem({ name, price }: itemProps) {
+function addItem(display_list: any[], { name, price }: itemProps) {
     if (name == "") {
         name = "Apples"
         price = 20
     }
     list.push({ 'name': name, 'price': price, 'checked': false })
+    display_list.push({ 'name': name, 'price': price, 'checked': false })
+    localStorage.setItem('mylist', JSON.stringify(display_list))
 }
 
-const AddItemModal = ({ open, setOpen }: openProps) => {
+const AddItemModal = ({ open, setOpen, display_list }: openProps) => {
     let [name, setName] = useState<string>('')
     let [price, setPrice] = useState<number>(0)
     let [quantity, setQuantity] = useState<number>(1)
@@ -75,7 +83,7 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
             </div>
             <button className={styles.add_item} onClick={() => {
                 let checked = false
-                addItem({ name, price, checked })
+                addItem(display_list!, { name, price, checked })
                 setOpen(false)
                 setName('')
                 setPrice(0)
@@ -92,14 +100,15 @@ const SearchBar = () => {
 }
 
 const Details = ({ title, type }: detailsProps) => {
-    let total = 0
+
     if (list.length > 0) {
         list.forEach((item) => {
-            total = total + item.price
+            if (item.checked == true) {
+                checked = checked + item.price
+            }
         })
     }
 
-    let checked = 0
     if (list.length > 0) {
         list.forEach((item) => {
             if (item.checked == true) {
@@ -135,6 +144,15 @@ const Back = () => {
 
 export default function Mylist() {
     let [open, setOpen] = useState<boolean>(false)
+    let [display_list, setL] = useState<any[]>([])
+    let [total, setTotal] = useState(0)
+    let [checked, setChecked] = useState(0)
+
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('mylist')! || '[]')
+        setL(data)
+    }, [])
+
     return (
         <>
             <Head>
@@ -155,17 +173,17 @@ export default function Mylist() {
                         <p>{list.length} &nbsp;&nbsp;<span className={styles.items}>items</span></p>
                     </div>
                     <div className={styles.details_section}>
-                        <Details title="Total:" type="total" />
-                        <Details title="Checkout:" type="checked" />
+                        <Details title="Total:" type="total" total={total} />
+                        <Details title="Checkout:" type="checked" checked={checked} />
                     </div>
                     <ul className={styles.list_container}>
-                        {list.map((item, index) => {
+                        {display_list.map((item, index) => {
                             return <li className={styles.list_item} key={index}><p style={{ 'color': 'var(--primary)', 'fontWeight': 600, 'fontSize': '1.6rem' }}>{item.name}</p><p>{item.price}</p></li>
                         })}
                     </ul>
                     <Toolbar open={open} setOpen={setOpen} />
                 </div>
-                {open && <AddItemModal open={open} setOpen={setOpen} />}
+                {open && <AddItemModal display_list={display_list} open={open} setOpen={setOpen} />}
             </div>
         </>)
 }
