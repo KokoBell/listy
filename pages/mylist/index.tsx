@@ -61,7 +61,7 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
                 <div className={styles.store_toggle}>
                     <p className={styles.input_label}>Show Store</p>
                     <label className={styles.store_switch}>
-                        <input className={styles.store} type="checkbox" onChange={(event) => { setQuantity(parseInt(event.target.value)) }} />
+                        <input className={styles.store} type="checkbox" onChange={(event) => { setQuantity(parseInt(event.target.value)) }}/>
                         <span className={styles.store_slider}></span>
                     </label>
                 </div>

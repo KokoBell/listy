@@ -251,6 +251,50 @@
   width: 100%;
 }
 
+.store_switch {
+  position: relative;
+  display: inline-block;
+  width: 64px;
+  height: 40px;
+  margin: 0;
+}
+
+.store_slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--primary);
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.store_slider:before {
+  position: absolute;
+  content: '';
+  height: 30px;
+  width: 30px;
+  left: 5px;
+  bottom: 5px;
+  background-color: white;
+  border-radius: 50px;
+  transition: 0.4s;
+}
+
+input.store:checked + .store_slider{
+  background: #999;
+}
+
+input.store:checked + .store_slider:before {
+  transform: translateX(25px);
+}
+
+.store_switch > input {
+  display: none;
+}
+
 .add_item {
   margin-top: 24px;
   margin-bottom: 0px;
