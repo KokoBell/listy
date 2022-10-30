@@ -87,11 +87,12 @@ export default function Mylist() {
                 <div className={styles.details_section}>
 
                 </div>
-                <div className={styles.list_container}>
+                <ul className={styles.list_container}>
                     {list.map((item, index) => {
                         return <li className={styles.list_item} key={index}><p>{item.name}</p><p>{item.price}</p></li>
                     })}
-                </div>
+                </ul>
+
                 <Toolbar open={open} setOpen={setOpen} />
             </div>
             {open && <AddItemModal open={open} setOpen={setOpen} />}

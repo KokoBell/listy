@@ -1,3 +1,7 @@
+:root {
+  --max-width: max(45%, 26vw)
+}
+
 html,
 body {
   padding: 0;
