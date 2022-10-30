@@ -43,8 +43,24 @@
 }
 
 .heading {
+  margin: 0;
   font-size: 2rem;
   font-weight: 800;
+}
+
+.details_section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
 }
 
 .list_container {
@@ -63,6 +79,10 @@
   background: #111;
   margin: 8px 0;
   border-radius: 0.4rem;
+}
+
+.list_item:first-child {
+  margin-top: 0;
 }
 
 .list_item:last-child {

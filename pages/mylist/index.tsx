@@ -116,8 +116,8 @@ export default function Mylist() {
                     <p>{list.length} &nbsp;&nbsp;<span className={styles.items}>items</span></p>
                 </div>
                 <div className={styles.details_section}>
-                    <Details title="Total" type="total" />
-                    <Details title="Checked" type="checked" />
+                    <Details title="Total:" type="total" />
+                    <Details title="Checked:" type="checked" />
                 </div>
                 <ul className={styles.list_container}>
                     {list.map((item, index) => {
