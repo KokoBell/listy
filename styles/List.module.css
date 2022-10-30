@@ -249,6 +249,7 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 0.8rem;
 }
 
 .store_section {
@@ -261,7 +262,7 @@
 }
 
 .store_input {
-  flex: 1
+  flex: 1.8
 }
 
 .store_switch {

@@ -34,6 +34,7 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
     let [price, setPrice] = useState<number>(0)
     let [quantity, setQuantity] = useState<number>(1)
     let [units, setUnits] = useState<string>('None')
+    let [store, showStore] = useState<boolean>(false)
     return (<>
         <div onClick={() => setOpen(!open)} className={styles.modal_container}>
         </div>
@@ -61,14 +62,15 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
                 <div className={styles.store_toggle}>
                     <p className={styles.input_label}>Show Store</p>
                     <label className={styles.store_switch}>
-                        <input className={styles.store} type="checkbox" onChange={(event) => { setQuantity(parseInt(event.target.value)) }}/>
+                        <input className={styles.store} type="checkbox" onChange={(event) => { showStore(!store) }} />
                         <span className={styles.store_slider}></span>
                     </label>
                 </div>
-                <div className={styles.store_input}>
+                {store && <div className={styles.store_input}>
                     <p className={styles.input_label}>Store Name</p>
                     <input className={styles.store_name} type="text" onChange={(event) => { setUnits(event.target.value) }} />
-                </div>
+                </div>}
+
             </div>
             <button className={styles.add_item} onClick={() => {
                 let checked = false
