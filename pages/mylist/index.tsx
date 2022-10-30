@@ -94,8 +94,8 @@ const Details = ({ title, type }: detailsProps) => {
 
     return (<div className={styles.details}>
         <h3 className={styles.details_title}>{title}</h3>
-        {type === "total" && <p className={styles.total}>&nbsp;{total}</p>}
-        {type === "checked" && <p className={styles.checked}>&nbsp;{checked}</p>}
+        {type === "total" && <p className={styles.total}>&nbsp;<b style={{'color':'white'}}>R</b>{total}</p>}
+        {type === "checked" && <p className={styles.checked}>&nbsp;<b style={{'color':'white'}}>R</b>{checked}</p>}
     </div>)
 }
 

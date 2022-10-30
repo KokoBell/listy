@@ -72,6 +72,11 @@
   margin: 12px;
 }
 
+.total,
+.checked {
+  color: var(--primary);
+}
+
 .list_container {
   padding: 0;
   width: 100%;
