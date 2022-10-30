@@ -1,5 +1,5 @@
 :root {
-  --max-width: max(45%, 26vw)
+  --max-width: 520px;
 }
 
 html,
