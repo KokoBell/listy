@@ -138,7 +138,7 @@
   border-radius: 2rem;
   background-color: #222;
   position: fixed;
-  top: 25%;
+  top: 20%;
   left: 50%;
   z-index: 100;
   transform: translateX(-50%);
@@ -153,17 +153,38 @@
   margin-bottom: 12px;
 }
 
+.units_input {
+  display: flex;
+  flex-direction: column;
+}
+
+.units_input > .input_label {
+  position: relative;
+  left: 10px;
+}
+
 .input_label {
   margin: 0;
   padding-bottom: 0.2rem;
 }
 
 .item_name,
-.item_price {
+.item_price,
+.item_quantity,
+.item_units {
   width: 100%;
   border: none;
   border-radius: 0.4rem;
   height: 2rem;
+}
+
+.item_quantity,
+.item_units {
+  width: 95%;
+}
+
+.item_units {
+  align-self: flex-end;
 }
 
 .item_name:focus {
@@ -171,6 +192,14 @@
 }
 
 .price_input {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.quantity_section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
   margin-bottom: 12px;
 }

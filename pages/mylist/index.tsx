@@ -23,7 +23,7 @@ interface detailsProps {
 
 function addItem({ name, price }: itemProps) {
     if (name == "") {
-        name = "Populating item..."
+        name = "Apples"
         price = 20
     }
     list.push({ 'name': name, 'price': price, 'checked': false })
@@ -32,6 +32,8 @@ function addItem({ name, price }: itemProps) {
 const AddItemModal = ({ open, setOpen }: openProps) => {
     let [name, setName] = useState<string>('')
     let [price, setPrice] = useState<number>(0)
+    let [quantity, setQuantity] = useState<number>(1)
+    let [units, setUnits] = useState<string>('None')
     return (<>
         <div onClick={() => setOpen(!open)} className={styles.modal_container}>
         </div>
@@ -44,6 +46,16 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
             <div className={styles.price_input}>
                 <p className={styles.input_label}>Price</p>
                 <input className={styles.item_price} type="text" onChange={(event) => { setPrice(parseInt(event.target.value)) }} />
+            </div>
+            <div className={styles.quantity_section}>
+                <div className={styles.quantity_input}>
+                    <p className={styles.input_label}>Quantity</p>
+                    <input className={styles.item_quantity} type="text" onChange={(event) => { setQuantity(parseInt(event.target.value)) }} />
+                </div>
+                <div className={styles.units_input}>
+                    <p className={styles.input_label}>Units</p>
+                    <input className={styles.item_units} type="text" onChange={(event) => { setUnits(event.target.value) }} />
+                </div>
             </div>
             <button className={styles.add_item} onClick={() => {
                 let checked = false
