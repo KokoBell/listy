@@ -255,21 +255,27 @@
 .store_section {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0;
 }
 
 .store_toggle {
-  flex: 1
+  flex: 1;
+  margin-bottom: 20px;
 }
 
 .store_input {
-  flex: 1.8
+  flex: 1.8;
+  margin: 0;
+  padding: 0;
 }
 
 .store_switch {
   position: relative;
   display: inline-block;
   width: 64px;
-  height: 32px;
+  height: 40px;
   margin: 0;
 }
 
@@ -288,8 +294,8 @@
 .store_slider:before {
   position: absolute;
   content: '';
-  height: 22px;
-  width: 22px;
+  height: 30px;
+  width: 30px;
   left: 5px;
   bottom: 5px;
   background-color: white;
@@ -302,7 +308,7 @@ input.store:checked + .store_slider{
 }
 
 input.store:checked + .store_slider:before {
-  transform: translateX(31px);
+  transform: translateX(25px);
 }
 
 .store_switch > input {
@@ -310,7 +316,7 @@ input.store:checked + .store_slider:before {
 }
 
 .add_item {
-  margin-top: 24px;
+  margin-top: 0;
   margin-bottom: 0px;
   width: 100%;
   padding: 16px 0;
