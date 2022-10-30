@@ -55,6 +55,11 @@
   width: 100%;
 }
 
+.details_title {
+  font-weight: 500;
+  color: #999;
+}
+
 .details {
   background: #111;
   border-radius: 0.4rem;
@@ -72,9 +77,22 @@
   margin: 12px;
 }
 
+.details > h3 {
+  font-size: 1.1rem;
+}
+
+.details > p {
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
 .total,
 .checked {
   color: var(--primary);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .list_container {
