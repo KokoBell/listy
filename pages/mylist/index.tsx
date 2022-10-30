@@ -129,7 +129,7 @@ export default function Mylist() {
                 </div>
                 <div className={styles.details_section}>
                     <Details title="Total:" type="total" />
-                    <Details title="Checked:" type="checked" />
+                    <Details title="Checkout:" type="checked" />
                 </div>
                 <ul className={styles.list_container}>
                     {list.map((item, index) => {
