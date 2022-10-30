@@ -251,11 +251,24 @@
   width: 100%;
 }
 
+.store_section {
+  display: flex;
+  flex-direction: row;
+}
+
+.store_toggle {
+  flex: 1
+}
+
+.store_input {
+  flex: 1
+}
+
 .store_switch {
   position: relative;
   display: inline-block;
   width: 64px;
-  height: 40px;
+  height: 32px;
   margin: 0;
 }
 
@@ -274,8 +287,8 @@
 .store_slider:before {
   position: absolute;
   content: '';
-  height: 30px;
-  width: 30px;
+  height: 22px;
+  width: 22px;
   left: 5px;
   bottom: 5px;
   background-color: white;
@@ -288,7 +301,7 @@ input.store:checked + .store_slider{
 }
 
 input.store:checked + .store_slider:before {
-  transform: translateX(25px);
+  transform: translateX(31px);
 }
 
 .store_switch > input {
