@@ -393,6 +393,10 @@ input.store:checked+.store_slider:before {
     background: white;
   }
 
+  .toolbar {
+    background: var(--white);
+  }
+
   .tool_action:hover {
     background: #999;
   }
