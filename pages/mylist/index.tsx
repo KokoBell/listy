@@ -43,7 +43,7 @@ function addItem(total: number, display_list: any[], { name, price }: itemProps)
     return total
 }
 
-const AddItemModal = ({ open, setOpen, display_list, total, setTotal}: openProps) => {
+const AddItemModal = ({ open, setOpen, display_list, total, setTotal }: openProps) => {
     let [name, setName] = useState<string>('')
     let [price, setPrice] = useState<number>(0)
     let [quantity, setQuantity] = useState<number>(1)
@@ -116,8 +116,8 @@ const Details = ({ title, type, total }: detailsProps) => {
 
     return (<div className={styles.details}>
         <h3 className={styles.details_title}>{title}</h3>
-        {type === "total" && <p className={styles.total}>&nbsp;<span style={{ 'color': 'white', 'fontWeight': 500, 'fontSize': '1.1rem' }}>R</span>{total}</p>}
-        {type === "checked" && <p className={styles.checked}>&nbsp;<span style={{ 'color': 'white', 'fontWeight': 500, 'fontSize': '1.1rem' }}>R</span>{checked}</p>}
+        {type === "total" && <p className={styles.total}>&nbsp;<span className={styles.currency} style={{ 'fontWeight': 500, 'fontSize': '1.1rem' }}>R</span>{total}</p>}
+        {type === "checked" && <p className={styles.checked}>&nbsp;<span className={styles.currency} style={{ 'fontWeight': 500, 'fontSize': '1.1rem' }}>R</span>{checked}</p>}
     </div>)
 }
 
@@ -180,9 +180,9 @@ export default function Mylist() {
                             return <li className={styles.list_item} key={index}><p style={{ 'color': 'var(--primary)', 'fontWeight': 600, 'fontSize': '1.6rem' }}>{item.name}</p><p>{item.price}</p></li>
                         })}
                     </ul>
-                    <Toolbar open={open} setOpen={setOpen} setTotal={setTotal} total={total}/>
+                    <Toolbar open={open} setOpen={setOpen} setTotal={setTotal} total={total} />
                 </div>
-                {open && <AddItemModal display_list={display_list} open={open} setOpen={setOpen} setTotal={setTotal} total={total}/>}
+                {open && <AddItemModal display_list={display_list} open={open} setOpen={setOpen} setTotal={setTotal} total={total} />}
             </div>
         </>)
 }

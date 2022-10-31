@@ -2,6 +2,8 @@
   --max-width: 520px;
   --primary: #555BFF;
   --border: 1px solid #999;
+  --white: rgb(240, 240, 240);;
+  --black: black;
 }
 
 html,
@@ -27,7 +29,18 @@ a {
   }
 
   body {
-    color: white;
-    background: black;
+    color: var(--white);
+    background: var(--black);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    color: var(--black);
+    background: var(--white);
   }
 }
