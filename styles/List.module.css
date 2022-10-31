@@ -39,6 +39,12 @@
   border: none;
   border-radius: 0.4rem;
   padding-left: 0.8rem;
+  background: #333;
+}
+
+.search:focus {
+  outline: var(--border);
+  border: none;
 }
 
 .header_section {
@@ -216,6 +222,7 @@
   border-radius: 0.4rem;
   height: 2.2rem;
   padding-left: 0.8rem;
+  background: #333;
 }
 
 .item_quantity,
@@ -229,10 +236,12 @@
 
 .item_container>div>input:focus {
   outline: var(--border);
+  border: none;
 }
 
 .item_container>div>div>input:focus {
   outline: var(--border);
+  border: none;
 }
 
 .price_input {
@@ -396,6 +405,10 @@ input.store:checked+.store_slider:before {
   .currency {
     color: white;
   }
+
+  .search {
+    background: #333;
+  }
 }
 
 @media (prefers-color-scheme: light) {
@@ -430,5 +443,9 @@ input.store:checked+.store_slider:before {
 
   .currency {
     color: black;
+  }
+
+  .search {
+    background: white;
   }
 }
