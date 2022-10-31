@@ -174,10 +174,7 @@
   height: fit-content;
   border-radius: 0.8rem;
   position: fixed;
-  top: 15%;
-  left: 50%;
   z-index: 100;
-  transform: translateX(-50%);
   margin-top: 0;
   background: #222;
 }
