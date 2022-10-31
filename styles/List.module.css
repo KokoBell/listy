@@ -409,6 +409,11 @@ input.store:checked+.store_slider:before {
     background: rgb(216, 216, 216);
   }
 
+  .details {
+    background: white;
+    border: 1px solid #999;
+  }
+
   .list_item {
     background: white;
   }
