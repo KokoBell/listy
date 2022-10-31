@@ -116,6 +116,7 @@
   width: 100%;
   border-radius: 0.4rem;
   margin-bottom: 16px;
+  background: #111;
 }
 
 .list_item:first-child {
@@ -177,6 +178,7 @@
   z-index: 100;
   transform: translateX(-50%);
   margin-top: 0;
+  background: #222;
 }
 
 .item_heading {
@@ -337,6 +339,10 @@ input.store:checked+.store_slider:before {
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+}
+
+.currency {
+  color: white;
 }
 
 @media (max-width: 625px) {
