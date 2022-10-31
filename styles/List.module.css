@@ -2,6 +2,8 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  overflow: hidden;
+  padding-top: 12px;
 }
 
 .main {
@@ -99,6 +101,7 @@
 }
 
 .list_container {
+  margin-top: 0;
   padding: 0;
   width: 100%;
 }
@@ -111,8 +114,8 @@
   font-size: 1.25rem;
   padding: 0px 12px;
   width: 100%;
-  margin: 8px 0;
   border-radius: 0.4rem;
+  margin-bottom: 16px;
 }
 
 .list_item:first-child {
@@ -120,7 +123,7 @@
 }
 
 .list_item:last-child {
-  margin-bottom: 1.6rem;
+  margin-bottom: 3rem;
 }
 
 .toolbar {
@@ -173,6 +176,7 @@
   left: 50%;
   z-index: 100;
   transform: translateX(-50%);
+  margin-top: 0;
 }
 
 .item_heading {
@@ -345,6 +349,12 @@ input.store:checked+.store_slider:before {
 
   .main {
     padding: 0 8px;
+  }
+
+  .item_container {
+    width: 100%;
+    padding: 0 8px;
+    margin-top: 0;
   }
 }
 
