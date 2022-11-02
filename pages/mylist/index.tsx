@@ -43,19 +43,25 @@ const filterNum = (str: string) => {
     if (str.match(regex)) {
         str = '0'
     }
+    if (parseFloat(str) < 0) {
+        str = '0'
+    }
     console.log(str)
     return str
+}
+
+const filterName = (str: string) => {
+    if (str === '') {
+        return false
+    } else {
+        return true
+    }
 }
 
 function addItem(t: number, display_list: any[], { name, price, quantity, storeName }: itemProps) {
 
 
     /*
-    if (this.price < 0) {
-        alert('Price cannot be less than zero')
-        return
-    }
-
     if (this.note === '') {
         alert('Item field should not be empty')
         return
@@ -86,6 +92,7 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
     let [name, setName] = useState<string>('')
     let [price, setPrice] = useState<number>(0)
     let [quantity, setQuantity] = useState<number>(1)
+    let [editable, setEditable] = useState<boolean>(true)
     let [store, showStore] = useState<boolean>(false)
     let [storeName, setStoreName] = useState<string>('')
 
@@ -96,7 +103,10 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
             <h1 className={styles.item_heading}>Item Details</h1>
             <div className={styles.name_input}>
                 <p className={styles.input_label}>Name</p>
-                <input className={styles.item_name} type="text" onChange={(event) => { setName(event.target.value) }} />
+                <input className={styles.item_name} type="text" onChange={(event) => {
+
+                    setName(event.target.value)
+                }} />
             </div>
             <div className={styles.price_input}>
                 <p className={styles.input_label}>Price</p>
@@ -122,16 +132,19 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
                 </div>}
 
             </div>
-            <button className={styles.add_item} onClick={() => {
-
-                let { t, i } = addItem(total, display_list!, { name, price, quantity, storeName })
-                setItemNumber(i)
-                setTotal(t)
-                setOpen(false)
-                setName('')
-                setPrice(0)
-                setQuantity(1)
-                setStoreName('')
+            <button className={styles.add_item} onClick={(event) => {
+                if (filterName(name)) {
+                    let { t, i } = addItem(total, display_list!, { name, price, quantity, storeName })
+                    setItemNumber(i)
+                    setTotal(t)
+                    setOpen(false)
+                    setName('')
+                    setPrice(0)
+                    setQuantity(1)
+                    setStoreName('')
+                }else{
+                    event.currentTarget.style.background = 'gray'
+                }
             }}>Add Item</button>
         </div>
     </>
