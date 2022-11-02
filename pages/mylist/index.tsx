@@ -215,7 +215,7 @@ export default function Mylist() {
                     </div>
                     <div className={styles.header_section}>
                         <h1 className={styles.heading}>My List</h1>
-                        <p>{itemNumber} &nbsp;&nbsp;<span className={styles.items}>items</span></p>
+                        <p>{itemNumber} &nbsp;<span className={styles.items}>items</span></p>
                     </div>
                     <div className={styles.details_section}>
                         <Details title="Total:" type="total" total={total} />
@@ -226,16 +226,15 @@ export default function Mylist() {
                             return <Item item={item} key={index} />
                         })}
                     </ul>
-                    <div className={styles.checked_section}>
+                    <div className={styles.checked_section} style={{ 'color': '#999' }}>
                         <h1 className={styles.heading}>Checked Items</h1>
-                        <p>{checked} &nbsp;&nbsp;<span className={styles.items}>items</span></p>
+                        <p>{checked} &nbsp;<span className={styles.items}>items</span></p>
                     </div>
                     <ul className={`${styles.list_container} checked`}>
                         {display_list.filter((item) => item.checked === true).map((item, index) => {
                             return <Item item={item} key={index} />
                         })}
                     </ul>
-
                     <Toolbar open={open} setOpen={setOpen} setTotal={setTotal} total={total} setItemNumber={setItemNumber} />
                 </div>
                 {open && <AddItemModal display_list={display_list} open={open} setOpen={setOpen} setTotal={setTotal} total={total} setItemNumber={setItemNumber} />}
