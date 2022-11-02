@@ -21,6 +21,7 @@ interface itemProps {
     name: string,
     price: number,
     quantity?: number,
+    checked?: boolean,
     storeName?: string,
 }
 
@@ -59,19 +60,6 @@ const filterName = (str: string) => {
 }
 
 function addItem(t: number, display_list: any[], { name, price, quantity, storeName }: itemProps) {
-
-
-    /*
-    if (this.note === '') {
-        alert('Item field should not be empty')
-        return
-    }
-
-    if (this.price === '' || this.price === NaN) {
-        alert('Price field should not be empty')
-        return
-    } */
-
     t = t + price * quantity!
     localStorage.setItem('total', t.toString())
     list.push({ 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'storeName': storeName })
@@ -92,7 +80,6 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
     let [name, setName] = useState<string>('')
     let [price, setPrice] = useState<number>(0)
     let [quantity, setQuantity] = useState<number>(1)
-    let [editable, setEditable] = useState<boolean>(true)
     let [store, showStore] = useState<boolean>(false)
     let [storeName, setStoreName] = useState<string>('')
 
@@ -191,7 +178,13 @@ const Back = () => {
     return <Link href="/" className={styles.action}><Image src="/icons/left.svg" height={iconSize} width={iconSize} alt="" /></Link>
 }
 
-const Item = ({ item, key }: any) => {
+interface inputProps {
+    item: itemProps,
+    key: number,
+    setItemNumber: Function
+}
+
+const Item = ({ item, key, setItemNumber }: inputProps) => {
     return <li key={key} className={styles.list_item_container} onDrag={(event) => {
         event.currentTarget.translate = true
     }}>
@@ -213,8 +206,8 @@ const Item = ({ item, key }: any) => {
             <p className={styles.name_label}>{item.name}</p>
             <div className={styles.item_details}>
                 <p className={styles.price_label}><b>R</b><span style={{ 'color': 'white' }}>{item.price}</span> each</p>
-                <p className={styles.quantity_label}><span className={styles.units_label} style={{ 'color': 'white' }}>{item.quantity}</span>{item.quantity > 1 ? " units" : " unit"}</p>
-                <p className={styles.total_label}><span className={styles.total_currency}>Total: <b>R</b></span>{item.price * item.quantity}</p>
+                <p className={styles.quantity_label}><span className={styles.units_label} style={{ 'color': 'white' }}>{item.quantity}</span></p>
+                <p className={styles.quantity_label}>Total: <b>R</b><span className={styles.units_label} style={{ 'color': 'white' }}>{item.quantity! * item.price}</span></p>
             </div>
             <div className={styles.controls}>
                 <button className={styles.button}><img src="/icons/edit.svg"></img></button>
@@ -222,8 +215,18 @@ const Item = ({ item, key }: any) => {
                     event.preventDefault()
                     let data = JSON.parse(localStorage.getItem('mylist')! || '[]')
                     data = data.filter((list_item: itemProps) => list_item.name != item.name)
+                    list = list.filter((list_item: itemProps) => list_item.name != item.name)
                     localStorage.setItem('mylist', JSON.stringify(data))
                     event.currentTarget.parentElement?.parentElement?.parentElement?.remove()
+                    let i = parseFloat(localStorage.getItem('item_number')!)
+                    if (i) {
+                        localStorage.setItem('item_number', (i - 1).toString())
+                        i = parseFloat(localStorage.getItem('item_number')!)
+                    } else {
+                        localStorage.setItem('item_number', list.length.toString())
+                        i = parseFloat(localStorage.getItem('item_number')!)
+                    }
+                    setItemNumber(i)
                 }}><img src="/icons/delete.svg"></img></button>
             </div>
         </div>
@@ -274,7 +277,7 @@ export default function Mylist() {
                     </div>
                     <ul className={`${styles.list_container} unchecked`}>
                         {display_list.filter((item) => item.checked === false).map((item, index) => {
-                            return <Item item={item} key={index} />
+                            return <Item item={item} key={index} setItemNumber={setItemNumber}/>
                         })}
                     </ul>
                     <div className={styles.checked_section} style={{ 'color': '#999' }}>
@@ -283,7 +286,7 @@ export default function Mylist() {
                     </div>
                     <ul className={`${styles.list_container} checked`}>
                         {display_list.filter((item) => item.checked === true).map((item, index) => {
-                            return <Item item={item} key={index} />
+                            return <Item item={item} key={index} setItemNumber={setItemNumber}/>
                         })}
                     </ul>
                     <Toolbar open={open} setOpen={setOpen} setTotal={setTotal} total={total} setItemNumber={setItemNumber} />
