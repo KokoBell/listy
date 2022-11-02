@@ -1,3 +1,4 @@
+/* The main container */
 .container {
   width: 100%;
   display: flex;
@@ -17,6 +18,7 @@
   align-items: flex-start;
 }
 
+/* The top of the container */
 .nav {
   padding-bottom: 16px;
   display: flex;
@@ -50,6 +52,7 @@
   border: none;
 }
 
+/* Beginning of the list */
 .header_section {
   display: flex;
   flex-direction: row;
@@ -64,6 +67,7 @@
   font-weight: 800;
 }
 
+/* Total and checkout section */
 .details_section {
   display: flex;
   flex-direction: row;
@@ -109,6 +113,7 @@
   justify-content: center;
 }
 
+/* Container for the list */
 .list_container {
   margin-top: 16px;
   margin-bottom: 0;
@@ -116,6 +121,7 @@
   width: 100%;
 }
 
+/* Individual list items */
 .list_item_container {
   display: flex;
   flex-direction: row;
@@ -183,6 +189,19 @@
   color: white;
 }
 
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.button {
+  background: none;
+  border: none;
+}
+
+
+/* Background of the input modal */
 .modal_container {
   position: fixed;
   left: 0;
@@ -192,6 +211,7 @@
   z-index: 50;
 }
 
+/* Container for the input modal */
 .item_container {
   display: flex;
   flex-direction: column;
@@ -217,16 +237,6 @@
   margin-bottom: 12px;
 }
 
-.units_input {
-  display: flex;
-  flex-direction: column;
-}
-
-.units_input>.input_label {
-  position: relative;
-  left: 10px;
-}
-
 .input_label {
   margin: 0;
   padding-bottom: 0.2rem;
@@ -236,7 +246,6 @@
 .item_name,
 .item_price,
 .item_quantity,
-.item_units,
 .store_name {
   width: 100%;
   border: none;
@@ -246,13 +255,8 @@
   background: #333;
 }
 
-.item_quantity,
-.item_units {
+.item_quantity {
   width: 95%;
-}
-
-.item_units {
-  align-self: flex-end;
 }
 
 .item_container>div>input:focus {
@@ -359,6 +363,7 @@ input.store:checked+.store_slider:before {
   background: var(--primary);
 }
 
+/* List of checked items */
 .checked_section {
   display: flex;
   flex-direction: row;
@@ -368,6 +373,8 @@ input.store:checked+.store_slider:before {
 
 }
 
+
+/* Toolbar at the bottom */
 .toolbar {
   max-width: var(--max-width);
   position: fixed;
@@ -396,29 +403,13 @@ input.store:checked+.store_slider:before {
   cursor: pointer;
 }
 
-
-.footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-}
-
 .currency {
   color: #777;
   font-weight: 800;
   font-size: 0.8rem;
 }
 
+/* Small screens */
 @media (max-width: 625px) {
 
   .main,
@@ -438,7 +429,7 @@ input.store:checked+.store_slider:before {
   }
 }
 
-
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
   .action {
     background: black;
@@ -478,6 +469,8 @@ input.store:checked+.store_slider:before {
   }
 }
 
+
+/* Light mode */
 @media (prefers-color-scheme: light) {
   .action {
     background: var(--white);

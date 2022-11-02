@@ -144,7 +144,9 @@ const Back = () => {
 }
 
 const Item = ({ item, key }: any) => {
-    return <div key={key} className={styles.list_item_container}>
+    return <li key={key} className={styles.list_item_container} onDrag={(event) => {
+        event.currentTarget.translate = true
+    }}>
         <input type="checkbox" className={styles.check_item} onChange={(event) => {
             item.checked = item.checked === true ? false : true
             if (item.checked === true) {
@@ -159,7 +161,7 @@ const Item = ({ item, key }: any) => {
                 section.appendChild(el)
             }
         }} />
-        <li className={styles.list_item}>
+        <div className={styles.list_item}>
             <p className={styles.name_label}>{item.name}</p>
             <div className={styles.item_details}>
                 <p className={styles.price_label}><b>R</b><span style={{ 'color': 'white' }}>{item.price}</span> each</p>
@@ -167,11 +169,14 @@ const Item = ({ item, key }: any) => {
                 <p className={styles.total_label}><span className={styles.total_currency}>Total: <b>R</b></span>{item.price * item.quantity}</p>
             </div>
             <div className={styles.controls}>
-                <button>Edit</button>
-                <button>Delete</button>
+                <button className={styles.button}><img src="/icons/edit.svg"></img></button>
+                <button className={styles.button} onClick={(event) => {
+                    event.preventDefault()
+                    event.currentTarget.parentElement?.parentElement?.parentElement?.remove()
+                }}><img src="/icons/delete.svg"></img></button>
             </div>
-        </li>
-    </div>
+        </div>
+    </li>
 }
 
 export default function Mylist() {
