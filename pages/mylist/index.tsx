@@ -34,7 +34,7 @@ interface detailsProps {
 }
 
 const filterNum = (str: string) => {
-    const numericalChar = new Set([".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]);
+    const numericalChar = new Set([",", ".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]);
     str = str.split("").filter(char => numericalChar.has(char)).join("")
     if (str.startsWith('.') || str.startsWith(',')) {
         str = str.substring(1)
@@ -142,7 +142,7 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
                     setPrice(0)
                     setQuantity(1)
                     setStoreName('')
-                }else{
+                } else {
                     event.currentTarget.style.background = 'gray'
                 }
             }}>Add Item</button>
