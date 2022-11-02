@@ -119,7 +119,7 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
             <div className={styles.quantity_section}>
                 <div className={styles.quantity_input}>
                     <p className={styles.input_label}>How many?</p>
-                    <input className={styles.item_quantity} placeholder="e.g. 3" type="text" onChange={(event) => { setQuantity(parseFloat(event.target.value)) }} />
+                    <input className={styles.item_quantity} placeholder="e.g. 3" type="text" onChange={(event) => { setQuantity(parseFloat(filterNum(event.target.value))) }} />
                 </div>
                 <div className={styles.store_toggle}>
                     <p className={styles.input_label}>Show Store</p>
