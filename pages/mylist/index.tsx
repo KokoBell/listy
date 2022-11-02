@@ -1,4 +1,4 @@
-import { INSPECT_MAX_BYTES } from "buffer"
+
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
@@ -33,11 +33,11 @@ interface detailsProps {
     setChecked?: Function,
 }
 
-function addItem(t: number, display_list: any[], { name, price, quantity }: itemProps) {
+function addItem(t: number, display_list: any[], { name, price, quantity, storeName }: itemProps) {
     t = t + price * quantity!
     localStorage.setItem('total', t.toString())
-    list.push({ 'name': name, 'price': price, 'checked': false, 'quantity': quantity})
-    display_list.push({ 'name': name, 'price': price, 'checked': false, 'quantity': quantity })
+    list.push({ 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'storeName': storeName })
+    display_list.push({ 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'storeName': storeName })
     localStorage.setItem('mylist', JSON.stringify(display_list))
     let i = parseInt(localStorage.getItem('item_number')!)
     if (i) {
@@ -54,8 +54,9 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
     let [name, setName] = useState<string>('')
     let [price, setPrice] = useState<number>(0)
     let [quantity, setQuantity] = useState<number>(1)
-    let [units, setUnits] = useState<string>('None')
     let [store, showStore] = useState<boolean>(false)
+    let [storeName, setStoreName] = useState<string>('')
+
     return (<>
         <div onClick={() => setOpen(!open)} className={styles.modal_container}>
         </div>
@@ -85,20 +86,19 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
             <div className={styles.store_section}>
                 {store && <div className={styles.store_input}>
                     <p className={styles.input_label}>Store Name</p>
-                    <input className={styles.store_name} type="text" onChange={(event) => { setUnits(event.target.value) }} />
+                    <input className={styles.store_name} type="text" onChange={(event) => { setStoreName(event.target.value) }} />
                 </div>}
 
             </div>
             <button className={styles.add_item} onClick={() => {
-                let checked = false
-                let { t, i } = addItem(total, display_list!, { name, price, quantity })
+                let { t, i } = addItem(total, display_list!, { name, price, quantity, storeName })
                 setItemNumber(i)
                 setTotal(t)
                 setOpen(false)
                 setName('')
                 setPrice(0)
                 setQuantity(1)
-                setUnits('None')
+                setStoreName('')
             }}>Add Item</button>
         </div>
     </>
@@ -144,8 +144,8 @@ const Back = () => {
 }
 
 const Item = ({ item, index }: any) => {
-    console.log(item.price)
-    return <div className={styles.list_item_container}>
+    
+    return <div key={index} className={styles.list_item_container}>
         <input type="checkbox" className={styles.check_item} />
         <li className={styles.list_item}>
             <p className={styles.name_label}>{item.name}</p>
