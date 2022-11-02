@@ -298,6 +298,10 @@
   margin-bottom: 12px;
 }
 
+.quantity_input {
+  flex: 2;
+}
+
 .quantity_section {
   display: flex;
   flex-direction: row;
@@ -311,12 +315,14 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
 }
 
 .store_toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
   flex: 1;
-  margin-bottom: 20px;
 }
 
 .store_input {

@@ -21,7 +21,6 @@ interface itemProps {
     name: string,
     price: number,
     quantity?: number,
-    units?: string,
     storeName?: string,
 }
 
@@ -34,11 +33,11 @@ interface detailsProps {
     setChecked?: Function,
 }
 
-function addItem(t: number, display_list: any[], { name, price, quantity, units }: itemProps) {
-    t = t + price
+function addItem(t: number, display_list: any[], { name, price, quantity }: itemProps) {
+    t = t + price * quantity!
     localStorage.setItem('total', t.toString())
-    list.push({ 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'units': units })
-    display_list.push({ 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'units': units })
+    list.push({ 'name': name, 'price': price, 'checked': false, 'quantity': quantity})
+    display_list.push({ 'name': name, 'price': price, 'checked': false, 'quantity': quantity })
     localStorage.setItem('mylist', JSON.stringify(display_list))
     let i = parseInt(localStorage.getItem('item_number')!)
     if (i) {
@@ -75,19 +74,15 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
                     <p className={styles.input_label}>How many?</p>
                     <input className={styles.item_quantity} placeholder="e.g. 3" type="text" onChange={(event) => { setQuantity(parseInt(event.target.value)) }} />
                 </div>
-                <div className={styles.units_input}>
-                    <p className={styles.input_label}>How much?</p>
-                    <input className={styles.item_units} placeholder="e.g. 3litre" type="text" onChange={(event) => { setUnits(event.target.value) }} />
-                </div>
-            </div>
-            <div className={styles.store_section}>
                 <div className={styles.store_toggle}>
                     <p className={styles.input_label}>Show Store</p>
                     <label className={styles.store_switch}>
-                        <input className={styles.store} type="checkbox" onChange={(event) => { showStore(!store) }} />
+                        <input className={styles.store} type="checkbox" onChange={() => { showStore(!store) }} />
                         <span className={styles.store_slider}></span>
                     </label>
                 </div>
+            </div>
+            <div className={styles.store_section}>
                 {store && <div className={styles.store_input}>
                     <p className={styles.input_label}>Store Name</p>
                     <input className={styles.store_name} type="text" onChange={(event) => { setUnits(event.target.value) }} />
@@ -96,7 +91,7 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
             </div>
             <button className={styles.add_item} onClick={() => {
                 let checked = false
-                let { t, i } = addItem(total, display_list!, { name, price, quantity, units })
+                let { t, i } = addItem(total, display_list!, { name, price, quantity })
                 setItemNumber(i)
                 setTotal(t)
                 setOpen(false)
@@ -111,7 +106,7 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
 }
 
 const SearchBar = () => {
-    return <input className={styles.search} type="text" placeholder="Search..." />
+    return <input className={styles.search} type="search" placeholder="Search..." />
 }
 
 const Details = ({ title, type, total }: detailsProps) => {
