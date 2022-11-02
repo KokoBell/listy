@@ -104,7 +104,11 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
             <div className={styles.name_input}>
                 <p className={styles.input_label}>Name</p>
                 <input className={styles.item_name} type="text" onChange={(event) => {
-
+                    if (event.target.value != '') {
+                        document.getElementById('add_item')!.style.background = 'var(--primary)'
+                    } else {
+                        document.getElementById('add_item')!.style.background = 'gray'
+                    }
                     setName(event.target.value)
                 }} />
             </div>
@@ -132,7 +136,7 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
                 </div>}
 
             </div>
-            <button className={styles.add_item} onClick={(event) => {
+            <button id="add_item" className={styles.add_item} onClick={() => {
                 if (filterName(name)) {
                     let { t, i } = addItem(total, display_list!, { name, price, quantity, storeName })
                     setItemNumber(i)
@@ -142,8 +146,6 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
                     setPrice(0)
                     setQuantity(1)
                     setStoreName('')
-                } else {
-                    event.currentTarget.style.background = 'gray'
                 }
             }}>Add Item</button>
         </div>

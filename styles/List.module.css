@@ -297,7 +297,7 @@
 .store_toggle {
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-items: flex-end;
   flex: 1;
 }
 
@@ -360,7 +360,7 @@ input.store:checked+.store_slider:before {
   font-weight: 600;
   border: none;
   cursor: pointer;
-  background: var(--primary);
+  background: gray;
 }
 
 /* List of checked items */
