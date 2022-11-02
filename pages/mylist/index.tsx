@@ -143,16 +143,32 @@ const Back = () => {
     return <Link href="/" className={styles.action}><Image src="/icons/left.svg" height={iconSize} width={iconSize} alt="" /></Link>
 }
 
-const Item = ({ item, index }: any) => {
-    
-    return <div key={index} className={styles.list_item_container}>
-        <input type="checkbox" className={styles.check_item} />
+const Item = ({ item, key }: any) => {
+    return <div key={key} className={styles.list_item_container}>
+        <input type="checkbox" className={styles.check_item} onChange={(event) => {
+            item.checked = item.checked === true ? false : true
+            if (item.checked === true) {
+                let section = document.getElementsByClassName('checked')[0]
+                let el = event.target.parentElement!
+                section.appendChild(el)
+            }
+
+            if (item.checked === false) {
+                let section = document.getElementsByClassName('unchecked')[0]
+                let el = event.target.parentElement!
+                section.appendChild(el)
+            }
+        }} />
         <li className={styles.list_item}>
             <p className={styles.name_label}>{item.name}</p>
             <div className={styles.item_details}>
                 <p className={styles.price_label}><b>R</b><span style={{ 'color': 'white' }}>{item.price}</span> each</p>
                 <p className={styles.quantity_label}><span className={styles.units_label} style={{ 'color': 'white' }}>{item.quantity}</span>{item.quantity > 1 ? " units" : " unit"}</p>
                 <p className={styles.total_label}><span className={styles.total_currency}>Total: <b>R</b></span>{item.price * item.quantity}</p>
+            </div>
+            <div className={styles.controls}>
+                <button>Edit</button>
+                <button>Delete</button>
             </div>
         </li>
     </div>
@@ -200,11 +216,21 @@ export default function Mylist() {
                         <Details title="Total:" type="total" total={total} />
                         <Details title="Checkout:" type="checked" checked={checked} />
                     </div>
-                    <ul className={styles.list_container}>
-                        {display_list.map((item, index) => {
-                            return <Item item={item} index={index} />
+                    <ul className={`${styles.list_container} unchecked`}>
+                        {display_list.filter((item) => item.checked === false).map((item, index) => {
+                            return <Item item={item} key={index} />
                         })}
                     </ul>
+                    <div className={styles.checked_section}>
+                        <h1 className={styles.heading}>Checked Items</h1>
+                        <p>{checked} &nbsp;&nbsp;<span className={styles.items}>items</span></p>
+                    </div>
+                    <ul className={`${styles.list_container} checked`}>
+                        {display_list.filter((item) => item.checked === true).map((item, index) => {
+                            return <Item item={item} key={index} />
+                        })}
+                    </ul>
+
                     <Toolbar open={open} setOpen={setOpen} setTotal={setTotal} total={total} setItemNumber={setItemNumber} />
                 </div>
                 {open && <AddItemModal display_list={display_list} open={open} setOpen={setOpen} setTotal={setTotal} total={total} setItemNumber={setItemNumber} />}
