@@ -220,6 +220,9 @@ const Item = ({ item, key }: any) => {
                 <button className={styles.button}><img src="/icons/edit.svg"></img></button>
                 <button className={styles.button} onClick={(event) => {
                     event.preventDefault()
+                    let data = JSON.parse(localStorage.getItem('mylist')! || '[]')
+                    data = data.filter((list_item: itemProps) => list_item.name != item.name)
+                    localStorage.setItem('mylist', JSON.stringify(data))
                     event.currentTarget.parentElement?.parentElement?.parentElement?.remove()
                 }}><img src="/icons/delete.svg"></img></button>
             </div>
