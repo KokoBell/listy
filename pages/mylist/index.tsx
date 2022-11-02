@@ -181,10 +181,11 @@ const Back = () => {
 interface inputProps {
     item: itemProps,
     key: number,
-    setItemNumber: Function
+    setItemNumber: Function,
+    setTotal: Function
 }
 
-const Item = ({ item, key, setItemNumber }: inputProps) => {
+const Item = ({ item, key, setItemNumber, setTotal }: inputProps) => {
     return <li key={key} className={styles.list_item_container} onDrag={(event) => {
         event.currentTarget.translate = true
     }}>
@@ -206,7 +207,7 @@ const Item = ({ item, key, setItemNumber }: inputProps) => {
             <p className={styles.name_label}>{item.name}</p>
             <div className={styles.item_details}>
                 <p className={styles.price_label}><b>R</b><span style={{ 'color': 'white' }}>{item.price}</span> each</p>
-                <p className={styles.quantity_label}><span className={styles.units_label} style={{ 'color': 'white' }}>{item.quantity}</span></p>
+                <p className={styles.quantity_label}><span className={styles.units_label} style={{ 'color': 'white' }}>{item.quantity}</span>{item.quantity! > 1 ? " units" : " unit"}</p>
                 <p className={styles.quantity_label}>Total: <b>R</b><span className={styles.units_label} style={{ 'color': 'white' }}>{item.quantity! * item.price}</span></p>
             </div>
             <div className={styles.controls}>
@@ -227,6 +228,10 @@ const Item = ({ item, key, setItemNumber }: inputProps) => {
                         i = parseFloat(localStorage.getItem('item_number')!)
                     }
                     setItemNumber(i)
+                    let t = parseInt(localStorage.getItem('total')!)
+                    t = t - item.price * item.quantity!
+                    localStorage.setItem('total', t.toString())
+                    setTotal(t)
                 }}><img src="/icons/delete.svg"></img></button>
             </div>
         </div>
@@ -277,7 +282,7 @@ export default function Mylist() {
                     </div>
                     <ul className={`${styles.list_container} unchecked`}>
                         {display_list.filter((item) => item.checked === false).map((item, index) => {
-                            return <Item item={item} key={index} setItemNumber={setItemNumber}/>
+                            return <Item item={item} key={index} setItemNumber={setItemNumber} setTotal={setTotal}/>
                         })}
                     </ul>
                     <div className={styles.checked_section} style={{ 'color': '#999' }}>
@@ -286,7 +291,7 @@ export default function Mylist() {
                     </div>
                     <ul className={`${styles.list_container} checked`}>
                         {display_list.filter((item) => item.checked === true).map((item, index) => {
-                            return <Item item={item} key={index} setItemNumber={setItemNumber}/>
+                            return <Item item={item} key={index} setItemNumber={setItemNumber} setTotal={setTotal}/>
                         })}
                     </ul>
                     <Toolbar open={open} setOpen={setOpen} setTotal={setTotal} total={total} setItemNumber={setItemNumber} />
