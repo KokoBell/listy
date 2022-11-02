@@ -139,6 +139,21 @@ const Back = () => {
     return <Link href="/" className={styles.action}><Image src="/icons/left.svg" height={iconSize} width={iconSize} alt="" /></Link>
 }
 
+const Item = ({ item, index }: any) => {
+    console.log(item.price)
+    return <div className={styles.list_item_container}>
+        <input type="checkbox" />
+        <li className={styles.list_item}>
+            <p className={styles.name_label}>{item.name}</p>
+            <div className={styles.item_details}>
+                <p className={styles.price_label}>Price: <span style={{'color':'white'}}>{item.price}</span></p>
+                <p className={styles.quantity_label}>Quantity: <span className={styles.units_label} style={{'color':'white'}}>1</span> units</p>
+                <p className={styles.total_label}><span className={styles.total_currency}>Total: R</span>{item.price}</p>
+            </div>
+        </li>
+    </div>
+}
+
 export default function Mylist() {
     let [open, setOpen] = useState<boolean>(false)
     let [display_list, setL] = useState<any[]>([])
@@ -177,7 +192,7 @@ export default function Mylist() {
                     </div>
                     <ul className={styles.list_container}>
                         {display_list.map((item, index) => {
-                            return <li className={styles.list_item} key={index}><p style={{ 'color': 'var(--primary)', 'fontWeight': 600, 'fontSize': '1.6rem' }}>{item.name}</p><p>{item.price}</p></li>
+                            return <Item item={item} index={index} />
                         })}
                     </ul>
                     <Toolbar open={open} setOpen={setOpen} setTotal={setTotal} total={total} />

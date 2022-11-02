@@ -89,12 +89,12 @@
 }
 
 .details>h3 {
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .details>p {
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .total,
@@ -108,8 +108,27 @@
 
 .list_container {
   margin-top: 16px;
+  margin-bottom: 0;
   padding: 0;
   width: 100%;
+}
+
+.list_item_container {
+  display: flex;
+  flex-direction: row;
+  border-radius: 0.4rem;
+  background: #111;
+  margin-bottom: 16px;
+  width: 100%;
+  padding: 16px;
+}
+
+.list_item_container:first-child {
+  margin-top: 0;
+}
+
+.list_item_container:last-child {
+  margin-bottom: 3rem;
 }
 
 .list_item {
@@ -117,20 +136,47 @@
   flex-direction: row;
   justify-content: space-between;
   list-style: none;
-  font-size: 1.25rem;
-  padding: 0px 12px;
-  width: 100%;
   border-radius: 0.4rem;
-  margin-bottom: 16px;
-  background: #111;
+  font-size: 1.25rem;
+  padding-left: 16px;
+  width: 100%;
 }
 
-.list_item:first-child {
-  margin-top: 0;
+.list_item>p {
+  margin: 0;
 }
 
-.list_item:last-child {
-  margin-bottom: 3rem;
+.list_item>div>p {
+  margin: 0;
+}
+
+.item_details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.name_label {
+  display: flex;
+  align-items: center;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.price_label,
+.quantity_label,
+.total_label {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.total_currency {
+  color: #777;
+}
+
+.total_label {
+  color: white;
 }
 
 .toolbar {
@@ -174,8 +220,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0 28px;
-  padding-bottom: 32px;
+  padding: 0 24px;
   width: 22rem;
   height: fit-content;
   border-radius: 0.8rem;
@@ -322,7 +367,7 @@ input.store:checked+.store_slider:before {
 
 .add_item {
   margin-top: 0;
-  margin-bottom: 0px;
+  margin-bottom: 24px;
   width: 100%;
   padding: 16px 0;
   border-radius: 2rem;
@@ -366,7 +411,7 @@ input.store:checked+.store_slider:before {
 
   .item_container {
     width: 100%;
-    padding: 0 8px;
+    padding: 0 12px;
     margin-top: 0;
   }
 }
