@@ -18,7 +18,10 @@ interface openProps {
 interface itemProps {
     name: string,
     price: number,
-    checked: boolean
+    checked: boolean,
+    quantity?: number,
+    units?: string,
+    storeName?: string,
 }
 
 interface detailsProps {
@@ -142,12 +145,12 @@ const Back = () => {
 const Item = ({ item, index }: any) => {
     console.log(item.price)
     return <div className={styles.list_item_container}>
-        <input type="checkbox" />
+        <input type="checkbox" className={styles.check_item} />
         <li className={styles.list_item}>
             <p className={styles.name_label}>{item.name}</p>
             <div className={styles.item_details}>
-                <p className={styles.price_label}>Price: <span style={{'color':'white'}}>{item.price}</span></p>
-                <p className={styles.quantity_label}>Quantity: <span className={styles.units_label} style={{'color':'white'}}>1</span> units</p>
+                <p className={styles.price_label}>Price: <span style={{ 'color': 'white' }}>{item.price}</span></p>
+                <p className={styles.quantity_label}>Quantity: <span className={styles.units_label} style={{ 'color': 'white' }}>1</span> units</p>
                 <p className={styles.total_label}><span className={styles.total_currency}>Total: R</span>{item.price}</p>
             </div>
         </li>
