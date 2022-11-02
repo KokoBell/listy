@@ -13,7 +13,8 @@ interface openProps {
     setOpen: Function,
     display_list?: any[] | undefined,
     setTotal: Function,
-    total: number
+    total: number,
+    setItemNumber: Function
 }
 
 interface itemProps {
@@ -31,23 +32,31 @@ interface detailsProps {
     total?: number,
     checked?: number,
     setTotal?: Function,
-    setChecked?: Function
+    setChecked?: Function,
 }
 
-function addItem(total: number, display_list: any[], { name, price }: itemProps) {
+function addItem(t: number, display_list: any[], { name, price }: itemProps) {
     if (name == "") {
         name = "Apples"
         price = 20
     }
-    total = total + price
-    localStorage.setItem('total', total.toString())
+    t = t + price
+    localStorage.setItem('total', t.toString())
     list.push({ 'name': name, 'price': price, 'checked': false })
     display_list.push({ 'name': name, 'price': price, 'checked': false })
     localStorage.setItem('mylist', JSON.stringify(display_list))
-    return total
+    let i = parseInt(localStorage.getItem('item_number')!)
+    if (i) {
+        localStorage.setItem('item_number', (i + 1).toString())
+        i = parseInt(localStorage.getItem('item_number')!)
+    } else {
+        localStorage.setItem('item_number', list.length.toString())
+        i = parseInt(localStorage.getItem('item_number')!)
+    }
+    return { t, i }
 }
 
-const AddItemModal = ({ open, setOpen, display_list, total, setTotal }: openProps) => {
+const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNumber }: openProps) => {
     let [name, setName] = useState<string>('')
     let [price, setPrice] = useState<number>(0)
     let [quantity, setQuantity] = useState<number>(1)
@@ -92,7 +101,8 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal }: openProp
             </div>
             <button className={styles.add_item} onClick={() => {
                 let checked = false
-                let t = addItem(total, display_list!, { name, price, checked })
+                let { t, i } = addItem(total, display_list!, { name, price, checked })
+                setItemNumber(i)
                 setTotal(t)
                 setOpen(false)
                 setName('')
@@ -163,12 +173,18 @@ export default function Mylist() {
     let [display_list, setL] = useState<any[]>([])
     let [total, setTotal] = useState(0)
     let [checked, setChecked] = useState(0)
+    let [itemNumber, setItemNumber] = useState<number>(0)
 
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('mylist')! || '[]')
         setL(data)
         const t = parseInt(localStorage.getItem('total')! || '0')
         setTotal(t)
+        const i = parseInt(localStorage.getItem('item_number')!)
+        if (i) {
+            localStorage.setItem('item_number', i.toString())
+            setItemNumber(i)
+        }
     }, [])
 
     return (
@@ -188,7 +204,7 @@ export default function Mylist() {
                     </div>
                     <div className={styles.header_section}>
                         <h1 className={styles.heading}>My List</h1>
-                        <p>{list.length} &nbsp;&nbsp;<span className={styles.items}>items</span></p>
+                        <p>{itemNumber} &nbsp;&nbsp;<span className={styles.items}>items</span></p>
                     </div>
                     <div className={styles.details_section}>
                         <Details title="Total:" type="total" total={total} />
@@ -199,9 +215,9 @@ export default function Mylist() {
                             return <Item item={item} index={index} />
                         })}
                     </ul>
-                    <Toolbar open={open} setOpen={setOpen} setTotal={setTotal} total={total} />
+                    <Toolbar open={open} setOpen={setOpen} setTotal={setTotal} total={total} setItemNumber={setItemNumber} />
                 </div>
-                {open && <AddItemModal display_list={display_list} open={open} setOpen={setOpen} setTotal={setTotal} total={total} />}
+                {open && <AddItemModal display_list={display_list} open={open} setOpen={setOpen} setTotal={setTotal} total={total} setItemNumber={setItemNumber} />}
             </div>
         </>)
 }
