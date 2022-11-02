@@ -33,19 +33,51 @@ interface detailsProps {
     setChecked?: Function,
 }
 
+const filterNum = (str: string) => {
+    const numericalChar = new Set([".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]);
+    str = str.split("").filter(char => numericalChar.has(char)).join("")
+    if (str.startsWith('.') || str.startsWith(',')) {
+        str = str.substring(1)
+    }
+    let regex = /^[a-zA-Z]+$/;
+    if (str.match(regex)) {
+        str = '0'
+    }
+    console.log(str)
+    return str
+}
+
 function addItem(t: number, display_list: any[], { name, price, quantity, storeName }: itemProps) {
+
+
+    /*
+    if (this.price < 0) {
+        alert('Price cannot be less than zero')
+        return
+    }
+
+    if (this.note === '') {
+        alert('Item field should not be empty')
+        return
+    }
+
+    if (this.price === '' || this.price === NaN) {
+        alert('Price field should not be empty')
+        return
+    } */
+
     t = t + price * quantity!
     localStorage.setItem('total', t.toString())
     list.push({ 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'storeName': storeName })
     display_list.push({ 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'storeName': storeName })
     localStorage.setItem('mylist', JSON.stringify(display_list))
-    let i = parseInt(localStorage.getItem('item_number')!)
+    let i = parseFloat(localStorage.getItem('item_number')!)
     if (i) {
         localStorage.setItem('item_number', (i + 1).toString())
-        i = parseInt(localStorage.getItem('item_number')!)
+        i = parseFloat(localStorage.getItem('item_number')!)
     } else {
         localStorage.setItem('item_number', list.length.toString())
-        i = parseInt(localStorage.getItem('item_number')!)
+        i = parseFloat(localStorage.getItem('item_number')!)
     }
     return { t, i }
 }
@@ -68,12 +100,12 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
             </div>
             <div className={styles.price_input}>
                 <p className={styles.input_label}>Price</p>
-                <input className={styles.item_price} type="text" onChange={(event) => { setPrice(parseInt(event.target.value)) }} />
+                <input className={styles.item_price} type="text" onChange={(event) => { setPrice(parseFloat(filterNum(event.target.value))) }} />
             </div>
             <div className={styles.quantity_section}>
                 <div className={styles.quantity_input}>
                     <p className={styles.input_label}>How many?</p>
-                    <input className={styles.item_quantity} placeholder="e.g. 3" type="text" onChange={(event) => { setQuantity(parseInt(event.target.value)) }} />
+                    <input className={styles.item_quantity} placeholder="e.g. 3" type="text" onChange={(event) => { setQuantity(parseFloat(event.target.value)) }} />
                 </div>
                 <div className={styles.store_toggle}>
                     <p className={styles.input_label}>Show Store</p>
@@ -91,6 +123,7 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
 
             </div>
             <button className={styles.add_item} onClick={() => {
+
                 let { t, i } = addItem(total, display_list!, { name, price, quantity, storeName })
                 setItemNumber(i)
                 setTotal(t)
@@ -189,9 +222,9 @@ export default function Mylist() {
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('mylist')! || '[]')
         setL(data)
-        const t = parseInt(localStorage.getItem('total')! || '0')
+        const t = parseFloat(localStorage.getItem('total')! || '0')
         setTotal(t)
-        const i = parseInt(localStorage.getItem('item_number')!)
+        const i = parseFloat(localStorage.getItem('item_number')!)
         if (i) {
             localStorage.setItem('item_number', i.toString())
             setItemNumber(i)
