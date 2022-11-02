@@ -1,3 +1,4 @@
+import { INSPECT_MAX_BYTES } from "buffer"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
@@ -119,8 +120,8 @@ const Details = ({ title, type, total }: detailsProps) => {
 
     return (<div className={styles.details}>
         <h3 className={styles.details_title}>{title}</h3>
-        {type === "total" && <p className={styles.total}>&nbsp;<span className={styles.currency} style={{ 'fontWeight': 500, 'fontSize': '1.1rem' }}>R</span>{total}</p>}
-        {type === "checked" && <p className={styles.checked}>&nbsp;<span className={styles.currency} style={{ 'fontWeight': 500, 'fontSize': '1.1rem' }}>R</span>{checked}</p>}
+        {type === "total" && <p className={styles.total}>&nbsp;<span className={styles.currency}>R</span>{total}</p>}
+        {type === "checked" && <p className={styles.checked}>&nbsp;<span className={styles.currency}>R</span>{checked}</p>}
     </div>)
 }
 
@@ -149,9 +150,9 @@ const Item = ({ item, index }: any) => {
         <li className={styles.list_item}>
             <p className={styles.name_label}>{item.name}</p>
             <div className={styles.item_details}>
-                <p className={styles.price_label}>Price: <span style={{ 'color': 'white' }}>{item.price}</span></p>
-                <p className={styles.quantity_label}>Quantity: <span className={styles.units_label} style={{ 'color': 'white' }}>1</span> units</p>
-                <p className={styles.total_label}><span className={styles.total_currency}>Total: R</span>{item.price}</p>
+                <p className={styles.price_label}><b>R</b><span style={{ 'color': 'white' }}>{item.price}</span> each</p>
+                <p className={styles.quantity_label}><span className={styles.units_label} style={{ 'color': 'white' }}>1</span>{item.units > 1 ? " units" : " unit"}</p>
+                <p className={styles.total_label}><span className={styles.total_currency}>Total: <b>R</b></span>{item.price}</p>
             </div>
         </li>
     </div>
