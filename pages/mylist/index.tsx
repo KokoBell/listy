@@ -186,23 +186,33 @@ interface inputProps {
 }
 
 const Item = ({ item, key, setItemNumber, setTotal }: inputProps) => {
+    const [c,setC] = useState<boolean>(item.checked!)
     return <li key={key} className={styles.list_item_container} onDrag={(event) => {
         event.currentTarget.translate = true
     }}>
         <input type="checkbox" className={styles.check_item} onChange={(event) => {
             item.checked = item.checked === true ? false : true
+            let l = JSON.parse(localStorage.getItem('mylist')!)
+            l.forEach((i: itemProps) => {
+                if (i.name === item.name) {
+                    i.checked = item.checked
+                }
+            })
+            localStorage.setItem('mylist', JSON.stringify(l))
             if (item.checked === true) {
                 let section = document.getElementsByClassName('checked')[0]
                 let el = event.target.parentElement!
                 section.appendChild(el)
+                setC(true)
             }
 
             if (item.checked === false) {
                 let section = document.getElementsByClassName('unchecked')[0]
                 let el = event.target.parentElement!
                 section.appendChild(el)
+                setC(false)
             }
-        }} />
+        }} checked={c}/>
         <div className={styles.list_item}>
             <p className={styles.name_label}>{item.name}</p>
             <div className={styles.item_details}>
@@ -282,7 +292,7 @@ export default function Mylist() {
                     </div>
                     <ul className={`${styles.list_container} unchecked`}>
                         {display_list.filter((item) => item.checked === false).map((item, index) => {
-                            return <Item item={item} key={index} setItemNumber={setItemNumber} setTotal={setTotal}/>
+                            return <Item item={item} key={index} setItemNumber={setItemNumber} setTotal={setTotal} />
                         })}
                     </ul>
                     <div className={styles.checked_section} style={{ 'color': '#999' }}>
@@ -291,7 +301,7 @@ export default function Mylist() {
                     </div>
                     <ul className={`${styles.list_container} checked`}>
                         {display_list.filter((item) => item.checked === true).map((item, index) => {
-                            return <Item item={item} key={index} setItemNumber={setItemNumber} setTotal={setTotal}/>
+                            return <Item item={item} key={index} setItemNumber={setItemNumber} setTotal={setTotal} />
                         })}
                     </ul>
                     <Toolbar open={open} setOpen={setOpen} setTotal={setTotal} total={total} setItemNumber={setItemNumber} />
