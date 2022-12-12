@@ -126,7 +126,6 @@
   display: flex;
   flex-direction: row;
   border-radius: 0.4rem;
-  background: #111;
   margin-bottom: 16px;
   width: 100%;
   padding: 16px;
@@ -196,8 +195,19 @@
 }
 
 .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
   background: none;
   border: none;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: all 600ms ease-in-out;
+}
+
+.button:hover {
+  box-shadow: 0 0 16px 0 var(--primary-shadow);
 }
 
 
@@ -235,14 +245,12 @@
 .name_input {
   width: 100%;
   margin-bottom: 12px;
-  color: white;
 }
 
 .input_label {
   margin: 0;
   padding-bottom: 0.2rem;
   font-weight: 500;
-  color: white;
 }
 
 .item_name,
@@ -254,8 +262,6 @@
   border-radius: 0.4rem;
   height: 2.2rem;
   padding-left: 0.8rem;
-  color: white;
-  background: #333;
 }
 
 .item_quantity {
@@ -451,6 +457,18 @@ input.store:checked+.store_slider:before {
     background: #111;
   }
 
+  .input_label {
+    color: white;
+  }
+
+  .item_name,
+  .item_price,
+  .item_quantity,
+  .store_name {
+    color: white;
+    background: #333;
+  }
+
   .toolbar {
     background: black;
   }
@@ -461,6 +479,10 @@ input.store:checked+.store_slider:before {
 
   .item_container {
     background-color: #222;
+  }
+
+  .item_detail {
+    color: white;
   }
 
   .currency {
@@ -492,6 +514,10 @@ input.store:checked+.store_slider:before {
     background: white;
   }
 
+  .input_label {
+    color: black;
+  }
+
   .toolbar {
     background: var(--white);
   }
@@ -500,8 +526,16 @@ input.store:checked+.store_slider:before {
     background: #999;
   }
 
+  .list_item_container {
+    background: white;
+  }
+
   .item_container {
     background-color: rgb(216, 216, 216);
+  }
+
+  .item_detail {
+    color: black;
   }
 
   .currency {

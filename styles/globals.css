@@ -1,6 +1,7 @@
 :root {
   --max-width: 520px;
   --primary: #555BFF;
+  --primary-shadow: #555bff56;
   --border: 1px solid #999;
   --white: rgb(240, 240, 240);;
   --black: black;

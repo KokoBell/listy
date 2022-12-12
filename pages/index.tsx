@@ -198,6 +198,29 @@ interface inputProps {
 
 const Item = ({ item, key, setItemNumber, setTotal }: inputProps) => {
   const [c, setC] = useState<boolean>(item.checked!)
+
+  const deleteItem = async (event: any) => {
+    event.preventDefault()
+    let data = JSON.parse(localStorage.getItem('mylist')! || '[]')
+    data = data.filter((list_item: itemProps) => list_item.name != item.name)
+    list = list.filter((list_item: itemProps) => list_item.name != item.name)
+    localStorage.setItem('mylist', JSON.stringify(data))
+    event.currentTarget.parentElement?.parentElement?.parentElement?.remove()
+    let i = parseFloat(localStorage.getItem('item_number')!)
+    if (i) {
+      localStorage.setItem('item_number', (i - 1).toString())
+      i = parseFloat(localStorage.getItem('item_number')!)
+    } else {
+      localStorage.setItem('item_number', list.length.toString())
+      i = parseFloat(localStorage.getItem('item_number')!)
+    }
+    setItemNumber(i)
+    let t = parseInt(localStorage.getItem('total')!)
+    t = t - item.price * item.quantity!
+    localStorage.setItem('total', t.toString())
+    setTotal(t)
+  }
+
   return <li key={key} className={styles.list_item_container} onDrag={(event) => {
     event.currentTarget.translate = true
   }}>
@@ -227,32 +250,14 @@ const Item = ({ item, key, setItemNumber, setTotal }: inputProps) => {
     <div className={styles.list_item}>
       <p className={styles.name_label}>{item.name}</p>
       <div className={styles.item_details}>
-        <p className={styles.price_label}><b>R</b><span style={{ 'color': 'white' }}>{item.price}</span> each</p>
-        <p className={styles.quantity_label}><span className={styles.units_label} style={{ 'color': 'white' }}>{item.quantity}</span>{item.quantity! > 1 ? " units" : " unit"}</p>
-        <p className={styles.quantity_label}>Total: <b>R</b><span className={styles.units_label} style={{ 'color': 'white' }}>{item.quantity! * item.price}</span></p>
+        <p className={styles.price_label}><b>R</b><span className={styles.item_detail}>{item.price}</span> each</p>
+        <p className={styles.quantity_label}><span className={`${styles.units_label} ${styles.item_detail}`}>{item.quantity}</span>{item.quantity! > 1 ? " units" : " unit"}</p>
+        <p className={styles.quantity_label}>Total: <b>R</b><span className={`${styles.units_label} ${styles.item_detail}`}>{item.quantity! * item.price}</span></p>
       </div>
       <div className={styles.controls}>
-        <button className={styles.button}><img src="/icons/edit.svg"></img></button>
-        <button className={styles.button} onClick={(event) => {
-          event.preventDefault()
-          let data = JSON.parse(localStorage.getItem('mylist')! || '[]')
-          data = data.filter((list_item: itemProps) => list_item.name != item.name)
-          list = list.filter((list_item: itemProps) => list_item.name != item.name)
-          localStorage.setItem('mylist', JSON.stringify(data))
-          event.currentTarget.parentElement?.parentElement?.parentElement?.remove()
-          let i = parseFloat(localStorage.getItem('item_number')!)
-          if (i) {
-            localStorage.setItem('item_number', (i - 1).toString())
-            i = parseFloat(localStorage.getItem('item_number')!)
-          } else {
-            localStorage.setItem('item_number', list.length.toString())
-            i = parseFloat(localStorage.getItem('item_number')!)
-          }
-          setItemNumber(i)
-          let t = parseInt(localStorage.getItem('total')!)
-          t = t - item.price * item.quantity!
-          localStorage.setItem('total', t.toString())
-          setTotal(t)
+        <button className={`${styles.button} ${styles.delete}`}><img src="/icons/edit.svg"></img></button>
+        <button className={`${styles.button} ${styles.delete}`} onClick={(event) => {
+          deleteItem(event)
         }}><img src="/icons/delete.svg"></img></button>
       </div>
     </div>
