@@ -1,7 +1,8 @@
 interface detailsProps {
     title: string,
     type: string,
-    list: any[]
+    total?: number,
+    checked?: number
   }
 
 export default detailsProps

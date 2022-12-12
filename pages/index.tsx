@@ -249,8 +249,8 @@ export default function Mylist() {
             <p>{itemNumber} &nbsp;<span className={styles.items}>items</span></p>
           </div>
           <div className={styles.details_section}>
-            <Details title="Total:" type="total" list={display_list} />
-            <Details title="Checkout:" type="checked" list={display_list} />
+            <Details title="Total:" type="total" total={total} />
+            <Details title="Checkout:" type="checked" checked={checked} />
           </div>
           <ul className={`${styles.list_container} unchecked`}>
             {display_list.filter((item) => item.checked === false).map((item, index) => {
