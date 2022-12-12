@@ -1,13 +1,10 @@
 import { useState } from "react"
 import inputProps from "../interfaces/inputProps"
-import itemProps from "../interfaces/itemProps"
 import supabase from "../supabase"
-import AddItemModal from "./AddItem"
 import styles from '../styles/List.module.css'
 
-const Item = ({ item, key }: inputProps) => {
+const Item = ({ item, index, setEditing, setEditItem  }: inputProps) => {
   const [c, setC] = useState<boolean>(item.checked!)
-  const [editing, setEditing] = useState<boolean>(false)
 
   const deleteItem = async (event: any) => {
     event.preventDefault()
@@ -16,17 +13,6 @@ const Item = ({ item, key }: inputProps) => {
       if (error) throw error
       console.log("Product deleted!")
       window.location.reload()
-    } catch (error: any) {
-      alert(error.message)
-    }
-  }
-
-  const editItem = async (isChecked: boolean) => {
-    try {
-      const { error } = await supabase.from('items').update({ 'checked': isChecked }).eq('id', item.id)
-      if (error) throw error
-      console.log("Product updated!")
-      //window.location.reload()
     } catch (error: any) {
       alert(error.message)
     }
@@ -43,7 +29,7 @@ const Item = ({ item, key }: inputProps) => {
     }
   }
 
-  return (<><li key={key} className={styles.list_item_container} onDrag={(event) => {
+  return (<><li key={index} className={styles.list_item_container} onDrag={(event) => {
     event.currentTarget.translate = true
   }}>
     <input type="checkbox" className={styles.check_item} onChange={(event) => {
@@ -72,6 +58,7 @@ const Item = ({ item, key }: inputProps) => {
       </div>
       <div className={styles.controls}>
         <button className={`${styles.button} ${styles.delete}`} onClick={(event) => {
+          setEditItem(item)
           setEditing(true)
         }}><img src="/icons/edit.svg" alt="Edit this item"></img></button>
         <button className={`${styles.button} ${styles.delete}`} onClick={(event) => {
@@ -80,7 +67,7 @@ const Item = ({ item, key }: inputProps) => {
       </div>
     </div>
   </li>
-    {editing && <AddItemModal open={editing} setOpen={setEditing} />}
+
   </>)
 }
 
