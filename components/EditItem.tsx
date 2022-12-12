@@ -55,18 +55,18 @@ const EditItemModal = ({ editing, setEditing, item }: editProps) => {
             <h1 className={styles.item_heading}>Edit Item</h1>
             <div className={styles.name_input}>
                 <p className={styles.input_label}>Name</p>
-                <input className={styles.item_name} type="text" onChange={(event) => {
+                <input className={styles.item_name} defaultValue={item.name} type="text" onChange={(event) => {
                     if (event.target.value != '') {
-                        document.getElementById('add_item')!.style.background = 'var(--primary)'
+                        document.getElementById('edit_item')!.style.background = 'var(--primary)'
                     } else {
-                        document.getElementById('add_item')!.style.background = 'gray'
+                        document.getElementById('edit_item')!.style.background = 'gray'
                     }
                     setName(event.target.value)
                 }} />
             </div>
             <div className={styles.price_input}>
                 <p className={styles.input_label}>Price</p>
-                <input className={styles.item_price} type="text" onChange={(event) => { setPrice(parseFloat(filterNum(event.target.value))) }} />
+                <input className={styles.item_price} defaultValue={item.price} type="text" onChange={(event) => { setPrice(parseFloat(filterNum(event.target.value))) }} />
             </div>
             <div className={styles.quantity_section}>
                 <div className={styles.quantity_input}>
@@ -88,7 +88,7 @@ const EditItemModal = ({ editing, setEditing, item }: editProps) => {
                 </div>}
 
             </div>
-            <button id="add_item" className={styles.add_item} onClick={() => {
+            <button id="edit_item" className={styles.add_item} onClick={() => {
                 if (filterName(name)) {
                     editItem({ name, price, quantity, storeName })
                 }
