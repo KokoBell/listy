@@ -1,4 +1,4 @@
-import itemProps from "./item"
+import itemProps from "./itemProps"
 
 interface inputProps {
     item: itemProps,

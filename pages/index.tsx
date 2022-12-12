@@ -2,12 +2,13 @@ import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import Details from "../components/Details"
 import Menu from "../components/Menu"
 import SearchBar from "../components/Search"
-import detailsProps from "../interfaces/details"
-import inputProps from "../interfaces/input"
-import itemProps from "../interfaces/item"
-import openProps from "../interfaces/open"
+import detailsProps from "../interfaces/detailsProps"
+import inputProps from "../interfaces/inputProps"
+import itemProps from "../interfaces/itemProps"
+import openProps from "../interfaces/openProps"
 import styles from '../styles/List.module.css'
 import supabase from '../supabase'
 
@@ -108,27 +109,6 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
     </div>
   </>
   )
-}
-
-
-const Details = ({ title, type, list }: detailsProps) => {
-  let checked = 0
-  let total = 0
-  if (list.length > 0) {
-    list.forEach((item) => {
-      if (item.checked == true) {
-        checked = checked + item.quantity * item.price
-      } else {
-        total = total + item.quantity * item.price
-      }
-    })
-  }
-
-  return (<div className={styles.details}>
-    <h3 className={styles.details_title}>{title}</h3>
-    {type === "total" && <p className={styles.total}>&nbsp;<span className={styles.currency}>R</span>{total}</p>}
-    {type === "checked" && <p className={styles.checked}>&nbsp;<span className={styles.currency}>R</span>{checked}</p>}
-  </div>)
 }
 
 const Toolbar = ({ open, setOpen }: openProps) => {
