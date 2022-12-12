@@ -39,7 +39,7 @@ const EditItemModal = ({ editing, setEditing, item }: editProps) => {
     async function editItem({ name, price, quantity, storeName }: itemProps) {
         const data = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': storeName, 'units': 'none', 'notes': 'none' }
         try {
-            const { error } = await supabase.from('items').update({data}).eq('id', item.id)
+            const { error } = await supabase.from('items').update(data).eq('id', item.id)
             if (error) throw error
             console.log("Product updated!")
             //window.location.reload()
@@ -92,6 +92,7 @@ const EditItemModal = ({ editing, setEditing, item }: editProps) => {
                 if (filterName(name)) {
                     editItem({ name, price, quantity, storeName })
                 }
+                setEditing(false)
             }}>Update Item</button>
         </div>
     </>
