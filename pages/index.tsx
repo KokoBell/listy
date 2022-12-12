@@ -33,6 +33,7 @@ export default function Mylist() {
     })
     setTotal(listTotal)
     setChecked(checkedTotal)
+    setItemNumber(data.length)
   }
 
   async function getItems() {
