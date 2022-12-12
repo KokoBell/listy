@@ -26,7 +26,7 @@ const Item = ({ item, key }: inputProps) => {
       const { error } = await supabase.from('items').update({ 'checked': isChecked }).eq('id', item.id)
       if (error) throw error
       console.log("Product updated!")
-      window.location.reload()
+      //window.location.reload()
     } catch (error: any) {
       alert(error.message)
     }
@@ -36,8 +36,8 @@ const Item = ({ item, key }: inputProps) => {
     try {
       const { error } = await supabase.from('items').update({ 'checked': isChecked }).eq('id', item.id)
       if (error) throw error
-      console.log("Product updated!")
-      window.location.reload()
+      console.log("Product checked!")
+      //window.location.reload()
     } catch (error: any) {
       alert(error.message)
     }
