@@ -2,97 +2,58 @@ import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import Menu from "../components/Menu"
+import SearchBar from "../components/Search"
+import detailsProps from "../interfaces/details"
+import inputProps from "../interfaces/input"
+import itemProps from "../interfaces/item"
+import openProps from "../interfaces/open"
 import styles from '../styles/List.module.css'
 import supabase from '../supabase'
 
-let list: any[] = []
-let checked: number = 0
-
-interface openProps {
-  open: boolean,
-  setOpen: Function,
-  display_list?: any[] | undefined,
-  setTotal: Function,
-  total: number,
-  setItemNumber: Function
-}
-
-interface itemProps {
-  name: string,
-  price: number,
-  quantity?: number,
-  checked?: boolean,
-  storeName?: string,
-}
-
-interface detailsProps {
-  title: string,
-  type: string,
-  total?: number,
-  checked?: number,
-  setTotal?: Function,
-  setChecked?: Function,
-}
-
-const filterNum = (str: string) => {
-  const numericalChar = new Set([",", ".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]);
-  str = str.split("").filter(char => numericalChar.has(char)).join("")
-  if (str.startsWith('.') || str.startsWith(',')) {
-    str = str.substring(1)
-  }
-  let regex = /^[a-zA-Z]+$/;
-  if (str.match(regex)) {
-    str = '0'
-  }
-  if (parseFloat(str) < 0) {
-    str = '0'
-  }
-  console.log(str)
-  return str
-}
-
-const filterName = (str: string) => {
-  if (str === '') {
-    return false
-  } else {
-    return true
-  }
-}
-
-function addItem(t: number, display_list: any[], { name, price, quantity, storeName }: itemProps) {
-  t = t + price * quantity!
-  localStorage.setItem('total', t.toString())
-  const data = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': storeName, 'units': 'none', 'notes': 'none' }
-  list.push(data)
-  display_list.push(data)
-  const pushItem = async (data: any) => {
-    try {
-      const { error } = await supabase.from('items').insert(data)
-      if (error) throw error
-      console.log("Product added!")
-    } catch (error: any) {
-      alert(error.message)
-    }
-  }
-  pushItem(data)
-  localStorage.setItem('mylist', JSON.stringify(display_list))
-  let i = parseFloat(localStorage.getItem('item_number')!)
-  if (i) {
-    localStorage.setItem('item_number', (i + 1).toString())
-    i = parseFloat(localStorage.getItem('item_number')!)
-  } else {
-    localStorage.setItem('item_number', list.length.toString())
-    i = parseFloat(localStorage.getItem('item_number')!)
-  }
-  return { t, i }
-}
-
-const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNumber }: openProps) => {
+const AddItemModal = ({ open, setOpen }: openProps) => {
   let [name, setName] = useState<string>('')
   let [price, setPrice] = useState<number>(0)
   let [quantity, setQuantity] = useState<number>(1)
   let [store, showStore] = useState<boolean>(false)
   let [storeName, setStoreName] = useState<string>('')
+
+  const filterNum = (str: string) => {
+    const numericalChar = new Set([",", ".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]);
+    str = str.split("").filter(char => numericalChar.has(char)).join("")
+    if (str.startsWith('.') || str.startsWith(',')) {
+      str = str.substring(1)
+    }
+    let regex = /^[a-zA-Z]+$/;
+    if (str.match(regex)) {
+      str = '0'
+    }
+    if (parseFloat(str) < 0) {
+      str = '0'
+    }
+    console.log(str)
+    return str
+  }
+
+  const filterName = (str: string) => {
+    if (str === '') {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  async function addItem({ name, price, quantity, storeName }: itemProps) {
+    const data = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': storeName, 'units': 'none', 'notes': 'none' }
+    try {
+      const { error } = await supabase.from('items').insert(data).single()
+      if (error) throw error
+      console.log("Product added!")
+      window.location.reload()
+    } catch (error: any) {
+      alert(error.message)
+    }
+  }
 
   return (<>
     <div onClick={() => setOpen(!open)} className={styles.modal_container}>
@@ -136,9 +97,7 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
       </div>
       <button id="add_item" className={styles.add_item} onClick={() => {
         if (filterName(name)) {
-          let { t, i } = addItem(total, display_list!, { name, price, quantity, storeName })
-          setItemNumber(i)
-          setTotal(t)
+          addItem({ name, price, quantity, storeName })
           setOpen(false)
           setName('')
           setPrice(0)
@@ -151,15 +110,16 @@ const AddItemModal = ({ open, setOpen, display_list, total, setTotal, setItemNum
   )
 }
 
-const SearchBar = () => {
-  return <input className={styles.search} type="search" placeholder="Search..." />
-}
 
-const Details = ({ title, type, total }: detailsProps) => {
+const Details = ({ title, type, list }: detailsProps) => {
+  let checked = 0
+  let total = 0
   if (list.length > 0) {
     list.forEach((item) => {
       if (item.checked == true) {
-        checked = checked + item.price
+        checked = checked + item.quantity * item.price
+      } else {
+        total = total + item.quantity * item.price
       }
     })
   }
@@ -179,49 +139,32 @@ const Toolbar = ({ open, setOpen }: openProps) => {
   </div>
 }
 
-const Menu = () => {
-  let iconSize = 32
-  return <button className={styles.action}><Image src="/icons/menu.svg" height={iconSize} width={iconSize} alt="" /></button>
-}
-
 const Back = () => {
   let iconSize = 32
   return <Link href="/" className={styles.action}><Image src="/icons/left.svg" height={iconSize} width={iconSize} alt="" /></Link>
 }
 
-interface inputProps {
-  item: itemProps,
-  key: number,
-  setItemNumber: Function,
-  setTotal: Function
-}
-
-const Item = ({ item, key, setItemNumber, setTotal }: inputProps) => {
+const Item = ({ item, key }: inputProps) => {
   const [c, setC] = useState<boolean>(item.checked!)
+  const [editing, setEditing] = useState<boolean>(false)
 
   const deleteItem = async (event: any) => {
     event.preventDefault()
-    let data = JSON.parse(localStorage.getItem('mylist')! || '[]')
-    data = data.filter((list_item: itemProps) => list_item.name != item.name)
-    list = list.filter((list_item: itemProps) => list_item.name != item.name)
-    localStorage.setItem('mylist', JSON.stringify(data))
-    event.currentTarget.parentElement?.parentElement?.parentElement?.remove()
-    let i = parseFloat(localStorage.getItem('item_number')!)
-    if (i) {
-      localStorage.setItem('item_number', (i - 1).toString())
-      i = parseFloat(localStorage.getItem('item_number')!)
-    } else {
-      localStorage.setItem('item_number', list.length.toString())
-      i = parseFloat(localStorage.getItem('item_number')!)
+    try {
+      const { error } = await supabase.from('items').delete().eq('id', item.id)
+      if (error) throw error
+      console.log("Product deleted!")
+      window.location.reload()
+    } catch (error: any) {
+      alert(error.message)
     }
-    setItemNumber(i)
-    let t = parseInt(localStorage.getItem('total')!)
-    t = t - item.price * item.quantity!
-    localStorage.setItem('total', t.toString())
-    setTotal(t)
   }
 
-  return <li key={key} className={styles.list_item_container} onDrag={(event) => {
+  const editItem = async (event: any) => {
+
+  }
+
+  return (<><li key={key} className={styles.list_item_container} onDrag={(event) => {
     event.currentTarget.translate = true
   }}>
     <input type="checkbox" className={styles.check_item} onChange={(event) => {
@@ -255,13 +198,17 @@ const Item = ({ item, key, setItemNumber, setTotal }: inputProps) => {
         <p className={styles.quantity_label}>Total: <b>R</b><span className={`${styles.units_label} ${styles.item_detail}`}>{item.quantity! * item.price}</span></p>
       </div>
       <div className={styles.controls}>
-        <button className={`${styles.button} ${styles.delete}`}><img src="/icons/edit.svg"></img></button>
+        <button className={`${styles.button} ${styles.delete}`} onClick={(event) => {
+          setEditing(true)
+        }}><img src="/icons/edit.svg" alt="Edit this item"></img></button>
         <button className={`${styles.button} ${styles.delete}`} onClick={(event) => {
           deleteItem(event)
-        }}><img src="/icons/delete.svg"></img></button>
+        }}><img src="/icons/delete.svg" alt="Delete this item"></img></button>
       </div>
     </div>
   </li>
+    {editing && <AddItemModal open={editing} setOpen={setEditing} />}
+  </>)
 }
 
 export default function Mylist() {
@@ -272,16 +219,35 @@ export default function Mylist() {
   let [itemNumber, setItemNumber] = useState<number>(0)
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('mylist')! || '[]')
-    setL(data)
-    const t = parseFloat(localStorage.getItem('total')! || '0')
-    setTotal(t)
-    const i = parseFloat(localStorage.getItem('item_number')!)
-    if (i) {
-      localStorage.setItem('item_number', i.toString())
-      setItemNumber(i)
-    }
+    getItems()
   }, [])
+
+  const countTotals = (data: any[]) => {
+    let listTotal = 0
+    let checkedTotal = 0
+    data.forEach((item) => {
+      if (!item.checked) {
+        listTotal += item.quantity * item.price
+      } else {
+        checkedTotal += item.quantity * item.price
+      }
+    })
+    setTotal(listTotal)
+    setChecked(checkedTotal)
+  }
+
+  async function getItems() {
+    try {
+      const { data, error } = await supabase.from('items').select()
+      if (error) throw error
+      if (data != null) {
+        setL(data)
+        countTotals(data)
+      }
+    } catch (error: any) {
+      alert(error.message)
+    }
+  }
 
   return (
     <>
@@ -303,8 +269,8 @@ export default function Mylist() {
             <p>{itemNumber} &nbsp;<span className={styles.items}>items</span></p>
           </div>
           <div className={styles.details_section}>
-            <Details title="Total:" type="total" total={total} />
-            <Details title="Checkout:" type="checked" checked={checked} />
+            <Details title="Total:" type="total" list={display_list} />
+            <Details title="Checkout:" type="checked" list={display_list} />
           </div>
           <ul className={`${styles.list_container} unchecked`}>
             {display_list.filter((item) => item.checked === false).map((item, index) => {
@@ -320,9 +286,9 @@ export default function Mylist() {
               return <Item item={item} key={index} setItemNumber={setItemNumber} setTotal={setTotal} />
             })}
           </ul>
-          <Toolbar open={open} setOpen={setOpen} setTotal={setTotal} total={total} setItemNumber={setItemNumber} />
+          <Toolbar open={open} setOpen={setOpen} />
         </div>
-        {open && <AddItemModal display_list={display_list} open={open} setOpen={setOpen} setTotal={setTotal} total={total} setItemNumber={setItemNumber} />}
+        {open && <AddItemModal open={open} setOpen={setOpen} />}
       </div>
     </>)
 }
