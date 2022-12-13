@@ -59,11 +59,12 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 0.4rem;
 }
 
 .heading {
   margin: 0;
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: 800;
 }
 
@@ -73,6 +74,7 @@
   flex-direction: row;
   justify-content: space-evenly;
   width: 100%;
+  margin-bottom: 1rem;
 }
 
 .details_title {
@@ -127,7 +129,7 @@
   display: flex;
   flex-direction: row;
   border-radius: 0.4rem;
-  margin-bottom: 16px;
+  margin-bottom: 28px;
   width: 100%;
   padding: 16px;
 }
@@ -332,7 +334,7 @@
   font-weight: 600;
   color: whitesmoke;
   top: -16%;
-  left: -4%;
+  left: 0;
 }
 
 .store_section {
@@ -418,8 +420,7 @@ input.store:checked+.store_slider:before {
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 32px;
-
+  margin-bottom: 0.4rem;
 }
 
 
