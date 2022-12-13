@@ -123,6 +123,7 @@
 
 /* Individual list items */
 .list_item_container {
+  position: relative;
   display: flex;
   flex-direction: row;
   border-radius: 0.4rem;
@@ -314,6 +315,23 @@
   justify-content: space-between;
   width: 100%;
   margin-bottom: 0.8rem;
+}
+
+.store_name {
+  position: absolute;
+  background-color: blue;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0 24px;
+  border-radius: 120px;
+  font-size: 0.8rem;
+  
+  text-align: center;
+  top: 0;
+  left: 0;
 }
 
 .store_section {
