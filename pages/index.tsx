@@ -19,7 +19,7 @@ export default function Mylist() {
   let [total, setTotal] = useState(0)
   let [checked, setChecked] = useState(0)
   let [itemNumber, setItemNumber] = useState<number>(0)
-  let [checkedNumber, setCheckedItemNumber] = useState<number>(0)
+  let [checkedNumber, setCheckedNumber] = useState<number>(0)
   let [editItem, setEditItem] = useState<itemProps | null>(null)
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export default function Mylist() {
     setTotal(listTotal)
     setChecked(checkedTotal)
     setItemNumber(listLength)
-    setCheckedItemNumber(checkedLength)
+    setCheckedNumber(checkedLength)
   }
 
   async function getItems() {
@@ -69,11 +69,11 @@ export default function Mylist() {
       </Head>
       <div className={styles.container}>
         <div className={styles.main}>
-          <div className={styles.nav}>
+          {/* <div className={styles.nav}>
             <Back />
             <SearchBar />
             <Menu />
-          </div>
+          </div> */}
           <div className={styles.header_section}>
             <h1 className={styles.heading}>My List</h1>
             <p>{itemNumber} &nbsp;<span className={styles.items}>{checkedNumber == 1 ? "item" : "items"}</span></p>
@@ -84,16 +84,16 @@ export default function Mylist() {
           </div>
           <ul className={`${styles.list_container} unchecked`}>
             {displayList.filter((item) => item.checked === false).map((item, index) => {
-              return <Item item={item} index={index} setEditing={setEditing} setEditItem={setEditItem}/>
+              return <Item item={item} index={index} setEditing={setEditing} setEditItem={setEditItem} />
             })}
           </ul>
-          <div className={styles.checked_section} style={{ 'color': '#999' }}>
+          <div className={styles.checked_section} style={{ 'color': '#999'/* , 'opacity': `${checkedNumber > 0 ? '1' : '0'}` /* For removing the header when the list is empty *\  */ }}>
             <h1 className={styles.heading}>Checked Items</h1>
             <p>{checkedNumber} &nbsp;<span className={styles.items}>{checkedNumber == 1 ? "item" : "items"}</span></p>
           </div>
           <ul className={`${styles.list_container} checked`}>
             {displayList.filter((item) => item.checked === true).map((item, index) => {
-              return <Item item={item} index={index} setEditing={setEditing} setEditItem={setEditItem}/>
+              return <Item item={item} index={index} setEditing={setEditing} setEditItem={setEditItem} />
             })}
           </ul>
           <Toolbar open={open} setOpen={setOpen} />
