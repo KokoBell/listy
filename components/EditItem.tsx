@@ -16,13 +16,15 @@ const EditItemModal = ({ editing, setEditing, item }: editProps) => {
     }, [])
 
     const handleStore = () => {
-        let cb = document.getElementById("store")
-        if (item.store_name != "") {
-            showStore(true)
-            cb!.checked = true
-        } else {
-            showStore(false)
-            cb!.checked = false
+        let cb = document.getElementById("store") as HTMLInputElement
+        if (cb != null) {
+            if (item.store_name != "") {
+                showStore(true)
+                cb!.checked = true
+            } else {
+                showStore(false)
+                cb!.checked = false
+            }
         }
     }
 
