@@ -13,6 +13,7 @@ const EditItemModal = ({ editing, setEditing, item }: editProps) => {
 
     useEffect(() => {
         handleStore()
+        handleButton()
     }, [])
 
     const handleStore = () => {
@@ -24,6 +25,17 @@ const EditItemModal = ({ editing, setEditing, item }: editProps) => {
             } else {
                 showStore(false)
                 cb!.checked = false
+            }
+        }
+    }
+
+    const handleButton = () => {
+        let editButton = document.getElementById('edit_item')
+        if (editButton != null) {
+            if (item.name != "") {
+                editButton.style.background = 'var(--primary)'
+            } else {
+                editButton.style.background = 'gray'
             }
         }
     }
