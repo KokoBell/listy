@@ -3,8 +3,8 @@ import inputProps from "../interfaces/inputProps"
 import supabase from "../supabase"
 import styles from '../styles/List.module.css'
 
-const Item = ({ item, index, setEditing, setEditItem  }: inputProps) => {
-  const [c, setC] = useState<boolean>(item.checked!)
+const Item = ({ item, index, setEditing, setEditItem }: inputProps) => {
+  const [isChecked, setIsChecked] = useState<boolean>(item.checked!)
 
   const deleteItem = async (event: any) => {
     event.preventDefault()
@@ -12,7 +12,7 @@ const Item = ({ item, index, setEditing, setEditItem  }: inputProps) => {
       const { error } = await supabase.from('items').delete().eq('id', item.id)
       if (error) throw error
       console.log("Product deleted!")
-      window.location.reload()
+      //window.location.reload()
     } catch (error: any) {
       alert(error.message)
     }
@@ -29,26 +29,28 @@ const Item = ({ item, index, setEditing, setEditItem  }: inputProps) => {
     }
   }
 
+  const handleCheck = (event: any) => {
+    item.checked = item.checked === true ? false : true
+    checkItem(item.checked)
+    if (item.checked === true) {
+      let section = document.getElementsByClassName('checked')[0]
+      let el = event.target.parentElement!
+      section.appendChild(el)
+      setIsChecked(true)
+    }
+
+    if (item.checked === false) {
+      let section = document.getElementsByClassName('unchecked')[0]
+      let el = event.target.parentElement!
+      section.appendChild(el)
+      setIsChecked(false)
+    }
+  }
+
   return (<><li key={index} className={styles.list_item_container} onDrag={(event) => {
     event.currentTarget.translate = true
   }}>
-    <input type="checkbox" className={styles.check_item} onChange={(event) => {
-      item.checked = item.checked === true ? false : true
-      checkItem(item.checked)
-      if (item.checked === true) {
-        let section = document.getElementsByClassName('checked')[0]
-        let el = event.target.parentElement!
-        section.appendChild(el)
-        setC(true)
-      }
-
-      if (item.checked === false) {
-        let section = document.getElementsByClassName('unchecked')[0]
-        let el = event.target.parentElement!
-        section.appendChild(el)
-        setC(false)
-      }
-    }} checked={c} />
+    <input type="checkbox" className={styles.check_item} onChange={(event) => { handleCheck(event) }} checked={isChecked} />
     <div className={styles.list_item}>
       <p className={styles.name_label}>{item.name}</p>
       <div className={styles.item_details}>
