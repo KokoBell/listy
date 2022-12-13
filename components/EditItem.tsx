@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import editProps from '../interfaces/editProps'
 import itemProps from '../interfaces/itemProps'
 import styles from '../styles/List.module.css'
@@ -8,8 +8,23 @@ const EditItemModal = ({ editing, setEditing, item }: editProps) => {
     let [name, setName] = useState<string>(item.name)
     let [price, setPrice] = useState<number>(item.price)
     let [quantity, setQuantity] = useState<number>(item.quantity!)
-    let [store, showStore] = useState<boolean>(item.storeName === '' ? true : false)
-    let [storeName, setStoreName] = useState<string>(item.storeName!)
+    let [store, showStore] = useState<boolean>(false)
+    let [store_name, setStoreName] = useState<string>(item.store_name!)
+
+    useEffect(() => {
+        handleStore()
+    }, [])
+
+    const handleStore = () => {
+        let cb = document.getElementById("store")
+        if (item.store_name != "") {
+            showStore(true)
+            cb!.checked = true
+        } else {
+            showStore(false)
+            cb!.checked = false
+        }
+    }
 
     const filterNum = (str: string) => {
         const numericalChar = new Set([",", ".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]);
@@ -36,8 +51,8 @@ const EditItemModal = ({ editing, setEditing, item }: editProps) => {
         }
     }
 
-    async function editItem({ name, price, quantity, storeName }: itemProps) {
-        const data = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': storeName, 'units': 'none', 'notes': 'none' }
+    async function editItem({ name, price, quantity, store_name }: itemProps) {
+        const data = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': store_name, 'units': 'none', 'notes': 'none' }
         try {
             const { error } = await supabase.from('items').update(data).eq('id', item.id)
             if (error) throw error
@@ -71,12 +86,12 @@ const EditItemModal = ({ editing, setEditing, item }: editProps) => {
             <div className={styles.quantity_section}>
                 <div className={styles.quantity_input}>
                     <p className={styles.input_label}>How many?</p>
-                    <input className={styles.item_quantity} placeholder="e.g. 3" type="text" onChange={(event) => { setQuantity(parseFloat(filterNum(event.target.value))) }} />
+                    <input className={styles.item_quantity} defaultValue={item.quantity} placeholder="e.g. 3" type="text" onChange={(event) => { setQuantity(parseFloat(filterNum(event.target.value))) }} />
                 </div>
                 <div className={styles.store_toggle}>
                     <p className={styles.input_label}>Show Store</p>
                     <label className={styles.store_switch}>
-                        <input className={styles.store} type="checkbox" onChange={() => { showStore(!store) }} />
+                        <input id="store" className={styles.store} type="checkbox" onChange={() => { showStore(!store) }} />
                         <span className={styles.store_slider}></span>
                     </label>
                 </div>
@@ -84,13 +99,13 @@ const EditItemModal = ({ editing, setEditing, item }: editProps) => {
             <div className={styles.store_section}>
                 {store && <div className={styles.store_input}>
                     <p className={styles.input_label}>Store Name</p>
-                    <input className={styles.store_name} type="text" onChange={(event) => { setStoreName(event.target.value) }} />
+                    <input className={styles.store_name} defaultValue={item.store_name} type="text" onChange={(event) => { setStoreName(event.target.value) }} />
                 </div>}
 
             </div>
             <button id="edit_item" className={styles.add_item} onClick={() => {
                 if (filterName(name)) {
-                    editItem({ name, price, quantity, storeName })
+                    editItem({ name, price, quantity, store_name })
                 }
                 setEditing(false)
             }}>Update Item</button>

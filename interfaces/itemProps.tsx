@@ -4,7 +4,7 @@ interface itemProps {
     price: number,
     quantity?: number,
     checked?: boolean,
-    storeName?: string,
+    store_name?: string,
   }
 
 export default itemProps
