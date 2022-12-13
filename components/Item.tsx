@@ -68,7 +68,7 @@ const Item = ({ item, index, setEditing, setEditItem }: inputProps) => {
         }}><img src="/icons/delete.svg" alt="Delete this item"></img></button>
       </div>
     </div>
-    {item.store_name != "" && <p className={styles.store_name}>{item.store_name}</p>}
+    {item.store_name != "" && <p className={styles.store_name_bubble}>{item.store_name}</p>}
   </li>
   </>)
 }
