@@ -40,20 +40,7 @@ export default function Mylist() {
     setCheckedNumber(checkedLength)
   }
 
-  async function getItems() {
-    try {
-      const { data, error } = await supabase.from('items').select()
-      if (error) throw error
-      if (data != null) {
-        setDisplayList(data)
-        updateTotals(data)
-        setStorage(JSON.stringify(data))
-      }
-    } catch (error: any) {
-      getStorage()
-      console.error(error.message)
-    }
-  }
+
 
   function getStorage() {
     let lStorage = window.localStorage
@@ -61,8 +48,23 @@ export default function Mylist() {
   }
 
   useEffect(() => {
+    async function getItems() {
+      try {
+        const { data, error } = await supabase.from('items').select()
+        if (error) throw error
+        if (data != null) {
+          setDisplayList(data)
+          updateTotals(data)
+          setStorage(JSON.stringify(data))
+        }
+      } catch (error: any) {
+        getStorage()
+        console.error(error.message)
+      }
+    }
+
     getItems()
-  }, [getItems])
+  }, [])
 
   return (
     <>

@@ -47,7 +47,7 @@ const Item = ({ item, index, setEditing, setEditItem }: inputProps) => {
     }
   }
 
-  return (<><li key={index} className={styles.list_item_container} onDrag={(event) => {
+  return (<li key={index} className={styles.list_item_container} onDrag={(event) => {
     event.currentTarget.translate = true
   }}>
     <input type="checkbox" className={styles.check_item} onChange={(event) => { handleCheck(event) }} checked={isChecked} />
@@ -69,8 +69,7 @@ const Item = ({ item, index, setEditing, setEditItem }: inputProps) => {
       </div>
     </div>
     {item.store_name != "" && <p className={styles.store_name_bubble}>{item.store_name}</p>}
-  </li>
-  </>)
+  </li>)
 }
 
 export default Item
