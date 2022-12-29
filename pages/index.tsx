@@ -62,7 +62,7 @@ export default function Mylist() {
 
   useEffect(() => {
     getItems()
-  }, [])
+  }, [getItems])
 
   return (
     <>
