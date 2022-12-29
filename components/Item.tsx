@@ -14,7 +14,7 @@ const Item = ({ item, index, setEditing, setEditItem }: inputProps) => {
       console.log("Product deleted!")
       //window.location.reload()
     } catch (error: any) {
-      alert(error.message)
+      console.error(error.message)
     }
   }
 
@@ -25,7 +25,7 @@ const Item = ({ item, index, setEditing, setEditItem }: inputProps) => {
       console.log("Product checked!")
       //window.location.reload()
     } catch (error: any) {
-      alert(error.message)
+      console.error(error.message)
     }
   }
 

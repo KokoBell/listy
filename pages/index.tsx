@@ -1,12 +1,9 @@
 import Head from "next/head"
 import { useEffect, useState } from "react"
 import AddItemModal from "../components/AddItem"
-import Back from "../components/Back"
 import Details from "../components/Details"
 import EditItemModal from "../components/EditItem"
 import Item from "../components/Item"
-import Menu from "../components/Menu"
-import SearchBar from "../components/Search"
 import Toolbar from "../components/Toolbar"
 import itemProps from "../interfaces/itemProps"
 import styles from '../styles/List.module.css'
@@ -55,7 +52,7 @@ export default function Mylist() {
         updateTotals(data)
       }
     } catch (error: any) {
-      alert(error.message)
+      console.error(error.message)
     }
   }
 
