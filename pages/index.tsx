@@ -43,7 +43,8 @@ export default function Mylist() {
   useEffect(() => {
     const checkOnlineStatus = async () => {
       try {
-        const online = await fetch("https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png");
+        const online = await fetch("https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png")
+        console.log(online)
         return online.status >= 200 && online.status < 300; // either true or false
       } catch (err) {
         return false; // definitely offline
