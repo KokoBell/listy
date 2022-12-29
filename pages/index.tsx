@@ -40,15 +40,23 @@ export default function Mylist() {
     setCheckedNumber(checkedLength)
   }
 
-
-
-  function getStorage() {
-    let lStorage = window.localStorage
-    console.log(lStorage)
-  }
-
   useEffect(() => {
+    const checkOnlineStatus = async () => {
+      try {
+        const online = await fetch("/1pixel.png");
+        return online.status >= 200 && online.status < 300; // either true or false
+      } catch (err) {
+        return false; // definitely offline
+      }
+    }
+
+    function getStorage() {
+      //let lStorage = window.localStorage
+      console.log('Get the storage')
+    }
+
     async function getItems() {
+
       try {
         const { data, error } = await supabase.from('items').select()
         if (error) throw error
@@ -58,12 +66,21 @@ export default function Mylist() {
           setStorage(JSON.stringify(data))
         }
       } catch (error: any) {
-        getStorage()
-        console.error(error.message)
+        console.error(error)
       }
     }
 
-    getItems()
+    async function checkNetwork() {
+      let online = await checkOnlineStatus()
+      if (online) {
+        getItems()
+      } else {
+        console.log(online)
+        getStorage()
+      }
+    }
+
+    checkNetwork()
   }, [])
 
   return (
