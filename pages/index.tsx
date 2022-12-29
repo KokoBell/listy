@@ -19,6 +19,7 @@ export default function Mylist() {
   let [checkedNumber, setCheckedNumber] = useState<number>(0)
   let [editItem, setEditItem] = useState<itemProps | null>(null)
   let [storage, setStorage] = useState('')
+  let [online, setOnline] = useState(true)
 
   const updateTotals = (data: any[]) => {
     let listTotal = 0
@@ -41,15 +42,6 @@ export default function Mylist() {
   }
 
   useEffect(() => {
-    const checkOnlineStatus = async () => {
-      try {
-        const online = await fetch("https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png")
-        console.log(online)
-        return online.status >= 200 && online.status < 300; // either true or false
-      } catch (err) {
-        return false; // definitely offline
-      }
-    }
 
     function getStorage() {
       //let lStorage = window.localStorage
@@ -70,18 +62,16 @@ export default function Mylist() {
         console.error(error)
       }
     }
-
-    async function checkNetwork() {
-      let online = await checkOnlineStatus()
-      if (online) {
-        getItems()
-      } else {
-        console.log(online)
-        getStorage()
-      }
-    }
-
-    checkNetwork()
+    window.addEventListener('online', () => {
+      setOnline(true)
+      getItems()
+      console.log('Became online')
+    })
+    window.addEventListener('offline', () => {
+      setOnline(false)
+      getStorage()
+      console.log('Became offline')
+    })
   }, [])
 
   return (
