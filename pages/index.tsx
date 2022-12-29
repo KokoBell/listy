@@ -43,15 +43,15 @@ export default function Mylist() {
 
   useEffect(() => {
 
-    function getStorage() {
+    const getStorage = async () => {
       //let lStorage = window.localStorage
       console.log('Get the storage')
     }
 
-    async function getItems() {
-
+    const getItems = async () => {
       try {
         const { data, error } = await supabase.from('items').select()
+        console.log(data)
         if (error) throw error
         if (data != null) {
           setDisplayList(data)
@@ -62,12 +62,19 @@ export default function Mylist() {
         console.error(error)
       }
     }
-    window.addEventListener('online', () => {
+    if (navigator.onLine) {
+      setOnline(true)
+      getItems()
+    } else {
+      setOnline(false)
+      getStorage()
+    }
+    window.addEventListener('online', async () => {
       setOnline(true)
       getItems()
       console.log('Became online')
     })
-    window.addEventListener('offline', () => {
+    window.addEventListener('offline', async () => {
       setOnline(false)
       getStorage()
       console.log('Became offline')
