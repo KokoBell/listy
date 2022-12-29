@@ -89,20 +89,20 @@ export default function Mylist() {
             <Details title="Total:" type="total" total={total} />
             <Details title="Checkout:" type="checked" checked={checked} />
           </div>
-          <ul className={`${styles.list_container} unchecked`}>
-            {displayList.filter((item) => item.checked === false).map((item, index) => {
-              return <Item item={item} index={index} setEditing={setEditing} setEditItem={setEditItem} />
+          <section className={`${styles.list_container} unchecked`}>
+            {displayList.filter((item) => item.checked === false).map((item) => {
+              return <Item key={item.id.toString()} item={item} setEditing={setEditing} setEditItem={setEditItem} />
             })}
-          </ul>
+          </section>
           <div className={styles.checked_section} style={{ 'color': '#999'/* , 'opacity': `${checkedNumber > 0 ? '1' : '0'}` /* For removing the header when the list is empty *\  */ }}>
             <h1 className={styles.heading}>Checked Items</h1>
             <p>{checkedNumber} &nbsp;<span className={styles.items}>{checkedNumber == 1 ? "item" : "items"}</span></p>
           </div>
-          <ul className={`${styles.list_container} checked`}>
-            {displayList.filter((item) => item.checked === true).map((item, index) => {
-              return <Item item={item} index={index} setEditing={setEditing} setEditItem={setEditItem} />
+          <section className={`${styles.list_container} checked`}>
+            {displayList.filter((item) => item.checked === true).map((item) => {
+              return <Item key={item.id.toString()} item={item} setEditing={setEditing} setEditItem={setEditItem} />
             })}
-          </ul>
+          </section>
           <Toolbar open={open} setOpen={setOpen} />
         </div>
         {open && <AddItemModal open={open} setOpen={setOpen} />}

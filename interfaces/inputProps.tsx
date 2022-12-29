@@ -2,8 +2,8 @@ import itemProps from "./itemProps"
 
 interface inputProps {
     item: itemProps,
-    index: number,
     setEditing: Function,
+    key: string
     setEditItem: Function
 }
 

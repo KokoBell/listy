@@ -3,7 +3,7 @@ import inputProps from "../interfaces/inputProps"
 import supabase from "../supabase"
 import styles from '../styles/List.module.css'
 
-const Item = ({ item, index, setEditing, setEditItem }: inputProps) => {
+const Item = ({ item, setEditing, setEditItem }: inputProps) => {
   const [isChecked, setIsChecked] = useState<boolean>(item.checked!)
 
   const deleteItem = async (event: any) => {
@@ -47,9 +47,7 @@ const Item = ({ item, index, setEditing, setEditItem }: inputProps) => {
     }
   }
 
-  return (<li key={index} className={styles.list_item_container} onDrag={(event) => {
-    event.currentTarget.translate = true
-  }}>
+  return (<div className={styles.list_item_container}>
     <input type="checkbox" className={styles.check_item} onChange={(event) => { handleCheck(event) }} checked={isChecked} />
     <div className={styles.list_item}>
       <p className={styles.name_label}>{item.name}</p>
@@ -69,7 +67,7 @@ const Item = ({ item, index, setEditing, setEditItem }: inputProps) => {
       </div>
     </div>
     {item.store_name != "" && <p className={styles.store_name_bubble}>{item.store_name}</p>}
-  </li>)
+  </div>)
 }
 
 export default Item
