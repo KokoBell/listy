@@ -18,10 +18,7 @@ export default function Mylist() {
   let [itemNumber, setItemNumber] = useState<number>(0)
   let [checkedNumber, setCheckedNumber] = useState<number>(0)
   let [editItem, setEditItem] = useState<itemProps | null>(null)
-
-  useEffect(() => {
-    getItems()
-  }, [])
+  let [storage, setStorage] = useState('')
 
   const updateTotals = (data: any[]) => {
     let listTotal = 0
@@ -50,11 +47,22 @@ export default function Mylist() {
       if (data != null) {
         setDisplayList(data)
         updateTotals(data)
+        setStorage(JSON.stringify(data))
       }
     } catch (error: any) {
+      getStorage()
       console.error(error.message)
     }
   }
+
+  function getStorage() {
+    let lStorage = window.localStorage
+    console.log(lStorage)
+  }
+
+  useEffect(() => {
+    getItems()
+  }, [])
 
   return (
     <>
