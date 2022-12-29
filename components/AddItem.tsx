@@ -36,7 +36,7 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
         }
     }
 
-    async function addItem({ name, price, quantity, storeName }: itemProps) {
+    async function addItem({ name, price, quantity, store_name }: itemProps) {
         const data = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': storeName, 'units': 'none', 'notes': 'none' }
         try {
             const { error } = await supabase.from('items').insert(data).single()
@@ -90,7 +90,7 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
             </div>
             <button id="add_item" className={styles.add_item} onClick={() => {
                 if (filterName(name)) {
-                    addItem({ name, price, quantity, storeName })
+                    addItem({ name, price, quantity, 'store_name': storeName })
                     setOpen(false)
                     setName('')
                     setPrice(0)
