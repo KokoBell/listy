@@ -18,8 +18,6 @@ export default function Mylist() {
   let [itemNumber, setItemNumber] = useState<number>(0)
   let [checkedNumber, setCheckedNumber] = useState<number>(0)
   let [editItem, setEditItem] = useState<itemProps | null>(null)
-  let [storage, setStorage] = useState('')
-  let [online, setOnline] = useState(true)
 
   const updateTotals = (data: any[]) => {
     let listTotal = 0
@@ -42,40 +40,43 @@ export default function Mylist() {
   }
 
   useEffect(() => {
+    const cacheData = (data: any[]) => {
+      window.localStorage.setItem('mylist', JSON.stringify(data))
+    }
 
     const getStorage = async () => {
-      //let lStorage = window.localStorage
-      console.log('Get the storage')
+      let store = window.localStorage.getItem('mylist')
+      if (store != null) {
+        let localList = JSON.parse(store)
+        setDisplayList(localList)
+        updateTotals(localList)
+        console.log('Local list: ', localList)
+      }
     }
 
     const getItems = async () => {
       try {
         const { data, error } = await supabase.from('items').select()
-        console.log(data)
         if (error) throw error
         if (data != null) {
           setDisplayList(data)
           updateTotals(data)
-          setStorage(JSON.stringify(data))
+          cacheData(data)
         }
       } catch (error: any) {
         console.error(error)
       }
     }
     if (navigator.onLine) {
-      setOnline(true)
       getItems()
     } else {
-      setOnline(false)
       getStorage()
     }
     window.addEventListener('online', async () => {
-      setOnline(true)
       getItems()
       console.log('Became online')
     })
     window.addEventListener('offline', async () => {
-      setOnline(false)
       getStorage()
       console.log('Became offline')
     })
