@@ -478,7 +478,7 @@ input.store:checked+.store_slider:before {
 
   .item_container {
     width: 100%;
-    padding: 0 12px;
+    padding: 16px 12px;
     margin-top: 0;
   }
 }
