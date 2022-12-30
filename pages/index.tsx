@@ -72,10 +72,14 @@ export default function Mylist() {
     } else {
       getStorage()
     }
+
+    // Detect when the window is online and fetch data from the database 
     window.addEventListener('online', async () => {
       getItems()
       console.log('Became online')
     })
+
+    // Detect when the window is offline and fallback to the cache
     window.addEventListener('offline', async () => {
       getStorage()
       console.log('Became offline')

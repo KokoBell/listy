@@ -37,12 +37,12 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
     }
 
     async function addItem({ name, price, quantity, store_name }: itemProps) {
-        const data = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': storeName, 'units': 'none', 'notes': 'none' }
+        const data = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': store_name, 'units': '1', 'notes': '' }
         try {
             const { error } = await supabase.from('items').insert(data).single()
             if (error) throw error
             console.log("Product added!")
-            window.location.reload()
+            //window.location.reload()
         } catch (error: any) {
             alert(error.message)
         }
