@@ -321,8 +321,8 @@
 
 .store_name_bubble {
   position: absolute;
-  background-color: blue;
-  width: fit-content;
+  background-color: rgb(208, 208, 224);
+  min-width: fit-content;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -332,7 +332,7 @@
   font-size: 0.8rem;
   text-align: center;
   font-weight: 600;
-  color: whitesmoke;
+  color: blue;
   top: -16%;
   left: 0;
 }
@@ -516,6 +516,10 @@ input.store:checked+.store_slider:before {
 
   .toolbar {
     background: black;
+  }
+
+  .store_name_bubble {
+    background-color: #333;
   }
 
   .tool_action:hover {
