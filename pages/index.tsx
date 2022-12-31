@@ -67,7 +67,7 @@ export default function Mylist() {
         console.error(error)
       }
     }
-    
+
     if (navigator.onLine) {
       getItems()
     } else {
@@ -80,6 +80,7 @@ export default function Mylist() {
       console.log('Became online')
 
       // Fetch updates from the localStorage
+      let store = JSON.parse(window.localStorage.getItem('mylist')!)
 
       // For each item that deleted while offline, delete from the database
 
