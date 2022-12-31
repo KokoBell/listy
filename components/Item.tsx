@@ -57,14 +57,14 @@ const Item = ({ item, setEditing, setEditItem }: inputProps) => {
     if (item.checked === true) {
       let section = document.getElementsByClassName('checked')[0]
       let el = event.target.parentElement!
-      section.appendChild(thisItem.current)
+      section.appendChild(thisItem.current as Node)
       setIsChecked(true)
     }
 
     if (item.checked === false) {
       let section = document.getElementsByClassName('unchecked')[0]
       let el = event.target.parentElement!
-      section.appendChild(thisItem.current)
+      section.appendChild(thisItem.current as Node)
       setIsChecked(false)
     }
   }
