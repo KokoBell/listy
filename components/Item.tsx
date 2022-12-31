@@ -47,9 +47,7 @@ const Item = ({ item, setEditing, setEditItem }: inputProps) => {
       console.log("Product checked!")
       //window.location.reload()
     } catch (error: any) {
-      console.log('Cannot check in supabase')
-      //console.error(error.message)
-      checkFromStorage()
+      console.error(error.message)
     }
   }
 
@@ -58,7 +56,7 @@ const Item = ({ item, setEditing, setEditItem }: inputProps) => {
     let store = JSON.parse(window.localStorage.getItem('mylist')!)
     if (store != null) {
       store = store.map((storeItem: itemProps) => {
-        if(item.id==storeItem.id){
+        if (item.id == storeItem.id) {
           storeItem.checked = item.checked
         }
       })
@@ -79,7 +77,12 @@ const Item = ({ item, setEditing, setEditItem }: inputProps) => {
       section.appendChild(thisItem.current as Node)
       setIsChecked(false)
     }
-    checkItem(item.checked)
+    if (navigator.onLine) {
+      checkItem(item.checked)
+    } else {
+      checkFromStorage()
+    }
+
   }
 
   return (<div className={styles.list_item_container} ref={thisItem}>
