@@ -77,12 +77,21 @@ export default function Mylist() {
     window.addEventListener('online', async () => {
       getItems()
       console.log('Became online')
+
+      // Fetch updates from the localStorage
+
+      // For each item that deleted while offline, delete from the database
+
+      // For each item that updated while offline, update from the database
+
+      // For each item that added while offline, add from the database
     })
 
     // Detect when the window is offline and fallback to the cache
     window.addEventListener('offline', async () => {
       getStorage()
       console.log('Became offline')
+      // Switch to using localStorage as the database
     })
   }, [])
 

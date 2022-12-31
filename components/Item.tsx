@@ -1,21 +1,43 @@
-import { useState } from "react"
+import { LegacyRef, useRef, useState } from "react"
 import inputProps from "../interfaces/inputProps"
 import supabase from "../supabase"
 import styles from '../styles/List.module.css'
+import itemProps from "../interfaces/itemProps"
 
 const Item = ({ item, setEditing, setEditItem }: inputProps) => {
   const [isChecked, setIsChecked] = useState<boolean>(item.checked!)
+  const thisItem = useRef<HTMLDivElement | Node>(null)
 
   const deleteItem = async (event: any) => {
     event.preventDefault()
     try {
+      // Remove item from the UI
+      thisItem.current?.remove()
+
+      // Remove item from database 
       const { error } = await supabase.from('items').delete().eq('id', item.id)
       if (error) throw error
       console.log("Product deleted!")
+
       //window.location.reload()
     } catch (error: any) {
       console.error(error.message)
+
+      // Remove item from the UI
+      thisItem.current?.remove()
+
+      //Remove item from localStorage
+      deleteFromStorage()
     }
+  }
+
+  const deleteFromStorage = () => {
+    let store = JSON.parse(window.localStorage.getItem('mylist')!)
+    if (store != null) {
+      store = store.filter((storeItem: itemProps) => storeItem.id != item.id)
+    }
+    window.localStorage.setItem('mylist', JSON.stringify(store))
+    console.log(store)
   }
 
   const checkItem = async (isChecked: boolean) => {
@@ -35,19 +57,19 @@ const Item = ({ item, setEditing, setEditItem }: inputProps) => {
     if (item.checked === true) {
       let section = document.getElementsByClassName('checked')[0]
       let el = event.target.parentElement!
-      section.appendChild(el)
+      section.appendChild(thisItem.current)
       setIsChecked(true)
     }
 
     if (item.checked === false) {
       let section = document.getElementsByClassName('unchecked')[0]
       let el = event.target.parentElement!
-      section.appendChild(el)
+      section.appendChild(thisItem.current)
       setIsChecked(false)
     }
   }
 
-  return (<div className={styles.list_item_container}>
+  return (<div className={styles.list_item_container} ref={thisItem}>
     <input type="checkbox" className={styles.check_item} onChange={(event) => { handleCheck(event) }} checked={isChecked} />
     <div className={styles.list_item}>
       <p className={styles.name_label}>{item.name}</p>
