@@ -44,7 +44,7 @@ export default function Mylist() {
       window.localStorage.setItem('mylist', JSON.stringify(data))
     }
 
-    const getStorage = async () => {
+    const getStorage = () => {
       let store = window.localStorage.getItem('mylist')
       if (store != null) {
         let localList = JSON.parse(store)
@@ -67,6 +67,7 @@ export default function Mylist() {
         console.error(error)
       }
     }
+    
     if (navigator.onLine) {
       getItems()
     } else {
