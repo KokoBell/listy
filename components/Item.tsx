@@ -6,7 +6,7 @@ import itemProps from "../interfaces/itemProps"
 
 const Item = ({ item, setEditing, setEditItem }: inputProps) => {
   const [isChecked, setIsChecked] = useState<boolean>(item.checked!)
-  const thisItem = useRef<HTMLDivElement | Node>(null)
+  const thisItem = useRef<HTMLDivElement>(null)
 
   const deleteItem = async (event: any) => {
     event.preventDefault()
