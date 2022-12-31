@@ -53,18 +53,18 @@ const Item = ({ item, setEditing, setEditItem }: inputProps) => {
 
   const handleCheck = (event: any) => {
     item.checked = item.checked === true ? false : true
-    checkItem(item.checked)
     if (item.checked === true) {
       let section = document.getElementsByClassName('checked')[0]
       section.appendChild(thisItem.current as Node)
       setIsChecked(true)
     }
-
     if (item.checked === false) {
       let section = document.getElementsByClassName('unchecked')[0]
       section.appendChild(thisItem.current as Node)
       setIsChecked(false)
     }
+
+    checkItem(item.checked)
   }
 
   return (<div className={styles.list_item_container} ref={thisItem}>
