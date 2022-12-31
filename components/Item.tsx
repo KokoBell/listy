@@ -10,28 +10,31 @@ const Item = ({ item, setEditing, setEditItem }: inputProps) => {
 
   const deleteItem = async (event: any) => {
     event.preventDefault()
-    try {
-      // Remove item from the UI
-      thisItem.current?.remove()
+    if (navigator.onLine) {
+      try {
+        // Remove item from the UI
+        thisItem.current?.remove()
 
-      // Remove item from database 
-      const { error } = await supabase.from('items').delete().eq('id', item.id)
-      if (error) throw error
-      console.log("Product deleted!")
+        // Remove item from database 
+        const { error } = await supabase.from('items').delete().eq('id', item.id)
+        if (error) throw error
+        console.log("Product deleted!")
 
-      //window.location.reload()
-    } catch (error: any) {
-      console.error(error.message)
-
-      // Remove item from the UI
-      thisItem.current?.remove()
-
+        //window.location.reload()
+      } catch (error: any) {
+        console.error(error.message)
+      }
+    } else {
       //Remove item from localStorage
       deleteFromStorage()
     }
+
   }
 
   const deleteFromStorage = () => {
+    // Remove item from the UI
+    thisItem.current?.remove()
+
     let store = JSON.parse(window.localStorage.getItem('mylist')!)
     if (store != null) {
       store = store.filter((storeItem: itemProps) => storeItem.id != item.id)
@@ -55,7 +58,7 @@ const Item = ({ item, setEditing, setEditItem }: inputProps) => {
     console.log('Checking in storage...')
     let store = JSON.parse(window.localStorage.getItem('mylist')!)
     if (store != null) {
-      store = store.map((storeItem: itemProps) => {
+      store.forEach((storeItem: itemProps) => {
         if (item.id == storeItem.id) {
           storeItem.checked = item.checked
         }
