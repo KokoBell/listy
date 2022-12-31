@@ -19,7 +19,8 @@ const Item = ({ item, setEditing, setEditItem }: inputProps) => {
         const { error } = await supabase.from('items').delete().eq('id', item.id)
         if (error) throw error
         console.log("Product deleted!")
-
+        
+        deleteFromStorage()
         //window.location.reload()
       } catch (error: any) {
         console.error(error.message)
@@ -82,6 +83,7 @@ const Item = ({ item, setEditing, setEditItem }: inputProps) => {
     }
     if (navigator.onLine) {
       checkItem(item.checked)
+      checkFromStorage()
     } else {
       checkFromStorage()
     }
