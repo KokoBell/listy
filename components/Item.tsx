@@ -19,7 +19,7 @@ const Item = ({ item, setEditing, setEditItem }: inputProps) => {
         const { error } = await supabase.from('items').delete().eq('id', item.id)
         if (error) throw error
         console.log("Product deleted!")
-        
+
         deleteFromStorage()
         //window.location.reload()
       } catch (error: any) {
@@ -69,7 +69,7 @@ const Item = ({ item, setEditing, setEditItem }: inputProps) => {
     console.log(store)
   }
 
-  const handleCheck = (event: any) => {
+  const handleCheck = () => {
     item.checked = item.checked === true ? false : true
     if (item.checked === true) {
       let section = document.getElementsByClassName('checked')[0]
@@ -91,7 +91,7 @@ const Item = ({ item, setEditing, setEditItem }: inputProps) => {
   }
 
   return (<div className={styles.list_item_container} ref={thisItem}>
-    <input type="checkbox" className={styles.check_item} onChange={(event) => { handleCheck(event) }} checked={isChecked} />
+    <input type="checkbox" className={styles.check_item} onChange={(event) => { handleCheck() }} checked={isChecked} />
     <div className={styles.list_item}>
       <p className={styles.name_label}>{item.name}</p>
       <div className={styles.item_details}>
