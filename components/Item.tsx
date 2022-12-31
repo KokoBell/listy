@@ -1,4 +1,4 @@
-import { LegacyRef, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import inputProps from "../interfaces/inputProps"
 import supabase from "../supabase"
 import styles from '../styles/List.module.css'
