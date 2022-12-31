@@ -58,7 +58,7 @@ const Item = ({ item, setEditing, setEditItem }: inputProps) => {
     console.log('Checking in storage...')
     let store = JSON.parse(window.localStorage.getItem('mylist')!)
     if (store != null) {
-      store.forEach((storeItem: itemProps) => {
+      store = store.map((storeItem: itemProps) => {
         if (item.id == storeItem.id) {
           storeItem.checked = item.checked
         }
