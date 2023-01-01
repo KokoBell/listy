@@ -39,9 +39,30 @@ export default function Mylist() {
     setCheckedNumber(checkedLength)
   }
 
+
+
   useEffect(() => {
     const cacheData = (data: any[]) => {
       window.localStorage.setItem('mylist', JSON.stringify(data))
+    }
+
+    const updateFromStorage = async (list: any[]) => {
+      let store = JSON.parse(window.localStorage.getItem('mylist')!)
+
+      // For each item that deleted while offline, delete from the database
+      list!.forEach(async (listItem) => {
+        store.indexOf()
+      })
+      console.log(store)
+    }
+
+    const deleteFromStorage = (item: itemProps) => {
+      let store = JSON.parse(window.localStorage.getItem('mylist')!)
+      if (store != null) {
+        store = store.filter((storeItem: itemProps) => storeItem.id != item.id)
+      }
+      window.localStorage.setItem('mylist', JSON.stringify(store))
+      console.log(store)
     }
 
     const getStorage = () => {
@@ -61,10 +82,16 @@ export default function Mylist() {
         if (data != null) {
           setDisplayList(data)
           updateTotals(data)
-          cacheData(data)
+          if (window.localStorage.getItem('mylist') == null) {
+            cacheData(data)
+          } else {
+            updateFromStorage(data)
+          }
+          return data
         }
       } catch (error: any) {
         console.error(error)
+        setDisplayList([])
       }
     }
 
@@ -75,14 +102,12 @@ export default function Mylist() {
     }
 
     // Detect when the window is online and fetch data from the database 
-    window.addEventListener('online', async () => {
-      getItems()
+    window.addEventListener('online', () => {
       console.log('Became online')
 
+      getItems()
+      updateFromStorage(displayList)
       // Fetch updates from the localStorage
-      let store = JSON.parse(window.localStorage.getItem('mylist')!)
-
-      // For each item that deleted while offline, delete from the database
 
       // For each item that updated while offline, update from the database
 

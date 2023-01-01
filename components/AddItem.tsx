@@ -37,14 +37,25 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
     }
 
     async function addItem({ name, price, quantity, store_name }: itemProps) {
-        const data = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': store_name, 'units': '1', 'notes': '' }
+        let store = JSON.parse(window.localStorage.getItem('mylist')!)
+        const itemData = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': store_name, 'units': '1', 'notes': '' }
+
         try {
-            const { error } = await supabase.from('items').insert(data).single()
+            const { error } = await supabase.from('items').insert(itemData).single()
             if (error) throw error
             console.log("Product added!")
-            //window.location.reload()
         } catch (error: any) {
-            alert(error.message)
+            console.error(error.message)
+        }
+
+        try {
+            const { data, error } = await supabase.from('items').select().eq('name', name)
+            if (store != null) {
+                store.push(data)
+                window.localStorage.setItem('mylist', JSON.stringify(store))
+            }
+        } catch (error: any) {
+            console.error(error.message)
         }
     }
 
