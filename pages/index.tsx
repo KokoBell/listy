@@ -50,19 +50,9 @@ export default function Mylist() {
       let store = JSON.parse(window.localStorage.getItem('mylist')!)
 
       // For each item that deleted while offline, delete from the database
-      list!.forEach(async (listItem) => {
-        store.indexOf()
-      })
-      console.log(store)
-    }
 
-    const deleteFromStorage = (item: itemProps) => {
-      let store = JSON.parse(window.localStorage.getItem('mylist')!)
-      if (store != null) {
-        store = store.filter((storeItem: itemProps) => storeItem.id != item.id)
-      }
-      window.localStorage.setItem('mylist', JSON.stringify(store))
-      console.log(store)
+
+      console.log(store, list)
     }
 
     const getStorage = () => {
@@ -71,7 +61,6 @@ export default function Mylist() {
         let localList = JSON.parse(store)
         setDisplayList(localList)
         updateTotals(localList)
-        console.log('Local list: ', localList)
       }
     }
 
