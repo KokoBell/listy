@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import inputProps from '../interfaces/inputProps'
 import itemProps from '../interfaces/itemProps'
 import openProps from '../interfaces/openProps'
 import styles from '../styles/List.module.css'
@@ -36,9 +37,14 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
         }
     }
 
+    const addToStorage = (data: itemProps | any[]) => {
+        let store = JSON.parse(window.localStorage.getItem('mylist')!)
+        store.push(data)
+        window.localStorage.setItem('mylist', JSON.stringify(store))
+    }
+
     async function addItem({ name, price, quantity, store_name }: itemProps) {
         const itemData = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': store_name, 'units': '1', 'notes': '' }
-
         try {
             const { error } = await supabase.from('items').insert(itemData).single()
             if (error) throw error
@@ -46,6 +52,21 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
         } catch (error: any) {
             console.error(error.message)
         }
+
+        if (navigator.onLine) {
+            try {
+                const { data, error } = await supabase.from('items').select().eq('name', name)
+                if (error) throw error
+                addToStorage(data[0])
+                console.log("Product added to storage!")
+            } catch (error: any) {
+                console.error(error.message)
+            }
+        } else {
+            addToStorage(itemData)
+            console.log("Product added to storage!")
+        }
+
     }
 
     return (<>
