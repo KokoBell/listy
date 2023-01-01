@@ -39,6 +39,7 @@ const AddItemModal = ({ open, setOpen, setDisplayList }: inputProps) => {
     const addToStorage = (data: itemProps | any[]) => {
         let store = JSON.parse(window.localStorage.getItem('mylist')!)
         store.push(data)
+        setDisplayList(store)
         window.localStorage.setItem('mylist', JSON.stringify(store))   
     }
 
