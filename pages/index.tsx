@@ -146,7 +146,7 @@ export default function Mylist() {
           </div>
           <section className={`${styles.list_container} unchecked`}>
             {displayList.filter((item) => item.checked === false).map((item) => {
-              return <Item key={item.id.toString()} item={item} setEditing={setEditing} setEditItem={setEditItem} />
+              return <Item key={item.name} item={item} setEditing={setEditing} setEditItem={setEditItem} />
             })}
           </section>
           <div className={styles.checked_section} style={{ 'color': '#999'/* , 'opacity': `${checkedNumber > 0 ? '1' : '0'}` /* For removing the header when the list is empty *\  */ }}>
@@ -155,7 +155,7 @@ export default function Mylist() {
           </div>
           <section className={`${styles.list_container} checked`}>
             {displayList.filter((item) => item.checked === true).map((item) => {
-              return <Item key={item.id.toString()} item={item} setEditing={setEditing} setEditItem={setEditItem} />
+              return <Item key={item.name} item={item} setEditing={setEditing} setEditItem={setEditItem} />
             })}
           </section>
           <Toolbar open={open} setOpen={setOpen} />
