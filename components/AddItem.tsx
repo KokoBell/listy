@@ -58,9 +58,12 @@ const AddItemModal = ({ open, setOpen, setDisplayList }: inputProps) => {
         if (navigator.onLine) {
             try {
                 const { data, error } = await supabase.from('items').select().eq('name', name)
-                if (error) throw error
-                addToStorage(data[0])
-                console.log("Product added to storage and database!")
+                if (error) {
+                    throw error
+                } else {
+                    addToStorage(data[0])
+                    console.log("Product added to storage and database!")
+                }
             } catch (error: any) {
                 console.error(error.message)
             }
