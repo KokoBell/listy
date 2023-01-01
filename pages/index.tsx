@@ -105,7 +105,6 @@ export default function Mylist() {
     // Detect when the window is online and fetch data from the database 
     window.addEventListener('online', () => {
       console.log('Became online')
-
       getItems()
       // Fetch updates from the localStorage
 
