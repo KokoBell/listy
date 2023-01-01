@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import inputProps from '../interfaces/inputProps'
 import itemProps from '../interfaces/itemProps'
 import openProps from '../interfaces/openProps'
 import styles from '../styles/List.module.css'
