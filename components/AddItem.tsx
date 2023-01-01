@@ -39,8 +39,10 @@ const AddItemModal = ({ open, setOpen, setDisplayList }: inputProps) => {
     const addToStorage = (data: itemProps | any[]) => {
         let store = JSON.parse(window.localStorage.getItem('mylist')!)
         store.push(data)
-        setDisplayList(store)
-        window.localStorage.setItem('mylist', JSON.stringify(store))   
+        if (setDisplayList) {
+            setDisplayList(store)
+        }
+        window.localStorage.setItem('mylist', JSON.stringify(store))
     }
 
     async function addItem({ name, price, quantity, store_name }: itemProps) {
