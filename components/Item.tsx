@@ -3,8 +3,9 @@ import inputProps from "../interfaces/inputProps"
 import supabase from "../supabase"
 import styles from '../styles/List.module.css'
 import itemProps from "../interfaces/itemProps"
+import editProps from "../interfaces/editProps"
 
-const Item = ({ item, setEditing, setEditItem }: inputProps) => {
+const Item = ({ item, setEditing, setEditItem }: editProps) => {
   const [isChecked, setIsChecked] = useState<boolean>(item.checked!)
   const thisItem = useRef<HTMLDivElement>(null)
 
@@ -101,7 +102,9 @@ const Item = ({ item, setEditing, setEditItem }: inputProps) => {
       </div>
       <div className={styles.controls}>
         <button className={`${styles.button} ${styles.delete}`} onClick={(event) => {
-          setEditItem(item)
+          if (setEditItem) {
+            setEditItem(item)
+          }
           setEditing(true)
         }}><img src="/icons/edit.svg" alt="Edit this item"></img></button>
         <button className={`${styles.button} ${styles.delete}`} onClick={(event) => {

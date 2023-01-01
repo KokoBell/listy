@@ -1,10 +1,9 @@
 import itemProps from "./itemProps"
 
 interface inputProps {
-    item: itemProps,
-    setEditing: Function,
-    key: string
-    setEditItem: Function
+    open: boolean,
+    setOpen: Function,
+    setDisplayList: Function
 }
 
 export default inputProps

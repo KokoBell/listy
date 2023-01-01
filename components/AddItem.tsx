@@ -1,10 +1,10 @@
 import { useState } from 'react'
+import inputProps from '../interfaces/inputProps'
 import itemProps from '../interfaces/itemProps'
-import openProps from '../interfaces/openProps'
 import styles from '../styles/List.module.css'
 import supabase from '../supabase'
 
-const AddItemModal = ({ open, setOpen }: openProps) => {
+const AddItemModal = ({ open, setOpen, setDisplayList }: inputProps) => {
     let [name, setName] = useState<string>('')
     let [price, setPrice] = useState<number>(0)
     let [quantity, setQuantity] = useState<number>(1)
@@ -39,7 +39,7 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
     const addToStorage = (data: itemProps | any[]) => {
         let store = JSON.parse(window.localStorage.getItem('mylist')!)
         store.push(data)
-        window.localStorage.setItem('mylist', JSON.stringify(store))
+        window.localStorage.setItem('mylist', JSON.stringify(store))   
     }
 
     async function addItem({ name, price, quantity, store_name }: itemProps) {
@@ -57,7 +57,7 @@ const AddItemModal = ({ open, setOpen }: openProps) => {
                 const { data, error } = await supabase.from('items').select().eq('name', name)
                 if (error) throw error
                 addToStorage(data[0])
-                console.log("Product added to storage!")
+                console.log("Product added to storage and database!")
             } catch (error: any) {
                 console.error(error.message)
             }

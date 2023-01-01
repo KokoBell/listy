@@ -1,8 +1,9 @@
 import itemProps from "./itemProps"
 
 interface editProps {
-    editing: boolean,
+    editing?: boolean,
     setEditing: Function,
+    setEditItem?: Function,
     item: itemProps
 }
 
