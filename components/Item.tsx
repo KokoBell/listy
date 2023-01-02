@@ -36,9 +36,18 @@ const Item = ({ item, setEditing, setEditItem, handleDisplay }: editProps) => {
 
   const deleteFromStorage = () => {
     let store = JSON.parse(window.localStorage.getItem('mylist')!)
+    let trash = JSON.parse(window.localStorage.getItem('mytrash')!)
     if (store != null) {
       store = store.filter((storeItem: itemProps) => storeItem.id != item.id)
       handleDisplay(store)
+    }
+    if (trash == null) {
+      let trashArray = []
+      trashArray.push(item)
+      window.localStorage.setItem('mytrash', JSON.stringify(trashArray))
+    } else {
+      trash.push(item)
+      window.localStorage.setItem('mytrash', JSON.stringify(trash))
     }
     window.localStorage.setItem('mylist', JSON.stringify(store))
     // Remove item from the UI

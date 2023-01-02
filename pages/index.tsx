@@ -50,7 +50,7 @@ export default function Mylist() {
 
     const updateFromStorage = async (list: any[]) => {
       let store = JSON.parse(window.localStorage.getItem('mylist')!)
-
+      let trash = JSON.parse(window.localStorage.getItem('mytrash')!)
       if (store != null) {
         // For each item that was added while offline, add to the database
         store.forEach(async (storeItem: itemProps) => {
@@ -65,6 +65,7 @@ export default function Mylist() {
           } else {
             // For each item that was checked while offline, check it in the database
             list.every(async (listItem) => {
+
               // Check if the current item exists in the link
               if (listItem.id == storeItem.id) {
                 let listString = JSON.stringify(listItem)
@@ -88,8 +89,17 @@ export default function Mylist() {
           }
         })
       }
-
-      handleDisplay(store)
+      if (trash != null) {
+        trash.forEach(async (trashItem: itemProps) => {
+          try {
+            const { error } = await supabase.from('items').delete().eq('id', trashItem.id)
+            if (error) throw error
+            console.log('Product deleted from storage!')
+          } catch (error: any) {
+            console.error(error.message)
+          }
+        })
+      }
       console.log('Database updated from storage')
       return store
     }
