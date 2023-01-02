@@ -4,7 +4,7 @@ import itemProps from '../interfaces/itemProps'
 import styles from '../styles/List.module.css'
 import supabase from '../supabase'
 
-const AddItemModal = ({ open, setOpen, setDisplayList }: inputProps) => {
+const AddItemModal = ({ open, setOpen, handleDisplay }: inputProps) => {
     let [name, setName] = useState<string>('')
     let [price, setPrice] = useState<number>(0)
     let [quantity, setQuantity] = useState<number>(1)
@@ -39,8 +39,8 @@ const AddItemModal = ({ open, setOpen, setDisplayList }: inputProps) => {
     const addToStorage = (data: itemProps | any[]) => {
         let store = JSON.parse(window.localStorage.getItem('mylist')!)
         store.push(data)
-        if (setDisplayList) {
-            setDisplayList(store)
+        if (handleDisplay) {
+            handleDisplay(store)
         }
         window.localStorage.setItem('mylist', JSON.stringify(store))
     }

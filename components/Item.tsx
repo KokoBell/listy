@@ -1,11 +1,10 @@
 import { useRef, useState } from "react"
-import inputProps from "../interfaces/inputProps"
 import supabase from "../supabase"
 import styles from '../styles/List.module.css'
 import itemProps from "../interfaces/itemProps"
 import editProps from "../interfaces/editProps"
 
-const Item = ({ item, setEditing, setEditItem, setDisplayList }: editProps) => {
+const Item = ({ item, setEditing, setEditItem, handleDisplay }: editProps) => {
   const [isChecked, setIsChecked] = useState<boolean>(item.checked!)
   const thisItem = useRef<HTMLDivElement>(null)
 
@@ -43,7 +42,7 @@ const Item = ({ item, setEditing, setEditItem, setDisplayList }: editProps) => {
     window.localStorage.setItem('mylist', JSON.stringify(store))
     // Remove item from the UI
     console.log('Updating display list')
-    setDisplayList(store)
+    handleDisplay(store)
   }
 
   const checkItem = async (isChecked: boolean) => {

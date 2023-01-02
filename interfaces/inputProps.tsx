@@ -3,7 +3,7 @@ import itemProps from "./itemProps"
 interface inputProps {
     open: boolean,
     setOpen: Function,
-    setDisplayList?: Function
+    handleDisplay?: Function
 }
 
 export default inputProps
