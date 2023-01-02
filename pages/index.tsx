@@ -89,20 +89,6 @@ export default function Mylist() {
           }
         })
       }
-      if (trash != null && trash.length > 0) {
-        trash.forEach(async (trashItem: itemProps) => {
-          try {
-            const { error } = await supabase.from('items').delete().eq('id', trashItem.id)
-            if (error) throw error
-            const indx = trash.indexOf(trashItem)
-            trash.splice(indx, 1)
-            console.log('Product deleted from storage!')
-          } catch (error: any) {
-            console.error(error.message)
-          }
-        })
-        window.localStorage.setItem('mytrash', trash)
-      }
       console.log('Database updated from storage')
       return store
     }
