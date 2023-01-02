@@ -75,13 +75,13 @@ export default function Mylist() {
                   console.log('Try to update items from database...')
                   // Update items that have changes
                   const data = { 'name': storeItem.name, 'price': storeItem.price, 'checked': storeItem.checked, 'quantity': storeItem.quantity, 'store_name': storeItem.store_name, 'units': 'none', 'notes': 'none' }
-                  /* try {
+                  try {
                     const { error } = await supabase.from('items').update(data).eq('id', storeItem.id)
                     if (error) throw error
                     console.log("Product updated from storage!", storeItem.checked)
                   } catch (error: any) {
                     console.error(error.message)
-                  } */
+                  }
                 }
               }
             })
@@ -101,18 +101,30 @@ export default function Mylist() {
       }
     }
 
+    const freshCache = async () => {
+      try {
+        console.log('Fetching fresh database data')
+        const { data, error } = await supabase.from('items').select()
+        if (error) throw error
+        console.log('Cache the fresh data')
+        handleDisplay(data)
+        cacheData(data)
+      } catch (error: any) {
+        console.error(error.message)
+      }
+    }
+
     const getItems = async () => {
       try {
+        console.log('Fetching stale database data')
         const { data, error } = await supabase.from('items').select()
         if (error) throw error
         if (data != null) {
-          console.log('Displaying latest database data')
-          //handleDisplay(data)
           if (window.localStorage.getItem('mylist') == null) {
             cacheData(data)
           } else {
-            let store = await updateFromStorage(data)
-            cacheData(store)
+            updateFromStorage(data)
+            freshCache()
           }
           return data
         }
@@ -132,18 +144,12 @@ export default function Mylist() {
     window.addEventListener('online', () => {
       console.log('Became online')
       getItems()
-      // Fetch updates from the localStorage
-
-      // For each item that updated while offline, update from the database
-
-      // For each item that added while offline, add from the database
     })
 
     // Detect when the window is offline and fallback to the cache
     window.addEventListener('offline', async () => {
       getStorage()
       console.log('Became offline')
-      // Switch to using localStorage as the database
     })
   }, [])
 
