@@ -78,7 +78,7 @@ export default function Mylist() {
                   try {
                     const { error } = await supabase.from('items').update(data).eq('id', storeItem.id)
                     if (error) throw error
-                    console.log("Product updated from storage!", storeItem.checked)
+                    console.log("Product updated from storage!", storeItem.name, storeItem.checked)
                   } catch (error: any) {
                     console.error(error.message)
                   }
@@ -124,7 +124,7 @@ export default function Mylist() {
             cacheData(data)
           } else {
             updateFromStorage(data)
-            freshCache()
+            setTimeout(() => { freshCache() }, 1500)
           }
           return data
         }
