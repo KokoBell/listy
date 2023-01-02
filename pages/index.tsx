@@ -19,29 +19,26 @@ export default function Mylist() {
   let [checkedNumber, setCheckedNumber] = useState<number>(0)
   let [editItem, setEditItem] = useState<itemProps | null>(null)
 
-  const updateTotals = (data: any[]) => {
+  const handleDisplay = (data: itemProps[]) => {
     let listTotal = 0
     let listLength = 0
     let checkedTotal = 0
     let checkedLength = 0
     data.forEach((item) => {
       if (!item.checked) {
-        listTotal += item.quantity * item.price
+        listTotal += item.quantity! * item.price
         listLength += 1
-      } else {
-        checkedTotal += item.quantity * item.price
+      }
+      if (item.checked) {
+        checkedTotal += item.quantity! * item.price
         checkedLength += 1
       }
     })
+    setDisplayList(data)
     setTotal(listTotal)
     setChecked(checkedTotal)
     setItemNumber(listLength)
     setCheckedNumber(checkedLength)
-  }
-
-  const handleDisplay = (data: any[]) => {
-    updateTotals(data)
-    setDisplayList(data)
   }
 
 
@@ -68,14 +65,14 @@ export default function Mylist() {
           }
         })
       }
+      handleDisplay(store)
       console.log('Database updated from storage')
     }
 
     const getStorage = () => {
-      let store = window.localStorage.getItem('mylist')
+      let store = JSON.parse(window.localStorage.getItem('mylist')!)
       if (store != null) {
-        let localList = JSON.parse(store)
-        handleDisplay(localList)
+        handleDisplay(store)
       }
     }
 
@@ -84,6 +81,7 @@ export default function Mylist() {
         const { data, error } = await supabase.from('items').select()
         if (error) throw error
         if (data != null) {
+          console.log('Displaying latest database data')
           handleDisplay(data)
           if (window.localStorage.getItem('mylist') == null) {
             cacheData(data)

@@ -38,11 +38,12 @@ const Item = ({ item, setEditing, setEditItem, handleDisplay }: editProps) => {
     let store = JSON.parse(window.localStorage.getItem('mylist')!)
     if (store != null) {
       store = store.filter((storeItem: itemProps) => storeItem.id != item.id)
+      handleDisplay(store)
     }
     window.localStorage.setItem('mylist', JSON.stringify(store))
     // Remove item from the UI
     console.log('Updating display list')
-    handleDisplay(store)
+
   }
 
   const checkItem = async (isChecked: boolean) => {
@@ -58,16 +59,16 @@ const Item = ({ item, setEditing, setEditItem, handleDisplay }: editProps) => {
 
   const checkFromStorage = () => {
     let store = JSON.parse(window.localStorage.getItem('mylist')!)
-    console.log(store)
     if (store != null) {
       store.forEach((storeItem: itemProps) => {
         if (item.id == storeItem.id) {
           storeItem.checked = item.checked
         }
       })
+      handleDisplay(store)
     }
     window.localStorage.setItem('mylist', JSON.stringify(store))
-    console.log(store)
+    console.log('Product checked in storage!', store)
   }
 
   const handleCheck = () => {
