@@ -74,13 +74,13 @@ const Item = ({ item, setEditing, setEditItem, handleDisplay }: editProps) => {
   const handleCheck = () => {
     item.checked = item.checked === true ? false : true
     if (item.checked === true) {
-      let section = document.getElementsByClassName('checked')[0]
-      section.appendChild(thisItem.current as Node)
+      /* let section = document.getElementsByClassName('checked')[0]
+      section.appendChild(thisItem.current as Node) */
       setIsChecked(true)
     }
     if (item.checked === false) {
-      let section = document.getElementsByClassName('unchecked')[0]
-      section.appendChild(thisItem.current as Node)
+      /* let section = document.getElementsByClassName('unchecked')[0]
+      section.appendChild(thisItem.current as Node) */
       setIsChecked(false)
     }
     if (navigator.onLine) {
