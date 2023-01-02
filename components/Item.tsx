@@ -5,7 +5,7 @@ import styles from '../styles/List.module.css'
 import itemProps from "../interfaces/itemProps"
 import editProps from "../interfaces/editProps"
 
-const Item = ({ item, setEditing, setEditItem }: editProps) => {
+const Item = ({ item, setEditing, setEditItem, setDisplayList }: editProps) => {
   const [isChecked, setIsChecked] = useState<boolean>(item.checked!)
   const thisItem = useRef<HTMLDivElement>(null)
 
@@ -13,9 +13,6 @@ const Item = ({ item, setEditing, setEditItem }: editProps) => {
     event.preventDefault()
     if (navigator.onLine) {
       try {
-        // Remove item from the UI
-        thisItem.current?.remove()
-
         // Remove item from database 
         const { error } = await supabase.from('items').delete().eq('id', item.id)
         if (error) throw error
@@ -24,13 +21,11 @@ const Item = ({ item, setEditing, setEditItem }: editProps) => {
         deleteFromStorage()
 
         console.log("Product deleted from database and storage!")
-        
+
       } catch (error: any) {
         console.error(error.message)
       }
     } else {
-      // Remove item from UI
-      thisItem.current?.remove()
 
       //Remove item from localStorage
       deleteFromStorage()
@@ -41,13 +36,14 @@ const Item = ({ item, setEditing, setEditItem }: editProps) => {
   }
 
   const deleteFromStorage = () => {
-    // Remove item from the UI
     let store = JSON.parse(window.localStorage.getItem('mylist')!)
     if (store != null) {
       store = store.filter((storeItem: itemProps) => storeItem.id != item.id)
     }
     window.localStorage.setItem('mylist', JSON.stringify(store))
-    console.log(store)
+    // Remove item from the UI
+    console.log('Updating display list')
+    setDisplayList(store)
   }
 
   const checkItem = async (isChecked: boolean) => {

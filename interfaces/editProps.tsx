@@ -4,6 +4,7 @@ interface editProps {
     editing?: boolean,
     setEditing: Function,
     setEditItem?: Function,
+    setDisplayList: Function,
     item: itemProps
 }
 
