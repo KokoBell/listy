@@ -51,22 +51,47 @@ export default function Mylist() {
     const updateFromStorage = async (list: any[]) => {
       let store = JSON.parse(window.localStorage.getItem('mylist')!)
 
-      // For each item that was added while offline, add to the database
       if (store != null) {
+        // For each item that was added while offline, add to the database
         store.forEach(async (storeItem: itemProps) => {
           if (!storeItem.id) {
             try {
               const { error } = await supabase.from('items').insert(storeItem).single()
               if (error) throw error
-              console.log("Product added!")
+              console.log("Product added from storage!")
             } catch (error: any) {
               console.error(error.message)
             }
+          } else {
+            // For each item that was checked while offline, check it in the database
+            list.every(async (listItem) => {
+              // Check if the current item exists in the link
+              if (listItem.id == storeItem.id) {
+                let listString = JSON.stringify(listItem)
+                let storeString = JSON.stringify(storeItem)
+                console.log('Try to check items for changes...')
+                // Check if the item has any changes
+                if (listString != storeString) {
+                  console.log('Try to update items from database...')
+                  // Update items that have changes
+                  const data = { 'name': storeItem.name, 'price': storeItem.price, 'checked': storeItem.checked, 'quantity': storeItem.quantity, 'store_name': storeItem.store_name, 'units': 'none', 'notes': 'none' }
+                  /* try {
+                    const { error } = await supabase.from('items').update(data).eq('id', storeItem.id)
+                    if (error) throw error
+                    console.log("Product updated from storage!", storeItem.checked)
+                  } catch (error: any) {
+                    console.error(error.message)
+                  } */
+                }
+              }
+            })
           }
         })
       }
+
       handleDisplay(store)
       console.log('Database updated from storage')
+      return store
     }
 
     const getStorage = () => {
@@ -82,12 +107,12 @@ export default function Mylist() {
         if (error) throw error
         if (data != null) {
           console.log('Displaying latest database data')
-          handleDisplay(data)
+          //handleDisplay(data)
           if (window.localStorage.getItem('mylist') == null) {
             cacheData(data)
           } else {
-            updateFromStorage(data)
-            cacheData(data)
+            let store = await updateFromStorage(data)
+            cacheData(store)
           }
           return data
         }
