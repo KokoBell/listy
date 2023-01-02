@@ -18,7 +18,6 @@ const Item = ({ item, setEditing, setEditItem, handleDisplay }: editProps) => {
 
         // Remove item from storage
         deleteFromStorage()
-
         console.log("Product deleted from database and storage!")
 
       } catch (error: any) {
@@ -28,7 +27,6 @@ const Item = ({ item, setEditing, setEditItem, handleDisplay }: editProps) => {
 
       //Remove item from localStorage
       deleteFromStorage()
-
       console.log("Product deleted from storage!")
     }
 
@@ -50,9 +48,6 @@ const Item = ({ item, setEditing, setEditItem, handleDisplay }: editProps) => {
       window.localStorage.setItem('mytrash', JSON.stringify(trash))
     }
     window.localStorage.setItem('mylist', JSON.stringify(store))
-    // Remove item from the UI
-    console.log('Updating display list')
-
   }
 
   const checkItem = async (isChecked: boolean) => {
@@ -60,7 +55,6 @@ const Item = ({ item, setEditing, setEditItem, handleDisplay }: editProps) => {
       const { error } = await supabase.from('items').update({ 'checked': isChecked }).eq('id', item.id)
       if (error) throw error
       console.log("Product checked!")
-      //window.location.reload()
     } catch (error: any) {
       console.error(error.message)
     }

@@ -4,7 +4,7 @@ import itemProps from '../interfaces/itemProps'
 import styles from '../styles/List.module.css'
 import supabase from '../supabase'
 
-const EditItemModal = ({ editing, setEditing, item }: editProps) => {
+const EditItemModal = ({ editing, setEditing, item, handleDisplay }: editProps) => {
     let [name, setName] = useState<string>(item.name)
     let [price, setPrice] = useState<number>(item.price)
     let [quantity, setQuantity] = useState<number>(item.quantity!)
@@ -40,6 +40,20 @@ const EditItemModal = ({ editing, setEditing, item }: editProps) => {
         }
     }
 
+    const editInStorage = (data: any) => {
+        let store = JSON.parse(window.localStorage.getItem('mylist')!)
+        let itemIndex = -1
+        store.forEach((storeItem: itemProps) => {
+            if (item.id == storeItem.id) {
+                itemIndex = store.indexOf(storeItem)
+                store[itemIndex] = { id: item.id, ...data }
+            }
+        })
+        window.localStorage.setItem('mylist', JSON.stringify(store))
+        handleDisplay(store)
+        console.log('Item edited in storage')
+    }
+
     const filterNum = (str: string) => {
         const numericalChar = new Set([",", ".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]);
         str = str.split("").filter(char => numericalChar.has(char)).join("")
@@ -67,13 +81,17 @@ const EditItemModal = ({ editing, setEditing, item }: editProps) => {
 
     async function editItem({ name, price, quantity, store_name }: itemProps) {
         const data = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': store_name, 'units': 'none', 'notes': 'none' }
-        try {
-            const { error } = await supabase.from('items').update(data).eq('id', item.id)
-            if (error) throw error
-            console.log("Product updated!")
-            //window.location.reload()
-        } catch (error: any) {
-            alert(error.message)
+        if (navigator.onLine) {
+            try {
+                const { error } = await supabase.from('items').update(data).eq('id', item.id)
+                if (error) throw error
+                editInStorage(data)
+                console.log("Product updated!")
+            } catch (error: any) {
+                console.error(error.message)
+            }
+        } else {
+            editInStorage(data)
         }
     }
 
