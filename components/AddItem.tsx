@@ -47,15 +47,16 @@ const AddItemModal = ({ open, setOpen, setDisplayList }: inputProps) => {
 
     async function addItem({ name, price, quantity, store_name }: itemProps) {
         const itemData = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': store_name, 'units': '1', 'notes': '' }
-        try {
-            const { error } = await supabase.from('items').insert(itemData).single()
-            if (error) throw error
-            console.log("Product added!")
-        } catch (error: any) {
-            console.error(error.message)
-        }
 
         if (navigator.onLine) {
+            try {
+                const { error } = await supabase.from('items').insert(itemData).single()
+                if (error) throw error
+                console.log("Product added!")
+            } catch (error: any) {
+                console.error(error.message)
+            }
+
             try {
                 const { data, error } = await supabase.from('items').select().eq('name', name)
                 if (error) {
