@@ -19,24 +19,29 @@ const Item = ({ item, setEditing, setEditItem }: editProps) => {
         // Remove item from database 
         const { error } = await supabase.from('items').delete().eq('id', item.id)
         if (error) throw error
-        console.log("Product deleted!")
 
+        // Remove item from storage
         deleteFromStorage()
-        //window.location.reload()
+
+        console.log("Product deleted from database and storage!")
+        
       } catch (error: any) {
         console.error(error.message)
       }
     } else {
+      // Remove item from UI
+      thisItem.current?.remove()
+
       //Remove item from localStorage
       deleteFromStorage()
+
+      console.log("Product deleted from storage!")
     }
 
   }
 
   const deleteFromStorage = () => {
     // Remove item from the UI
-    thisItem.current?.remove()
-
     let store = JSON.parse(window.localStorage.getItem('mylist')!)
     if (store != null) {
       store = store.filter((storeItem: itemProps) => storeItem.id != item.id)
