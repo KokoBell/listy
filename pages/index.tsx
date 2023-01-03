@@ -1,4 +1,4 @@
-import { UserResponse } from "@supabase/supabase-js"
+import { User, UserResponse } from "@supabase/supabase-js"
 import Head from "next/head"
 import { useEffect, useState } from "react"
 import AddItemModal from "../components/AddItem"
@@ -10,15 +10,7 @@ import itemProps from "../interfaces/itemProps"
 import styles from '../styles/List.module.css'
 import supabase from '../supabase'
 
-const checkUser = async () => {
-  let user
-  await supabase.auth.getUser().then((data) => {
-    user = data.data.user
-    return user
-  }).catch((error) => {
-    console.error(error.message)
-  })
-}
+
 
 export default function Mylist() {
   let [open, setOpen] = useState<boolean>(false)
@@ -29,8 +21,28 @@ export default function Mylist() {
   let [itemNumber, setItemNumber] = useState<number>(0)
   let [checkedNumber, setCheckedNumber] = useState<number>(0)
   let [editItem, setEditItem] = useState<itemProps | null>(null)
-  let user = checkUser()
-  console.log(user)
+  let [user, setUser] = useState<User | null>(null)
+
+  const checkUser = async () => {
+    await supabase.auth.getUser().then((data) => {
+      console.log('Extracting data...')
+      let userData = data.data.user
+      console.log(userData)
+      if (userData != null) {
+        setUser(userData)
+        console.log('User data', userData)
+      }
+    }).catch((error) => {
+      console.error(error.message)
+    })
+  }
+  checkUser()
+  setInterval(() => {
+    if (user != null) {
+      console.log('User', user)
+    }
+  }, 1500)
+
 
   const handleDisplay = (data: itemProps[]) => {
     let listTotal = 0
@@ -190,7 +202,7 @@ export default function Mylist() {
           content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
         />
       </Head>
-      
+
       <div className={styles.container}>
         <div className={styles.main}>
           {/* <div className={styles.nav}>
