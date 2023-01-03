@@ -36,13 +36,6 @@ export default function Mylist() {
       console.error(error.message)
     })
   }
-  checkUser()
-  setInterval(() => {
-    if (user != null) {
-      console.log('User', user)
-    }
-  }, 1500)
-
 
   const handleDisplay = (data: itemProps[]) => {
     let listTotal = 0
@@ -174,7 +167,7 @@ export default function Mylist() {
         handleDisplay([])
       }
     }
-
+    checkUser()
     if (navigator.onLine) {
       getItems()
     } else {
@@ -202,7 +195,8 @@ export default function Mylist() {
           content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
         />
       </Head>
-
+      {user && <div>
+        This user is logged in</div>}
       <div className={styles.container}>
         <div className={styles.main}>
           {/* <div className={styles.nav}>
