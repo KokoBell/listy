@@ -78,12 +78,10 @@ export default function Mylist() {
               if (listItem.id == storeItem.id) {
                 let listString = JSON.stringify(listItem)
                 let storeString = JSON.stringify(storeItem)
-                console.log('Try to check items for changes...')
                 // Check if the item has any changes
-                if (listString != storeString) {
-                  console.log('Try to update items from database...')
+                if (listString != storeString && storeItem.notes == 'ud') {
                   // Update items that have changes
-                  const data = { 'name': storeItem.name, 'price': storeItem.price, 'checked': storeItem.checked, 'quantity': storeItem.quantity, 'store_name': storeItem.store_name, 'units': 'none', 'notes': 'none' }
+                  const data = { 'name': storeItem.name, 'price': storeItem.price, 'checked': storeItem.checked, 'quantity': storeItem.quantity, 'store_name': storeItem.store_name, 'units': 'none', 'notes': '' }
                   try {
                     const { error } = await supabase.from('items').update(data).eq('id', storeItem.id)
                     if (error) throw error
@@ -95,6 +93,7 @@ export default function Mylist() {
               }
             })
           }
+          checkForUpdates()
         })
       }
       console.log('Database updated from storage')
@@ -106,6 +105,18 @@ export default function Mylist() {
       if (store != null) {
         handleDisplay(store)
       }
+    }
+
+    const checkForUpdates = () => {
+      let store = JSON.parse(window.localStorage.getItem('mylist')!)
+      store.forEach((storeItem: any) => {
+        if (storeItem.notes == 'ud') {
+          storeItem.notes = ''
+        }
+      })
+      window.localStorage.setItem('mylist', JSON.stringify(store))
+      console.log('Removing UD tags')
+      return store
     }
 
     const freshCache = async () => {

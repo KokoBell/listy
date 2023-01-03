@@ -46,7 +46,7 @@ const EditItemModal = ({ editing, setEditing, item, handleDisplay }: editProps) 
         store.forEach((storeItem: itemProps) => {
             if (item.id == storeItem.id) {
                 itemIndex = store.indexOf(storeItem)
-                store[itemIndex] = { id: item.id, ...data }
+                store[itemIndex] = { id: item.id, ...data, 'notes': 'ud'}
             }
         })
         window.localStorage.setItem('mylist', JSON.stringify(store))
