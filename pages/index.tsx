@@ -1,3 +1,4 @@
+import { UserResponse } from "@supabase/supabase-js"
 import Head from "next/head"
 import { useEffect, useState } from "react"
 import AddItemModal from "../components/AddItem"
@@ -44,7 +45,7 @@ export default function Mylist() {
 
   const checkUser = async () => {
     let data = await supabase.auth.getUser()
-    user = data.data
+    user = data.data.user
     console.log(user)
   }
 
