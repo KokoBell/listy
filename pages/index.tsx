@@ -228,7 +228,7 @@ export default function Mylist() {
               return <Item key={item.name} item={item} setEditing={setEditing} setEditItem={setEditItem} handleDisplay={handleDisplay} />
             })}
           </section>
-          <Toolbar open={open} setOpen={setOpen} />
+          <Toolbar open={open} setOpen={setOpen} setUser={setUser}/>
         </div>
         {open && <AddItemModal open={open} setOpen={setOpen} handleDisplay={handleDisplay} user={user} />}
         {editing && <EditItemModal editing={editing} setEditing={setEditing} item={editItem!} handleDisplay={handleDisplay} />}
