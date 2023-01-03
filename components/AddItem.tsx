@@ -48,7 +48,9 @@ const AddItemModal = ({ open, setOpen, handleDisplay, user }: inputProps) => {
     async function addItem({ name, price, quantity, store_name }: itemProps) {
         const itemData = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': store_name, 'units': '1', 'notes': '', user_id: '' }
         if (navigator.onLine) {
+            console.log(user)
             if (user != null) {
+                console.log('trying online')
                 itemData.user_id = user.id
                 try {
                     const { error } = await supabase.from('items').insert(itemData).single()
