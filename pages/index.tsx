@@ -43,7 +43,8 @@ export default function Mylist() {
   }
 
   const checkUser = async () => {
-    user = await supabase.auth.getUser()
+    let data = await supabase.auth.getUser()
+    user = data.data
     console.log(user)
   }
 
