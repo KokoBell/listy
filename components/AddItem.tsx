@@ -4,7 +4,7 @@ import itemProps from '../interfaces/itemProps'
 import styles from '../styles/List.module.css'
 import supabase from '../supabase'
 
-const AddItemModal = ({ open, setOpen, handleDisplay }: inputProps) => {
+const AddItemModal = ({ open, setOpen, handleDisplay, user }: inputProps) => {
     let [name, setName] = useState<string>('')
     let [price, setPrice] = useState<number>(0)
     let [quantity, setQuantity] = useState<number>(1)
@@ -49,24 +49,26 @@ const AddItemModal = ({ open, setOpen, handleDisplay }: inputProps) => {
         const itemData = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': store_name, 'units': '1', 'notes': '' }
 
         if (navigator.onLine) {
-            try {
-                const { error } = await supabase.from('items').insert(itemData).single()
-                if (error) throw error
-                console.log("Product added!")
-            } catch (error: any) {
-                console.error(error.message)
-            }
-
-            try {
-                const { data, error } = await supabase.from('items').select().eq('name', name)
-                if (error) {
-                    throw error
-                } else {
-                    addToStorage(data[0])
-                    console.log("Product added to storage and database!")
+            if (user != null) {
+                try {
+                    const { error } = await supabase.from('items').insert(itemData).single()
+                    if (error) throw error
+                    console.log("Product added!")
+                } catch (error: any) {
+                    console.error(error.message)
                 }
-            } catch (error: any) {
-                console.error(error.message)
+
+                try {
+                    const { data, error } = await supabase.from('items').select().eq('name', name)
+                    if (error) {
+                        throw error
+                    } else {
+                        addToStorage(data[0])
+                        console.log("Product added to storage and database!")
+                    }
+                } catch (error: any) {
+                    console.error(error.message)
+                }
             }
         } else {
             addToStorage(itemData)
