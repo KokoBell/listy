@@ -92,7 +92,6 @@ export default function Mylist() {
                     console.error(error.message)
                   }
                 }
-
               }
             })
           }
