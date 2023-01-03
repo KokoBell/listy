@@ -24,17 +24,20 @@ export default function Mylist() {
   let [user, setUser] = useState<User | null>(null)
 
   const checkUser = async () => {
-    await supabase.auth.getUser().then((data) => {
-      console.log('Extracting data...')
-      let userData = data.data.user
-      console.log(userData)
-      if (userData != null) {
-        setUser(userData)
-        console.log('User data', userData)
-      }
-    }).catch((error) => {
-      console.error(error.message)
-    })
+    if (user != null) {
+      await supabase.auth.getUser().then((data) => {
+        console.log('Extracting data...')
+        let userData = data.data.user
+        console.log(userData)
+        if (userData != null) {
+          setUser(userData)
+          console.log('User data', userData)
+          return
+        }
+      }).catch((error) => {
+        console.error(error.message)
+      })
+    }
   }
 
   const handleDisplay = (data: itemProps[]) => {
