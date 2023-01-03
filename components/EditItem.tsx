@@ -80,7 +80,7 @@ const EditItemModal = ({ editing, setEditing, item, handleDisplay }: editProps) 
     }
 
     async function editItem({ name, price, quantity, store_name }: itemProps) {
-        const data = { 'name': name, 'price': price, 'checked': false, 'quantity': quantity, 'store_name': store_name, 'units': 'none', 'notes': 'none' }
+        const data = { 'name': name, 'price': price, 'checked': item.checked, 'quantity': quantity, 'store_name': store_name, 'units': 'none', 'notes': 'none' }
         if (navigator.onLine) {
             try {
                 const { error } = await supabase.from('items').update(data).eq('id', item.id)
