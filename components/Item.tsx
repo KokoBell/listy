@@ -38,11 +38,13 @@ const Item = ({ item, setEditing, setEditItem, handleDisplay }: editProps) => {
     if (store != null) {
       if (!navigator.onLine) {
         storeCopy.forEach((storeItem: any) => {
-          storeItem.deleted = true
+          if (storeItem.id == item.id) {
+            storeItem.deleted = true
+          }
         })
-        store = store.filter((storeItem: itemProps) => storeItem.id != item.id)
+        store = store.filter((storeItem: any) => storeItem.id != item.id && storeItem.deleted == (false || null))
       } else {
-        store = store.filter((storeItem: itemProps) => storeItem.id != item.id)
+        store = store.filter((storeItem: any) => storeItem.id != item.id && storeItem.deleted == (false || null))
       }
       handleDisplay(store)
     }
