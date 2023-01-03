@@ -34,11 +34,23 @@ const Item = ({ item, setEditing, setEditItem, handleDisplay }: editProps) => {
 
   const deleteFromStorage = () => {
     let store = JSON.parse(window.localStorage.getItem('mylist')!)
+    let storeCopy = store
     if (store != null) {
-      store = store.filter((storeItem: itemProps) => storeItem.id != item.id)
+      if (!navigator.onLine) {
+        storeCopy.forEach((storeItem: any) => {
+          storeItem.deleted = true
+        })
+        store = store.filter((storeItem: itemProps) => storeItem.id != item.id)
+      } else {
+        store = store.filter((storeItem: itemProps) => storeItem.id != item.id)
+      }
       handleDisplay(store)
     }
-    window.localStorage.setItem('mylist', JSON.stringify(store))
+    if (navigator.onLine) {
+      window.localStorage.setItem('mylist', JSON.stringify(store))
+    } else {
+      window.localStorage.setItem('mylist', JSON.stringify(storeCopy))
+    }
   }
 
   const checkItem = async (isChecked: boolean) => {
