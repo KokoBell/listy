@@ -5,6 +5,8 @@ interface itemProps {
     quantity?: number,
     checked?: boolean,
     store_name?: string,
+    notes?: string,
+    deleted?: boolean
   }
 
 export default itemProps

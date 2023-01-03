@@ -37,14 +37,14 @@ const Item = ({ item, setEditing, setEditItem, handleDisplay }: editProps) => {
     let storeCopy = store
     if (store != null) {
       if (!navigator.onLine) {
-        storeCopy.forEach((storeItem: any) => {
+        storeCopy.forEach((storeItem: itemProps) => {
           if (storeItem.id == item.id) {
             storeItem.deleted = true
           }
         })
-        store = store.filter((storeItem: any) => storeItem.id != item.id && storeItem.deleted == (false || null))
+        store = store.filter((storeItem: itemProps) => storeItem.id != item.id && storeItem.deleted == (false || null))
       } else {
-        store = store.filter((storeItem: any) => storeItem.id != item.id && storeItem.deleted == (false || null))
+        store = store.filter((storeItem: itemProps) => storeItem.id != item.id && storeItem.deleted == (false || null))
       }
       handleDisplay(store)
     }
@@ -71,6 +71,7 @@ const Item = ({ item, setEditing, setEditItem, handleDisplay }: editProps) => {
       store.forEach((storeItem: itemProps) => {
         if (item.id == storeItem.id) {
           storeItem.checked = item.checked
+          storeItem.notes = 'ud'
         }
       })
       handleDisplay(store)
@@ -82,13 +83,9 @@ const Item = ({ item, setEditing, setEditItem, handleDisplay }: editProps) => {
   const handleCheck = () => {
     item.checked = item.checked === true ? false : true
     if (item.checked === true) {
-      /* let section = document.getElementsByClassName('checked')[0]
-      section.appendChild(thisItem.current as Node) */
       setIsChecked(true)
     }
     if (item.checked === false) {
-      /* let section = document.getElementsByClassName('unchecked')[0]
-      section.appendChild(thisItem.current as Node) */
       setIsChecked(false)
     }
     if (navigator.onLine) {
