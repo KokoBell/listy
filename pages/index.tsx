@@ -24,7 +24,7 @@ export default function Mylist() {
   let [user, setUser] = useState<User | null>(null)
 
   const checkUser = async () => {
-    if (user != null) {
+    if (user == null) {
       await supabase.auth.getUser().then((data) => {
         console.log('Extracting data...')
         let userData = data.data.user
