@@ -18,6 +18,7 @@ export default function Mylist() {
   let [itemNumber, setItemNumber] = useState<number>(0)
   let [checkedNumber, setCheckedNumber] = useState<number>(0)
   let [editItem, setEditItem] = useState<itemProps | null>(null)
+  let user
 
   const handleDisplay = (data: itemProps[]) => {
     let listTotal = 0
@@ -41,7 +42,10 @@ export default function Mylist() {
     setCheckedNumber(checkedLength)
   }
 
-
+  const checkUser = async () => {
+    user = await supabase.auth.getUser()
+    console.log(user)
+  }
 
   useEffect(() => {
     const cacheData = (data: any[]) => {
@@ -133,6 +137,7 @@ export default function Mylist() {
     }
 
     const getItems = async () => {
+      checkUser()
       try {
         console.log('Fetching stale database data')
         const { data, error } = await supabase.from('items').select()
