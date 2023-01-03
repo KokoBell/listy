@@ -10,6 +10,16 @@ import itemProps from "../interfaces/itemProps"
 import styles from '../styles/List.module.css'
 import supabase from '../supabase'
 
+const checkUser = async () => {
+  let user
+  await supabase.auth.getUser().then((data) => {
+    user = data.data.user
+    return user
+  }).catch((error) => {
+    console.error(error.message)
+  })
+}
+
 export default function Mylist() {
   let [open, setOpen] = useState<boolean>(false)
   let [editing, setEditing] = useState<boolean>(false)
@@ -19,7 +29,8 @@ export default function Mylist() {
   let [itemNumber, setItemNumber] = useState<number>(0)
   let [checkedNumber, setCheckedNumber] = useState<number>(0)
   let [editItem, setEditItem] = useState<itemProps | null>(null)
-  let user
+  let user = checkUser()
+  console.log(user)
 
   const handleDisplay = (data: itemProps[]) => {
     let listTotal = 0
@@ -41,12 +52,6 @@ export default function Mylist() {
     setChecked(checkedTotal)
     setItemNumber(listLength)
     setCheckedNumber(checkedLength)
-  }
-
-  const checkUser = async () => {
-    let data = await supabase.auth.getUser()
-    user = data.data.user
-    console.log(user)
   }
 
   useEffect(() => {
@@ -139,7 +144,6 @@ export default function Mylist() {
     }
 
     const getItems = async () => {
-      checkUser()
       try {
         console.log('Fetching stale database data')
         const { data, error } = await supabase.from('items').select()
@@ -186,9 +190,7 @@ export default function Mylist() {
           content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
         />
       </Head>
-      {user.aud=="authenticated" && <div>
-        I am authenticated
-        </div>}
+      
       <div className={styles.container}>
         <div className={styles.main}>
           {/* <div className={styles.nav}>
