@@ -198,9 +198,8 @@ export default function Mylist() {
           content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
         />
       </Head>
-      {user && <div>
-        This user is logged in</div>}
-      <div className={styles.container}>
+      {user == null ? <div>
+        This user is logged out</div> : <div className={styles.container}>
         <div className={styles.main}>
           {/* <div className={styles.nav}>
             <Back />
@@ -233,6 +232,7 @@ export default function Mylist() {
         </div>
         {open && <AddItemModal open={open} setOpen={setOpen} handleDisplay={handleDisplay} />}
         {editing && <EditItemModal editing={editing} setEditing={setEditing} item={editItem!} handleDisplay={handleDisplay} />}
-      </div>
+      </div>}
+
     </>)
 }
