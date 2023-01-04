@@ -21,6 +21,7 @@ export default function Mylist() {
   let [checkedNumber, setCheckedNumber] = useState<number>(0)
   let [editItem, setEditItem] = useState<itemProps | null>(null)
   let [user, setUser] = useState<User | null>(null)
+  let [isOnline, setIsOnline] = useState<boolean>(false)
 
   const checkUser = async () => {
     if (user == null) {
@@ -178,13 +179,15 @@ export default function Mylist() {
     // Detect when the window is online and fetch data from the database 
     window.addEventListener('online', () => {
       console.log('Became online')
+      setIsOnline(true)
       getItems()
     })
 
     // Detect when the window is offline and fallback to the cache
     window.addEventListener('offline', async () => {
-      getStorage()
       console.log('Became offline')
+      setIsOnline(false)
+      getStorage()
     })
   }, [])
 
@@ -196,8 +199,8 @@ export default function Mylist() {
           content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
         />
       </Head>
-      {(user == null || user?.aud != "authenticated") && navigator.onLine && <SignIn setUser={setUser} />}
-      {(user == null || user?.aud != "authenticated") && !navigator.onLine && <SignIn setUser={setUser} />}
+      {(user == null || user?.aud != "authenticated") && isOnline && <SignIn setUser={setUser} />}
+      {(user == null || user?.aud != "authenticated") && !isOnline && <SignIn setUser={setUser} />}
       {user != null && user.aud == "authenticated" &&
         <div className={styles.container}>
           <div className={styles.main}>
