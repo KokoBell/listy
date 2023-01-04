@@ -5,6 +5,7 @@ import AddItemModal from "../components/AddItem"
 import Details from "../components/Details"
 import EditItemModal from "../components/EditItem"
 import Item from "../components/Item"
+import SignIn from "../components/SignIn"
 import Toolbar from "../components/Toolbar"
 import itemProps from "../interfaces/itemProps"
 import styles from '../styles/List.module.css'
@@ -16,8 +17,8 @@ export default function Mylist() {
   let [open, setOpen] = useState<boolean>(false)
   let [editing, setEditing] = useState<boolean>(false)
   let [displayList, setDisplayList] = useState<any[]>([])
-  let [total, setTotal] = useState(0)
-  let [checked, setChecked] = useState(0)
+  let [total, setTotal] = useState<number>(0)
+  let [checked, setChecked] = useState<number>(0)
   let [itemNumber, setItemNumber] = useState<number>(0)
   let [checkedNumber, setCheckedNumber] = useState<number>(0)
   let [editItem, setEditItem] = useState<itemProps | null>(null)
@@ -26,12 +27,9 @@ export default function Mylist() {
   const checkUser = async () => {
     if (user == null) {
       await supabase.auth.getUser().then((data) => {
-        console.log('Extracting data...')
         let userData = data.data.user
-        console.log(userData)
         if (userData != null) {
           setUser(userData)
-          console.log('User data', userData)
           return
         }
       }).catch((error) => {
@@ -63,6 +61,8 @@ export default function Mylist() {
   }
 
   useEffect(() => {
+    checkUser()
+
     const cacheData = (data: any[]) => {
       window.localStorage.setItem('mylist', JSON.stringify(data))
     }
@@ -152,25 +152,27 @@ export default function Mylist() {
     }
 
     const getItems = async () => {
-      try {
-        console.log('Fetching stale database data')
-        const { data, error } = await supabase.from('items').select()
-        if (error) throw error
-        if (data != null) {
-          if (window.localStorage.getItem('mylist') == null) {
-            cacheData(data)
-          } else {
-            updateFromStorage(data)
-            setTimeout(() => { freshCache() }, 1500)
+      if (user != null) {
+        try {
+          console.log('Fetching stale database data')
+          const { data, error } = await supabase.from('items').select()
+          if (error) throw error
+          if (data != null) {
+            if (window.localStorage.getItem('mylist') == null) {
+              cacheData(data)
+            } else {
+              updateFromStorage(data)
+              setTimeout(() => { freshCache() }, 1500)
+            }
+            return data
           }
-          return data
+        } catch (error: any) {
+          console.error(error)
+          handleDisplay([])
         }
-      } catch (error: any) {
-        console.error(error)
-        handleDisplay([])
       }
     }
-    checkUser()
+    
     if (navigator.onLine) {
       getItems()
     } else {
@@ -198,8 +200,7 @@ export default function Mylist() {
           content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
         />
       </Head>
-      {user == null ? <div>
-        This user is logged out</div> : <div className={styles.container}>
+      {user == null ? <SignIn /> : <div className={styles.container}>
         <div className={styles.main}>
           {/* <div className={styles.nav}>
             <Back />
@@ -228,7 +229,7 @@ export default function Mylist() {
               return <Item key={item.name} item={item} setEditing={setEditing} setEditItem={setEditItem} handleDisplay={handleDisplay} />
             })}
           </section>
-          <Toolbar open={open} setOpen={setOpen} setUser={setUser}/>
+          <Toolbar open={open} setOpen={setOpen} setUser={setUser} />
         </div>
         {open && <AddItemModal open={open} setOpen={setOpen} handleDisplay={handleDisplay} user={user} />}
         {editing && <EditItemModal editing={editing} setEditing={setEditing} item={editItem!} handleDisplay={handleDisplay} />}
