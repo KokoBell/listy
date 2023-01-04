@@ -11,8 +11,6 @@ import itemProps from "../interfaces/itemProps"
 import styles from '../styles/List.module.css'
 import supabase from '../supabase'
 
-
-
 export default function Mylist() {
   let [open, setOpen] = useState<boolean>(false)
   let [editing, setEditing] = useState<boolean>(false)
