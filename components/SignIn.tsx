@@ -41,6 +41,7 @@ const SignIn = ({ setUser }: signInProps) => {
                 if (error) throw error
                 setLoginBtn('Logged In!')
                 setUser(data.user)
+                window.location.reload()
             } catch (error: any) {
                 setLoginBtn('Login failed')
                 setUserEmail('')
