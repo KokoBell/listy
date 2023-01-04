@@ -196,7 +196,8 @@ export default function Mylist() {
           content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
         />
       </Head>
-      {user == null || user?.aud != "authenticated" && <SignIn setUser={setUser} />}
+      {(user == null || user?.aud != "authenticated") && navigator.onLine && <SignIn setUser={setUser} />}
+      {(user == null || user?.aud != "authenticated") && !navigator.onLine && <SignIn setUser={setUser} />}
       {user != null && user.aud == "authenticated" &&
         <div className={styles.container}>
           <div className={styles.main}>
