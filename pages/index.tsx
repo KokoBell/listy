@@ -196,7 +196,7 @@ export default function Mylist() {
           content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
         />
       </Head>
-      {user?.aud == 'authenticated' ? <SignIn setUser={setUser} /> : <div className={styles.container}>
+      {user?.aud != 'authenticated' ? <SignIn setUser={setUser} /> : <div className={styles.container}>
         <div className={styles.main}>
           {/* <div className={styles.nav}>
             <Back />
