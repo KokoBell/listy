@@ -152,24 +152,22 @@ export default function Mylist() {
     }
 
     const getItems = async () => {
-      if (user != null) {
-        try {
-          console.log('Fetching stale database data')
-          const { data, error } = await supabase.from('items').select()
-          if (error) throw error
-          if (data != null) {
-            if (window.localStorage.getItem('mylist') == null) {
-              cacheData(data)
-            } else {
-              updateFromStorage(data)
-              setTimeout(() => { freshCache() }, 1500)
-            }
-            return data
+      try {
+        console.log('Fetching stale database data')
+        const { data, error } = await supabase.from('items').select()
+        if (error) throw error
+        if (data != null) {
+          if (window.localStorage.getItem('mylist') == null) {
+            cacheData(data)
+          } else {
+            updateFromStorage(data)
+            setTimeout(() => { freshCache() }, 1500)
           }
-        } catch (error: any) {
-          console.error(error)
-          handleDisplay([])
+          return data
         }
+      } catch (error: any) {
+        console.error(error)
+        handleDisplay([])
       }
     }
 
