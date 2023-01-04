@@ -24,6 +24,8 @@ const SignIn = ({ setUser }: signInProps) => {
             } catch (error: any) {
                 console.error(error.message)
                 setRegisterBtn('Registration failed')
+                setUserEmail('')
+                setUserPassword('')
             }
         }
     }
@@ -41,6 +43,8 @@ const SignIn = ({ setUser }: signInProps) => {
                 setUser(data.user)
             } catch (error: any) {
                 setLoginBtn('Login failed')
+                setUserEmail('')
+                setUserPassword('')
                 console.error(error.message)
             }
         }
