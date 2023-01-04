@@ -26,7 +26,7 @@ export default function Mylist() {
 
   const checkUser = async () => {
     if (user == null) {
-      await supabase.auth.getUser().then((data) => {
+      await supabase.auth.getUser().then((data: any) => {
         let userData = data.data.user
         if (userData != null) {
           setUser(userData)
@@ -172,7 +172,7 @@ export default function Mylist() {
         }
       }
     }
-    
+
     if (navigator.onLine) {
       getItems()
     } else {
