@@ -423,6 +423,9 @@ input.store:checked+.store_slider:before {
 
 .form_input {
   margin-top: 4px;
+}
+
+.text_input {
   padding: 8px 16px;
 }
 

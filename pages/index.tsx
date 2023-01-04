@@ -196,40 +196,42 @@ export default function Mylist() {
           content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
         />
       </Head>
-      {user?.aud != 'authenticated' ? <SignIn setUser={setUser} /> : <div className={styles.container}>
-        <div className={styles.main}>
-          {/* <div className={styles.nav}>
+      {user == null || user?.aud != "authenticated" && <SignIn setUser={setUser} />}
+      {user != null && user.aud == "authenticated" &&
+        <div className={styles.container}>
+          <div className={styles.main}>
+            {/* <div className={styles.nav}>
             <Back />
             <SearchBar />
             <Menu />
           </div> */}
-          <div className={styles.header_section}>
-            <h1 className={styles.heading}>My List</h1>
-            <p>{itemNumber} &nbsp;<span className={styles.items}>{checkedNumber == 1 ? "item" : "items"}</span></p>
+            <div className={styles.header_section}>
+              <h1 className={styles.heading}>My List</h1>
+              <p>{itemNumber} &nbsp;<span className={styles.items}>{checkedNumber == 1 ? "item" : "items"}</span></p>
+            </div>
+            <div className={styles.details_section}>
+              <Details title="Total:" type="total" total={total} />
+              <Details title="Checkout:" type="checked" checked={checked} />
+            </div>
+            <section className={`${styles.list_container} unchecked`}>
+              {displayList.filter((item) => item.checked === false).map((item) => {
+                return <Item key={item.name} item={item} setEditing={setEditing} setEditItem={setEditItem} handleDisplay={handleDisplay} />
+              })}
+            </section>
+            <div className={styles.checked_section} style={{ 'color': '#999'/* , 'opacity': `${checkedNumber > 0 ? '1' : '0'}` /* For removing the header when the list is empty *\  */ }}>
+              <h1 className={styles.heading}>Checked Items</h1>
+              <p>{checkedNumber} &nbsp;<span className={styles.items}>{checkedNumber == 1 ? "item" : "items"}</span></p>
+            </div>
+            <section className={`${styles.list_container} checked`}>
+              {displayList.filter((item) => item.checked === true).map((item) => {
+                return <Item key={item.name} item={item} setEditing={setEditing} setEditItem={setEditItem} handleDisplay={handleDisplay} />
+              })}
+            </section>
+            <Toolbar open={open} setOpen={setOpen} setUser={setUser} />
           </div>
-          <div className={styles.details_section}>
-            <Details title="Total:" type="total" total={total} />
-            <Details title="Checkout:" type="checked" checked={checked} />
-          </div>
-          <section className={`${styles.list_container} unchecked`}>
-            {displayList.filter((item) => item.checked === false).map((item) => {
-              return <Item key={item.name} item={item} setEditing={setEditing} setEditItem={setEditItem} handleDisplay={handleDisplay} />
-            })}
-          </section>
-          <div className={styles.checked_section} style={{ 'color': '#999'/* , 'opacity': `${checkedNumber > 0 ? '1' : '0'}` /* For removing the header when the list is empty *\  */ }}>
-            <h1 className={styles.heading}>Checked Items</h1>
-            <p>{checkedNumber} &nbsp;<span className={styles.items}>{checkedNumber == 1 ? "item" : "items"}</span></p>
-          </div>
-          <section className={`${styles.list_container} checked`}>
-            {displayList.filter((item) => item.checked === true).map((item) => {
-              return <Item key={item.name} item={item} setEditing={setEditing} setEditItem={setEditItem} handleDisplay={handleDisplay} />
-            })}
-          </section>
-          <Toolbar open={open} setOpen={setOpen} setUser={setUser} />
-        </div>
-        {open && <AddItemModal open={open} setOpen={setOpen} handleDisplay={handleDisplay} user={user} />}
-        {editing && <EditItemModal editing={editing} setEditing={setEditing} item={editItem!} handleDisplay={handleDisplay} />}
-      </div>}
+          {open && <AddItemModal open={open} setOpen={setOpen} handleDisplay={handleDisplay} user={user} />}
+          {editing && <EditItemModal editing={editing} setEditing={setEditing} item={editItem!} handleDisplay={handleDisplay} />}
+        </div>}
 
     </>)
 }

@@ -57,11 +57,11 @@ const SignIn = ({ setUser }: signInProps) => {
                 <p className={styles.form_intro}>Login to your account</p>
                 <div className={styles.form_input}>
                     <label htmlFor='email' style={{ 'display': 'none' }} >Email</label>
-                    <input name='email' type="text" placeholder="Your email address" onChange={(event) => { setUserEmail(event.target.value) }} />
+                    <input className={styles.text_input} name='email' type="text" placeholder="Your email address" onChange={(event) => { setUserEmail(event.target.value) }} />
                 </div>
                 <div className={styles.form_input}>
                     <label htmlFor='password' style={{ 'display': 'none' }}>Password</label>
-                    <input name='password' type="password" placeholder="Your password" onChange={(event) => { setUserPassword(event.target.value) }} />
+                    <input className={styles.text_input} name='password' type="password" placeholder="Your password" onChange={(event) => { setUserPassword(event.target.value) }} />
                 </div>
                 <div className={styles.form_button} onClick={() => { handleLogin() }}>{loginBtn}</div>
                 <p className={styles.form_bottom}>Don&apos;t have an account? <span className={styles.change_form} onClick={() => setLogin(false)}>Register here.</span></p>
@@ -71,11 +71,11 @@ const SignIn = ({ setUser }: signInProps) => {
                 <p className={styles.form_intro}>Create an account</p>
                 <div className={styles.form_input}>
                     <label htmlFor='email' style={{ 'display': 'none' }} >Email</label>
-                    <input name='email' type="text" placeholder="Your email address" onChange={(event) => { setUserEmail(event.target.value) }} />
+                    <input className={styles.text_input} name='email' type="text" placeholder="Your email address" onChange={(event) => { setUserEmail(event.target.value) }} />
                 </div>
                 <div className={styles.form_input}>
                     <label htmlFor='password' style={{ 'display': 'none' }}>Password</label>
-                    <input name='password' type="password" placeholder="Your password" onChange={(event) => { setUserPassword(event.target.value) }} />
+                    <input className={styles.text_input} name='password' type="password" placeholder="Your password" onChange={(event) => { setUserPassword(event.target.value) }} />
                 </div>
                 <div className={styles.form_button} onClick={() => { handleSignUp() }}>{registerBtn}</div>
                 <p className={styles.form_bottom}>Already have an account? <span className={styles.change_form} onClick={() => setLogin(true)}>Login here.</span></p>
