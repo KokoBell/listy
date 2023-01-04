@@ -422,18 +422,24 @@ input.store:checked+.store_slider:before {
 }
 
 .form_input {
-  margin-top: 4px;
+  margin-top: 8px;
 }
 
 .text_input {
-  padding: 8px 16px;
+  padding: 16px 8px;
+  outline: 0;
+  border: 0;
+}
+
+.text_input:focus {
+  outline: 1px solid var(--primary);
 }
 
 .form_button {
   cursor: pointer;
   background-color: var(--primary);
   color: var(--white);
-  padding: 8px 16px;
+  padding: 16px 8px;
   border-radius: 4px;
   width: fit-content;
   text-align: center;
