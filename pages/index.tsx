@@ -128,11 +128,11 @@ export default function Mylist() {
       let store = JSON.parse(window.localStorage.getItem('mylist')!)
       store.forEach((storeItem: any) => {
         if (storeItem.notes == 'ud') {
+          console.log('Removing UD tag')
           storeItem.notes = ''
         }
       })
       window.localStorage.setItem('mylist', JSON.stringify(store))
-      console.log('Removing UD tags')
       return store
     }
 
@@ -196,7 +196,7 @@ export default function Mylist() {
           content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
         />
       </Head>
-      {user == null ? <SignIn setUser={setUser} /> : <div className={styles.container}>
+      {user?.aud == 'authenticated' ? <SignIn setUser={setUser} /> : <div className={styles.container}>
         <div className={styles.main}>
           {/* <div className={styles.nav}>
             <Back />
