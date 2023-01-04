@@ -1,14 +1,14 @@
 import { useState } from 'react'
+import signInProps from '../interfaces/signInProps'
 import styles from '../styles/List.module.css'
 import supabase from '../supabase'
 
-const SignIn = () => {
+const SignIn = ({ setUser }: signInProps) => {
     const [login, setLogin] = useState<boolean>(true)
     const [userEmail, setUserEmail] = useState<string>('')
     const [userPassword, setUserPassword] = useState<string>('')
     const [registerBtn, setRegisterBtn] = useState<string>('Register')
     const [loginBtn, setLoginBtn] = useState<string>('Login')
-
 
     const handleSignUp = async () => {
         if (navigator.onLine) {
@@ -20,7 +20,24 @@ const SignIn = () => {
                 })
                 if (error) throw error
                 setRegisterBtn('Verify your email!')
-                console.log('Check your email for verification')
+                setUser(data.user)
+            } catch (error: any) {
+                console.error(error.message)
+            }
+        }
+    }
+
+    const handleLogin = async () => {
+        if (navigator.onLine) {
+            try {
+                setLoginBtn('Submitting...')
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: userEmail,
+                    password: userPassword,
+                })
+                if (error) throw error
+                setLoginBtn('Logged In!')
+                setUser(data.user)
             } catch (error: any) {
                 console.error(error.message)
             }
@@ -40,7 +57,7 @@ const SignIn = () => {
                     <label htmlFor='password' style={{ 'display': 'none' }}>Password</label>
                     <input name='password' type="password" placeholder="Your password" onChange={(event) => { setUserPassword(event.target.value) }} />
                 </div>
-                <div className={styles.form_button}>{loginBtn}</div>
+                <div className={styles.form_button} onClick={() => { handleLogin() }}>{loginBtn}</div>
                 <p className={styles.form_bottom}>Don&apos;t have an account? <span className={styles.change_form} onClick={() => setLogin(false)}>Register here.</span></p>
             </form>}
 
