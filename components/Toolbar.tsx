@@ -15,8 +15,15 @@ const Toolbar = ({ open, feedback, setOpen, setUser, setFeedback }: toolbarProps
         <button className={`${styles.tool_action} ${styles.logout_btn}`} onClick={async () => {
             await logout()
         }}>Logout</button>
-        <button className={`${styles.tool_action} ${styles.new_item_btn}`} onClick={() => setOpen(!open)}>Add New Item</button>
-        <button className={`${styles.tool_action} ${styles.feedback_btn}`} onClick={() => setFeedback(!feedback)}>Feedback</button>
+        <button className={`${styles.tool_action} ${styles.new_item_btn}`} onClick={() => {
+            setFeedback(false)
+            setOpen(!open)
+        }
+        }>Add New Item</button>
+        <button className={`${styles.tool_action} ${styles.feedback_btn}`} onClick={() => {
+            setOpen(false)
+            setFeedback(!feedback)
+        }}>Feedback</button>
     </div >
 }
 
