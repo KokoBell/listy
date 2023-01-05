@@ -9,7 +9,7 @@ const FeedbackForm = ({ feedback, setFeedback, user }: feedbackProps) => {
     return (<>
         <div onClick={() => setFeedback(!feedback)} className={styles.edit_modal_container}>
         </div>
-        <form className={styles.edit_container}>
+        <form className={styles.edit_container} id="feedback-form" target="_blank" action="https://formsubmit.co/24bc1633ce0429f2492d9f29f466a270" method="POST">
             <h1 className={styles.item_heading}>Tell us what you think!</h1>
             <div className={styles.invisible_input}>
                 <p className={styles.input_label}>User Email</p>
@@ -17,15 +17,13 @@ const FeedbackForm = ({ feedback, setFeedback, user }: feedbackProps) => {
             </div>
             <div className={styles.name_input}>
                 <p className={styles.feedback_label}>What did you like about the app?</p>
-                <textarea className={styles.feedback_input} onChange={(event) => { setLikes(event.target.value) }} />
+                <textarea form='feedback-form' name='likes' className={styles.feedback_input} value={likes} onChange={(event) => { setLikes(event.target.value) }} required />
             </div>
             <div className={styles.price_input}>
                 <p className={styles.feedback_label}>What did you dislike about the app?</p>
-                <textarea className={styles.feedback_input} onChange={(event) => { setDislikes(event.target.value) }} />
+                <textarea form='feedback-form' name='dislikes' className={styles.feedback_input} value={dislikes} onChange={(event) => { setDislikes(event.target.value) }} required />
             </div>
-            <button id="edit_item" type="submit" className={styles.submit_feedback} onClick={() => {
-
-            }}>Submit Feedback</button>
+            <button id="edit_item" type="submit" className={styles.submit_feedback}>Submit Feedback</button>
         </form>
     </>
     )
