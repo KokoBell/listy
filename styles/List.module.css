@@ -595,6 +595,10 @@ input.store:checked+.store_slider:before {
     background-color: #222;
   }
 
+  .text_input {
+    background-color: #222;
+  }
+
   .item_detail {
     color: white;
   }
