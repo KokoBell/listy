@@ -222,7 +222,7 @@ export default function Mylist() {
                 return <Item key={item.name} item={item} setEditing={setEditing} setEditItem={setEditItem} handleDisplay={handleDisplay} />
               })}
             </section>
-            <div className={styles.checked_section} style={{ 'color': '#999'/* , 'opacity': `${checkedNumber > 0 ? '1' : '0'}` /* For removing the header when the list is empty *\  */ }}>
+            <div className={styles.checked_section}>
               {checkedNumber > 0 && <h1 className={styles.heading}>Checked Items</h1>}
               <p>{checkedNumber} &nbsp;<span className={styles.items}>{checkedNumber == 1 ? "item" : "items"}</span></p>
             </div>
