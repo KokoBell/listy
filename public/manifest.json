@@ -4,9 +4,9 @@
     "display": "fullscreen",
     "scope": "/",
     "start_url": "/",
-    "name": "Listy",
-    "short_name": "Listy",
-    "description": "Track your grocery costs and have an easy grocery list, right on your phone.",
+    "name": "Listii",
+    "short_name": "Listii",
+    "description": "Track your grocery costs and have an easy grocery list, right on your phone. Welcome to Listii.",
     "icons": [
         {
             "src": "/icon-192x192.png",

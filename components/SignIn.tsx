@@ -57,7 +57,7 @@ const SignIn = ({ setUser }: signInProps) => {
 
     return (
         <div className={styles.signin_container}>
-            <h1>Welcome to Listy</h1>
+            <h1>Welcome to Listii</h1>
             {login && <form className={styles.form}>
                 <p className={styles.form_intro}>Login to your account</p>
                 <div className={styles.form_input}>
