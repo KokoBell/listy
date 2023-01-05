@@ -444,7 +444,7 @@ input.store:checked+.store_slider:before {
 }
 
 .text_input:focus {
-  outline: 1px solid var(--primary);
+  border: 1px solid var(--primary);
 }
 
 .email_input {
