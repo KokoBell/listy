@@ -7,9 +7,9 @@ const FeedbackForm = ({ feedback, setFeedback, user }: feedbackProps) => {
     let [dislikes, setDislikes] = useState<string>('')
 
     return (<>
-        <div onClick={() => setFeedback(!feedback)} className={styles.edit_modal_container}>
+        <div onClick={() => setFeedback(!feedback)} className={styles.submit_modal_container}>
         </div>
-        <form className={styles.edit_container} id="feedback-form" target="_blank" action="https://formsubmit.co/24bc1633ce0429f2492d9f29f466a270" method="POST">
+        <form className={styles.form_container} id="feedback-form" target="_blank" action="https://formsubmit.co/24bc1633ce0429f2492d9f29f466a270" method="POST">
             <h1 className={styles.item_heading}>Tell us what you think!</h1>
             <div className={styles.invisible_input}>
                 <p className={styles.input_label}>User Email</p>

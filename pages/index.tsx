@@ -1,4 +1,4 @@
-import { User, UserResponse } from "@supabase/supabase-js"
+import { User } from "@supabase/supabase-js"
 import Head from "next/head"
 import { useEffect, useState } from "react"
 import AddItemModal from "../components/AddItem"
@@ -237,7 +237,7 @@ export default function Mylist() {
           </div>
           {open && <AddItemModal open={open} setOpen={setOpen} handleDisplay={handleDisplay} user={user} />}
           {editing && <EditItemModal editing={editing} setEditing={setEditing} item={editItem!} handleDisplay={handleDisplay} />}
-          {feedback && <FeedbackForm feedback={feedback} setFeedback={setFeedback} user={user} />}
+          {feedback && <FeedbackForm feedback={feedback} setFeedback={setFeedback} user={user}/>}
         </div>}
 
     </>)
