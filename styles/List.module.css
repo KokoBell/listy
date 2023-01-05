@@ -124,7 +124,7 @@
 }
 
 .checked_list {
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
 /* Individual list items */
@@ -133,17 +133,9 @@
   display: flex;
   flex-direction: row;
   border-radius: 0.4rem;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
   width: 100%;
   padding: 16px;
-}
-
-.list_item_container:first-child {
-  margin-top: 0;
-}
-
-.list_item_container:last-child {
-  margin-bottom: 2rem;
 }
 
 .list_item {
@@ -482,15 +474,10 @@ input.store:checked+.store_slider:before {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-content: center;
   width: 100%;
   color: #999;
 }
-
-.checked_section>p {
-  margin: 0;
-  margin-bottom: 1.4rem;
-}
-
 
 /* Toolbar at the bottom */
 .toolbar {
@@ -505,12 +492,12 @@ input.store:checked+.store_slider:before {
   z-index: 20;
   transform: translateX(-50%);
   padding-bottom: 12px;
-  padding-top: 0;
+  padding-top: 12px;
   background: var(--black);
 }
 
 .tool_action {
-  border-radius: 48rem;
+  border-radius: 4px;
   border: 0;
   outline: 0;
   padding: 16px 28px;
@@ -519,7 +506,6 @@ input.store:checked+.store_slider:before {
 }
 
 .tool_action:hover {
-  border-radius: 48rem;
   cursor: pointer;
 }
 
