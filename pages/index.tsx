@@ -223,7 +223,7 @@ export default function Mylist() {
               })}
             </section>
             <div className={styles.checked_section} style={{ 'color': '#999'/* , 'opacity': `${checkedNumber > 0 ? '1' : '0'}` /* For removing the header when the list is empty *\  */ }}>
-              <h1 className={styles.heading}>Checked Items</h1>
+              {checkedNumber > 0 && <h1 className={styles.heading}>Checked Items</h1>}
               <p>{checkedNumber} &nbsp;<span className={styles.items}>{checkedNumber == 1 ? "item" : "items"}</span></p>
             </div>
             <section className={`${styles.list_container} checked`}>
