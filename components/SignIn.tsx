@@ -66,7 +66,7 @@ const SignIn = ({ setUser }: signInProps) => {
                 </div>
                 <div className={styles.form_button} onClick={() => { handleLogin() }}>{loginBtn}</div>
                 <p className={styles.form_bottom}>Don&apos;t have an account? <span className={styles.change_form} onClick={() => {
-                    setRegisterBtn('Resgister')
+                    setRegisterBtn('Register')
                     setLogin(false)
                 }}>Register here.</span></p>
             </form>}
