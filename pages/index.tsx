@@ -211,7 +211,7 @@ export default function Mylist() {
           </div> */}
             <div className={styles.header_section}>
               <h1 className={styles.heading}>My List</h1>
-              <p>{itemNumber} &nbsp;<span className={styles.items}>{checkedNumber == 1 ? "item" : "items"}</span></p>
+              <p>{itemNumber} &nbsp;<span className={styles.items}>{itemNumber == 1 ? "item" : "items"}</span></p>
             </div>
             <div className={styles.details_section}>
               <Details title="Total:" type="total" total={total} />

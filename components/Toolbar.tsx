@@ -1,5 +1,4 @@
 import supabase from '../supabase'
-import inputProps from '../interfaces/inputProps'
 import styles from '../styles/List.module.css'
 import toolbarProps from '../interfaces/toolbarProps'
 
