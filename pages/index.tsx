@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import AddItemModal from "../components/AddItem"
 import Details from "../components/Details"
 import EditItemModal from "../components/EditItem"
+import FeedbackForm from "../components/FeedbackForm"
 import Item from "../components/Item"
 import SignIn from "../components/SignIn"
 import Toolbar from "../components/Toolbar"
@@ -14,6 +15,7 @@ import supabase from '../supabase'
 export default function Mylist() {
   let [open, setOpen] = useState<boolean>(false)
   let [editing, setEditing] = useState<boolean>(false)
+  let [feedback, setFeedback] = useState<boolean>(false)
   let [displayList, setDisplayList] = useState<any[]>([])
   let [total, setTotal] = useState<number>(0)
   let [checked, setChecked] = useState<number>(0)
@@ -231,10 +233,11 @@ export default function Mylist() {
                 return <Item key={item.name} item={item} setEditing={setEditing} setEditItem={setEditItem} handleDisplay={handleDisplay} />
               })}
             </section>
-            <Toolbar open={open} setOpen={setOpen} setUser={setUser} />
+            <Toolbar open={open} feedback={feedback} setOpen={setOpen} setUser={setUser} setFeedback={setFeedback} />
           </div>
           {open && <AddItemModal open={open} setOpen={setOpen} handleDisplay={handleDisplay} user={user} />}
           {editing && <EditItemModal editing={editing} setEditing={setEditing} item={editItem!} handleDisplay={handleDisplay} />}
+          {feedback && <FeedbackForm feedback={feedback} setFeedback={setFeedback} />}
         </div>}
 
     </>)

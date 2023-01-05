@@ -566,6 +566,12 @@ input.store:checked+.store_slider:before {
     background: #111;
   }
 
+
+
+  .logout_btn {
+    background-color: #111;
+  }
+
   .input_label {
     font-size: smaller;
     font-weight: 400;
@@ -587,16 +593,8 @@ input.store:checked+.store_slider:before {
     background: black;
   }
 
-  .tool_action {
-    background-color: #222;
-  }
-
   .store_name_bubble {
     background-color: #222;
-  }
-
-  .tool_action:hover {
-    background: #111;
   }
 
   .item_container {
@@ -656,12 +654,19 @@ input.store:checked+.store_slider:before {
     background: var(--white);
   }
 
-  .tool_action {
-    background-color: rgb(220, 220, 220);
+  .new_item_btn {
+    background-color: var(--primary);
+    color: var(--white);
   }
 
-  .tool_action:hover {
-    background-color: rgb(200, 200, 200);
+  .logout_btn {
+    background-color: white;
+  }
+
+  .feedback_btn {
+    background-color: white;
+    border: 1px solid var(--primary);
+    color: var(--primary);
   }
 
   .list_item_container {

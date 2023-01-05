@@ -2,7 +2,7 @@ import supabase from '../supabase'
 import styles from '../styles/List.module.css'
 import toolbarProps from '../interfaces/toolbarProps'
 
-const Toolbar = ({ open, setOpen, setUser }: toolbarProps) => {
+const Toolbar = ({ open, feedback, setOpen, setUser, setFeedback }: toolbarProps) => {
     const logout = async () => {
         try {
             const { error } = await supabase.auth.signOut()
@@ -12,11 +12,11 @@ const Toolbar = ({ open, setOpen, setUser }: toolbarProps) => {
         }
     }
     return <div className={styles.toolbar}>
-        <button className={styles.tool_action} onClick={async () => {
+        <button className={`${styles.tool_action} ${styles.logout_btn}`} onClick={async () => {
             await logout()
         }}>Logout</button>
-        <button className={styles.tool_action} onClick={() => setOpen(!open)}>Add</button>
-        <button className={styles.tool_action}>Feedback</button>
+        <button className={`${styles.tool_action} ${styles.new_item_btn}`} onClick={() => setOpen(!open)}>Add New Item</button>
+        <button className={`${styles.tool_action} ${styles.feedback_btn}`} onClick={() => setFeedback(!feedback)}>Feedback</button>
     </div >
 }
 
