@@ -226,7 +226,7 @@ export default function Mylist() {
               {checkedNumber > 0 && <h1 className={styles.heading}>Checked Items</h1>}
               <p>{checkedNumber} &nbsp;<span className={styles.items}>{checkedNumber == 1 ? "item" : "items"}</span></p>
             </div>
-            <section className={`${styles.list_container} checked`}>
+            <section className={`${styles.list_container} ${styles.checked_list} checked`}>
               {displayList.filter((item) => item.checked === true).map((item) => {
                 return <Item key={item.name} item={item} setEditing={setEditing} setEditItem={setEditItem} handleDisplay={handleDisplay} />
               })}

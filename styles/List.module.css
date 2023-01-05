@@ -123,6 +123,10 @@
   width: 100%;
 }
 
+.checked_list {
+  margin-bottom: 32px;
+}
+
 /* Individual list items */
 .list_item_container {
   position: relative;
