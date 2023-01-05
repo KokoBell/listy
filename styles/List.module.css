@@ -65,7 +65,7 @@
   margin: 0;
   padding: 0;
   font-size: 1.4rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 /* Total and checkout section */
@@ -167,7 +167,6 @@
 .name_label {
   display: flex;
   align-items: center;
-  color: var(--primary);
   font-weight: 600;
   font-size: 1.4rem;
 }
@@ -261,7 +260,7 @@
   margin-bottom: 8px;
   align-self: center;
   font-size: 1.4rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .name_input {
@@ -513,7 +512,7 @@ input.store:checked+.store_slider:before {
   border: 0;
   outline: 0;
   padding: 16px 28px;
-  font-size: medium;
+  font-size: smaller;
   font-weight: 600;
 }
 
@@ -523,8 +522,42 @@ input.store:checked+.store_slider:before {
 
 .currency {
   color: #777;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 0.8rem;
+}
+
+/* Feedback Form */
+.invisible_input {
+  display: none;
+}
+
+.feedback_label {
+  font-size: smaller;
+}
+
+.feedback_input {
+  padding: 0.8rem;
+  width: 100%;
+  border-radius: 4px;
+  border: 0;
+  outline: 0;
+}
+
+.feedback_input:focus {
+  border: 1px solid var(--primary);
+}
+
+.submit_feedback {
+  margin-top: 0;
+  margin-bottom: 24px;
+  width: 100%;
+  padding: 16px 0;
+  border-radius: 4px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: var(--primary);
+  color: var(--white);
 }
 
 /* Small screens */
@@ -566,8 +599,6 @@ input.store:checked+.store_slider:before {
     background: #111;
   }
 
-
-
   .logout_btn {
     background-color: #111;
   }
@@ -584,7 +615,6 @@ input.store:checked+.store_slider:before {
   .item_price,
   .item_quantity,
   .store_name {
-
     color: white;
     background: #333;
   }
@@ -611,6 +641,21 @@ input.store:checked+.store_slider:before {
 
   .text_input {
     background-color: #222;
+  }
+
+  .new_item_btn {
+    background-color: var(--primary);
+    color: var(--white);
+  }
+
+  .logout_btn {
+    background-color: #111;
+  }
+
+  .feedback_btn {
+    background-color: #111;
+    border: 1px solid var(--primary);
+    color: var(--primary);
   }
 
   .item_detail {

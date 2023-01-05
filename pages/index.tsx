@@ -237,7 +237,7 @@ export default function Mylist() {
           </div>
           {open && <AddItemModal open={open} setOpen={setOpen} handleDisplay={handleDisplay} user={user} />}
           {editing && <EditItemModal editing={editing} setEditing={setEditing} item={editItem!} handleDisplay={handleDisplay} />}
-          {feedback && <FeedbackForm feedback={feedback} setFeedback={setFeedback} />}
+          {feedback && <FeedbackForm feedback={feedback} setFeedback={setFeedback} user={user} />}
         </div>}
 
     </>)
