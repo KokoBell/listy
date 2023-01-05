@@ -43,9 +43,9 @@ const SignIn = ({ setUser }: signInProps) => {
                 setUser(data.user)
                 window.location.reload()
             } catch (error: any) {
-                setLoginBtn('Login failed')
                 setUserEmail('')
                 setUserPassword('')
+                setLoginBtn('Login failed')
                 console.error(error.message)
             }
         }
@@ -58,28 +58,34 @@ const SignIn = ({ setUser }: signInProps) => {
                 <p className={styles.form_intro}>Login to your account</p>
                 <div className={styles.form_input}>
                     <label htmlFor='email' style={{ 'display': 'none' }} >Email</label>
-                    <input className={styles.text_input} name='email' type="text" placeholder="Your email address" onChange={(event) => { setUserEmail(event.target.value) }} />
+                    <input className={`${styles.text_input} ${styles.email_input}`} name='email' type="text" value={userEmail} placeholder="Your email address" onChange={(event) => { setUserEmail(event.target.value) }} />
                 </div>
                 <div className={styles.form_input}>
                     <label htmlFor='password' style={{ 'display': 'none' }}>Password</label>
-                    <input className={styles.text_input} name='password' type="password" placeholder="Your password" onChange={(event) => { setUserPassword(event.target.value) }} />
+                    <input className={`${styles.text_input} ${styles.pass_input}`} name='password' type="password" value={userPassword} placeholder="Your password" onChange={(event) => { setUserPassword(event.target.value) }} />
                 </div>
                 <div className={styles.form_button} onClick={() => { handleLogin() }}>{loginBtn}</div>
-                <p className={styles.form_bottom}>Don&apos;t have an account? <span className={styles.change_form} onClick={() => setLogin(false)}>Register here.</span></p>
+                <p className={styles.form_bottom}>Don&apos;t have an account? <span className={styles.change_form} onClick={() => {
+                    setRegisterBtn('Resgister')
+                    setLogin(false)
+                }}>Register here.</span></p>
             </form>}
 
             {!login && <form className={styles.form}>
                 <p className={styles.form_intro}>Create an account</p>
                 <div className={styles.form_input}>
                     <label htmlFor='email' style={{ 'display': 'none' }} >Email</label>
-                    <input className={styles.text_input} name='email' type="text" placeholder="Your email address" onChange={(event) => { setUserEmail(event.target.value) }} />
+                    <input className={`${styles.text_input} ${styles.email_input}`} name='email' type="text" placeholder="Your email address" value={userEmail} onChange={(event) => { setUserEmail(event.target.value) }} />
                 </div>
                 <div className={styles.form_input}>
                     <label htmlFor='password' style={{ 'display': 'none' }}>Password</label>
-                    <input className={styles.text_input} name='password' type="password" placeholder="Your password" onChange={(event) => { setUserPassword(event.target.value) }} />
+                    <input className={`${styles.text_input} ${styles.pass_input}`} name='password' type="password" placeholder="Your password" value={userPassword} onChange={(event) => { setUserPassword(event.target.value) }} />
                 </div>
                 <div className={styles.form_button} onClick={() => { handleSignUp() }}>{registerBtn}</div>
-                <p className={styles.form_bottom}>Already have an account? <span className={styles.change_form} onClick={() => setLogin(true)}>Login here.</span></p>
+                <p className={styles.form_bottom}>Already have an account? <span className={styles.change_form} onClick={() => {
+                    setLogin(true)
+                    setLoginBtn('Login')
+                }}>Login here.</span></p>
             </form>}
         </div>
     )
