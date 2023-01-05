@@ -198,8 +198,8 @@ export default function Mylist() {
       <Head>
         <meta
           name='viewport'
-          content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
-        />
+          content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover' />
+        <meta name="description" content="Track your grocery costs and have an easy grocery list, right on your phone." />
       </Head>
       {(user == null || user?.aud != "authenticated") && isOnline && <SignIn setUser={setUser} />}
       {(user == null || user?.aud != "authenticated") && !isOnline && <SignIn setUser={setUser} />}
@@ -237,7 +237,7 @@ export default function Mylist() {
           </div>
           {open && <AddItemModal open={open} setOpen={setOpen} handleDisplay={handleDisplay} user={user} />}
           {editing && <EditItemModal editing={editing} setEditing={setEditing} item={editItem!} handleDisplay={handleDisplay} />}
-          {feedback && <FeedbackForm feedback={feedback} setFeedback={setFeedback} user={user}/>}
+          {feedback && <FeedbackForm feedback={feedback} setFeedback={setFeedback} user={user} />}
         </div>}
 
     </>)
