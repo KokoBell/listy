@@ -19,8 +19,10 @@ const SignIn = ({ setUser }: signInProps) => {
                     password: userPassword,
                 })
                 if (error) throw error
-                setRegisterBtn('Verify your email!')
-                setUser(data.user)
+                setUserEmail('')
+                setUserPassword('')
+                setRegisterBtn('Check your email inbox')
+                console.log(data)
             } catch (error: any) {
                 console.error(error.message)
                 setRegisterBtn('Registration failed')
@@ -41,6 +43,8 @@ const SignIn = ({ setUser }: signInProps) => {
                 if (error) throw error
                 setLoginBtn('Logged In!')
                 setUser(data.user)
+                setUserEmail('')
+                setUserPassword('')
                 window.location.reload()
             } catch (error: any) {
                 setUserEmail('')
