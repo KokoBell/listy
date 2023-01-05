@@ -22,6 +22,7 @@ const SignIn = ({ setUser }: signInProps) => {
                 setUserEmail('')
                 setUserPassword('')
                 setRegisterBtn('Check your email inbox')
+                setUser(data.user)
                 console.log(data)
             } catch (error: any) {
                 console.error(error.message)
