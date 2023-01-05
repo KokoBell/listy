@@ -237,7 +237,7 @@
   padding: 0 24px;
   width: 22rem;
   height: fit-content;
-  border-radius: 0.8rem;
+  border-radius: 0.4rem;
   position: fixed;
   z-index: 100;
   margin-top: 0;
@@ -258,6 +258,7 @@
 
 .item_heading {
   margin-top: 16px;
+  margin-bottom: 8px;
   align-self: center;
   font-size: 1.4rem;
   font-weight: 800;
@@ -266,12 +267,6 @@
 .name_input {
   width: 100%;
   margin-bottom: 12px;
-}
-
-.input_label {
-  margin: 0;
-  padding-bottom: 0.2rem;
-  font-weight: 500;
 }
 
 .item_name,
@@ -297,6 +292,22 @@
 .item_container>div>div>input:focus {
   outline: var(--border);
   border: none;
+}
+
+.item_name,
+.item_price,
+.item_quantity,
+.store_name {
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}
+
+.item_name:focus,
+.item_price:focus,
+.item_quantity:focus,
+.store_name:focus {
+  border: 1px solid var(--primary);
 }
 
 .price_input {
@@ -404,11 +415,12 @@ input.store:checked+.store_slider:before {
   margin-bottom: 24px;
   width: 100%;
   padding: 16px 0;
-  border-radius: 2rem;
+  border-radius: 4px;
   font-weight: 600;
   border: none;
   cursor: pointer;
   background: gray;
+  color: var(--white);
 }
 
 /* Sign In Form */
@@ -555,13 +567,18 @@ input.store:checked+.store_slider:before {
   }
 
   .input_label {
+    font-size: smaller;
+    font-weight: 400;
     color: white;
+    margin: 0;
+    padding-bottom: 0.2rem;
   }
 
   .item_name,
   .item_price,
   .item_quantity,
   .store_name {
+
     color: white;
     background: #333;
   }
@@ -656,7 +673,6 @@ input.store:checked+.store_slider:before {
   }
 
   .item_container {
-    background-color: rgb(216, 216, 216);
     background-color: rgb(216, 216, 216);
   }
 

@@ -79,7 +79,7 @@ const AddItemModal = ({ open, setOpen, handleDisplay, user }: inputProps) => {
         <div onClick={() => setOpen(!open)} className={styles.modal_container}>
         </div>
         <div className={styles.item_container}>
-            <h1 className={styles.item_heading}>Item Details</h1>
+            <h1 className={styles.item_heading}>Add a new item</h1>
             <div className={styles.name_input}>
                 <p className={styles.input_label}>Name</p>
                 <input className={styles.item_name} type="text" onChange={(event) => {

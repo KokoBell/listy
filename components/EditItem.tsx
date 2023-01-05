@@ -99,7 +99,7 @@ const EditItemModal = ({ editing, setEditing, item, handleDisplay }: editProps) 
         <div onClick={() => setEditing(!editing)} className={styles.edit_modal_container}>
         </div>
         <div className={styles.edit_container}>
-            <h1 className={styles.item_heading}>Edit Item</h1>
+            <h1 className={styles.item_heading}>Enter new details</h1>
             <div className={styles.name_input}>
                 <p className={styles.input_label}>Name</p>
                 <input className={styles.item_name} defaultValue={item.name} type="text" onChange={(event) => {
