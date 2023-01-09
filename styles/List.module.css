@@ -306,7 +306,7 @@
 .item_price:focus,
 .item_quantity:focus,
 .store_name:focus {
-  border: 1px solid var(--primary);
+  outline: 1px solid var(--primary);
 }
 
 .price_input {
@@ -444,7 +444,7 @@ input.store:checked+.store_slider:before {
 }
 
 .text_input:focus {
-  border: 1px solid var(--primary);
+  outline: 1px solid var(--primary);
 }
 
 .email_input {
@@ -566,7 +566,7 @@ input.store:checked+.store_slider:before {
 }
 
 .feedback_input:focus {
-  border: 1px solid var(--primary);
+  outline: 1px solid var(--primary);
 }
 
 .submit_feedback {
