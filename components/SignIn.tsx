@@ -63,7 +63,7 @@ const SignIn = ({ setUser }: signInProps) => {
                 <p className={styles.form_intro}>Login to your account</p>
                 <div className={styles.form_input}>
                     <label htmlFor='email' style={{ 'display': 'none' }} >Email</label>
-                    <input className={`${styles.text_input} ${styles.email_input}`} name='email' type="text" value={userEmail} placeholder="Your email address" onChange={(event) => { setUserEmail(event.target.value) }} />
+                    <input className={`${styles.text_input} ${styles.email_input}`} name='email' type="text" value={userEmail} placeholder="Your email address" onFocus={() => { setLoginBtn('Login') }} onChange={(event) => { setUserEmail(event.target.value) }} />
                 </div>
                 <div className={styles.form_input}>
                     <label htmlFor='password' style={{ 'display': 'none' }}>Password</label>
@@ -80,7 +80,7 @@ const SignIn = ({ setUser }: signInProps) => {
                 <p className={styles.form_intro}>Create an account</p>
                 <div className={styles.form_input}>
                     <label htmlFor='email' style={{ 'display': 'none' }} >Email</label>
-                    <input className={`${styles.text_input} ${styles.email_input}`} name='email' type="text" placeholder="Your email address" value={userEmail} onChange={(event) => { setUserEmail(event.target.value) }} />
+                    <input className={`${styles.text_input} ${styles.email_input}`} name='email' type="text" placeholder="Your email address" value={userEmail} onFocus={() => { setRegisterBtn('Register') }} onChange={(event) => { setUserEmail(event.target.value) }} />
                 </div>
                 <div className={styles.form_input}>
                     <label htmlFor='password' style={{ 'display': 'none' }}>Password</label>
