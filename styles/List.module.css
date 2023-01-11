@@ -230,6 +230,7 @@
 
 /* Container for the input modal */
 .item_container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -243,6 +244,7 @@
 }
 
 .edit_container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -253,6 +255,19 @@
   position: fixed;
   z-index: 100;
   margin-top: 0;
+}
+
+.close_modal {
+  cursor: pointer;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  border-radius: 100%;
+  padding: 8px;
+}
+
+.close_modal:hover {
+  box-shadow: 0 0 12px 0 rgba(24, 24, 24, 0.76)
 }
 
 .item_heading {

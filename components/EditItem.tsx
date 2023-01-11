@@ -46,7 +46,7 @@ const EditItemModal = ({ editing, setEditing, item, handleDisplay }: editProps) 
         store.forEach((storeItem: itemProps) => {
             if (item.id == storeItem.id) {
                 itemIndex = store.indexOf(storeItem)
-                store[itemIndex] = { id: item.id, ...data, 'notes': 'ud'}
+                store[itemIndex] = { id: item.id, ...data, 'notes': 'ud' }
             }
         })
         window.localStorage.setItem('mylist', JSON.stringify(store))
@@ -100,6 +100,7 @@ const EditItemModal = ({ editing, setEditing, item, handleDisplay }: editProps) 
         </div>
         <div className={styles.edit_container}>
             <h1 className={styles.item_heading}>Enter new details</h1>
+            <img className={styles.close_modal} src="icons/x.svg" onClick={() => setEditing(false)}/>
             <div className={styles.name_input}>
                 <p className={styles.input_label}>Name</p>
                 <input className={styles.item_name} defaultValue={item.name} type="text" onChange={(event) => {

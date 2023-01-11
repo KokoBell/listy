@@ -80,6 +80,7 @@ const AddItemModal = ({ open, setOpen, handleDisplay, user }: inputProps) => {
         </div>
         <div className={styles.item_container}>
             <h1 className={styles.item_heading}>Add a new item</h1>
+            <img className={styles.close_modal} src="icons/x.svg" onClick={() => setOpen(false)}/>
             <div className={styles.name_input}>
                 <p className={styles.input_label}>Name</p>
                 <input className={styles.item_name} type="text" onChange={(event) => {
